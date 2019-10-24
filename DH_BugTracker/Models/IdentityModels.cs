@@ -10,16 +10,16 @@ namespace DH_BugTracker.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        [Display(Name="First Name]")]
-        [StringLength(50, MinimumLength = 10, ErrorMessage ="Must have minimum length of 10 characters and maximum length of 50.")]
+        [Display(Name="First Name")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage ="Must have minimum length of 3 characters and maximum length of 50.")]
         public string FirstName { get; set; }
 
-        [Display(Name = "Last Name]")]
-        [StringLength(50, MinimumLength = 10, ErrorMessage = "Must have minimum length of 10 characters and maximum length of 50.")]
+        [Display(Name = "Last Name")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 50.")]
         public string LastName { get; set; }
 
-        [Display(Name = "Display Name]")]
-        [StringLength(50, MinimumLength = 10, ErrorMessage = "Must have minimum length of 10 characters and maximum length of 50.")]
+        [Display(Name = "Display Name")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 50.")]
         public string DisplayName { get; set; }
 
         //navigation section

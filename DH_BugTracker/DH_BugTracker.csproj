@@ -170,6 +170,15 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\TicketAttachController.cs" />
+    <Compile Include="Controllers\TicketCommentController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
+    <Compile Include="Controllers\TicketHistoryController.cs" />
+    <Compile Include="Controllers\TicketNotifyController.cs" />
+    <Compile Include="Controllers\TicketPriorityController.cs" />
+    <Compile Include="Controllers\TicketStatusController.cs" />
+    <Compile Include="Controllers\TicketTypesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -245,6 +254,51 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Project\Create.cshtml" />
+    <Content Include="Views\Project\Delete.cshtml" />
+    <Content Include="Views\Project\Details.cshtml" />
+    <Content Include="Views\Project\Edit.cshtml" />
+    <Content Include="Views\Project\Index.cshtml" />
+    <Content Include="Views\Ticket\Create.cshtml" />
+    <Content Include="Views\Ticket\Delete.cshtml" />
+    <Content Include="Views\Ticket\Details.cshtml" />
+    <Content Include="Views\Ticket\Edit.cshtml" />
+    <Content Include="Views\Ticket\Index.cshtml" />
+    <Content Include="Views\TicketAttach\Create.cshtml" />
+    <Content Include="Views\TicketAttach\Delete.cshtml" />
+    <Content Include="Views\TicketAttach\Details.cshtml" />
+    <Content Include="Views\TicketAttach\Edit.cshtml" />
+    <Content Include="Views\TicketAttach\Index.cshtml" />
+    <Content Include="Views\TicketComment\Create.cshtml" />
+    <Content Include="Views\TicketComment\Delete.cshtml" />
+    <Content Include="Views\TicketComment\Details.cshtml" />
+    <Content Include="Views\TicketComment\Edit.cshtml" />
+    <Content Include="Views\TicketComment\Index.cshtml" />
+    <Content Include="Views\TicketHistory\Create.cshtml" />
+    <Content Include="Views\TicketHistory\Delete.cshtml" />
+    <Content Include="Views\TicketHistory\Details.cshtml" />
+    <Content Include="Views\TicketHistory\Edit.cshtml" />
+    <Content Include="Views\TicketHistory\Index.cshtml" />
+    <Content Include="Views\TicketNotify\Create.cshtml" />
+    <Content Include="Views\TicketNotify\Delete.cshtml" />
+    <Content Include="Views\TicketNotify\Details.cshtml" />
+    <Content Include="Views\TicketNotify\Edit.cshtml" />
+    <Content Include="Views\TicketNotify\Index.cshtml" />
+    <Content Include="Views\TicketPriority\Create.cshtml" />
+    <Content Include="Views\TicketPriority\Delete.cshtml" />
+    <Content Include="Views\TicketPriority\Details.cshtml" />
+    <Content Include="Views\TicketPriority\Edit.cshtml" />
+    <Content Include="Views\TicketPriority\Index.cshtml" />
+    <Content Include="Views\TicketStatus\Create.cshtml" />
+    <Content Include="Views\TicketStatus\Delete.cshtml" />
+    <Content Include="Views\TicketStatus\Details.cshtml" />
+    <Content Include="Views\TicketStatus\Edit.cshtml" />
+    <Content Include="Views\TicketStatus\Index.cshtml" />
+    <Content Include="Views\TicketTypes\Create.cshtml" />
+    <Content Include="Views\TicketTypes\Delete.cshtml" />
+    <Content Include="Views\TicketTypes\Details.cshtml" />
+    <Content Include="Views\TicketTypes\Edit.cshtml" />
+    <Content Include="Views\TicketTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
