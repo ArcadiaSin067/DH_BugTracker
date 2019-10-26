@@ -6,8 +6,17 @@ using System.Web.Mvc;
 
 namespace DH_BugTracker.Controllers
 {
+    [Authorize]
+    [RequireHttps]
     public class HomeController : Controller
     {
+
+        public ActionResult Dashboard()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Admin, Demo_Admin")]
         public ActionResult Index()
         {
             return View();

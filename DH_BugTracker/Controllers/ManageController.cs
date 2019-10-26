@@ -11,6 +11,7 @@ using DH_BugTracker.Models;
 namespace DH_BugTracker.Controllers
 {
     [Authorize]
+    [RequireHttps]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

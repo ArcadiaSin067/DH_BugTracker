@@ -10,6 +10,8 @@ using DH_BugTracker.Models;
 
 namespace DH_BugTracker.Controllers
 {
+    [Authorize]
+    [RequireHttps]
     public class TicketCommentController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

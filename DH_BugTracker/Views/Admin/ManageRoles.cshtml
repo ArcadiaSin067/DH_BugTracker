@@ -1,0 +1,63 @@
+﻿@model IEnumerable<DH_BugTracker.Models.ManageRolesViewModel>
+@{
+    ViewBag.Title = "ManageRoles";
+}
+
+<style>
+    .allWide{
+        width:100%;
+        max-width:100%;
+    }
+
+</style>
+
+<h2>ManageRoles</h2>
+
+
+<div class="row">
+    <div class="col-6">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="row">
+                <div class="col">
+                    @Html.ListBox("UserIds", null, new { @class="allWide"})
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    @Html.DropDownList("Role", null, "--Select Role--", new { @class="allWide"})
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary allWide">Submit</button>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-6">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayName("User Name")
+                </th>
+                <th>
+                    @Html.DisplayName("Role")
+                </th>
+                <th></th>
+            </tr>
+            @foreach(var user in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => user.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => user.RoleName)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
