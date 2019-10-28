@@ -1,6 +1,10 @@
-﻿using System;
+﻿using DH_BugTracker.Helpers;
+using DH_BugTracker.Models;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -15,6 +19,8 @@ namespace DH_BugTracker.Controllers
         {
             return View();
         }
+
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         [Authorize(Roles = "Admin, Demo_Admin")]
         public ActionResult Index()
@@ -31,9 +37,29 @@ namespace DH_BugTracker.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            EmailModel model = new EmailModel();
+            return View(model);
+        }
 
-            return View();
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Contact(EmailModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await EmailHelper.ComposeEmailAsync(model);
+                    TempData["sent"] = "Success";
+                    return RedirectToAction("Contact");
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    await Task.FromResult(0);
+                }
+            }
+            return View(model);
         }
     }
 }
