@@ -41,6 +41,7 @@ namespace DH_BugTracker.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Contact(EmailModel model)
