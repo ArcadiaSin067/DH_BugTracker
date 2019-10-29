@@ -14,8 +14,28 @@ namespace DH_BugTracker.Controllers
     [RequireHttps]
     public class ManageController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        
+        public ActionResult EditUser()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditUser([Bind(Include = "Id, FirstName, LastName, DisplayName")] ApplicationUser user )
+        {
+            var myuser = db.Users.Find(user.Id);
+            myuser.FirstName = user.FirstName;
+            myuser.LastName = user.LastName;
+            myuser.DisplayName = user.DisplayName;
+            db.SaveChanges();
+            return RedirectToAction("Dashboard", "Home");
+        }
 
         public ManageController()
         {

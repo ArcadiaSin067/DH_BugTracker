@@ -14,8 +14,10 @@ namespace DH_BugTracker.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private UserRolesHelper RoleHelper = new UserRolesHelper();
+        private UserProjectsHelper projectsHelper = new UserProjectsHelper();
 
-        // GET: Admin
+        //
+        // GET: /Admin/ManageRoles
         public ActionResult ManageRoles()
         {
             ViewBag.UserIds = new MultiSelectList(db.Users, "Id", "Email");
@@ -30,11 +32,10 @@ namespace DH_BugTracker.Controllers
                     RoleName = RoleHelper.ListUserRoles(user.Id).FirstOrDefault()
                 });
             }
-
             return View(users);
         }
 
-        // POST: Admin
+        // POST: /Admin/ManageRoles
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ManageRoles(List<string> userIds, string role)
@@ -56,5 +57,25 @@ namespace DH_BugTracker.Controllers
             }
             return RedirectToAction("ManageRoles", "Admin");
         }
+
+        //
+        // GET: /Admin/ManageProjects
+        public ActionResult ManageProjects()
+        {
+            ViewBag.UserIds = new MultiSelectList(db.Users, "Id", "Email");
+            ViewBag.Project = new SelectList(db.Projects, "Id", "Name");
+
+            var users = new List<ManageProjectsViewModel>();
+            foreach (var user in db.Users.ToList())
+            {
+                users.Add(new ManageProjectsViewModel
+                {
+                    UserName = $"{user.LastName}, {user.FirstName}",
+                    ProjectName = // not sure what is needed to make this line come out not red
+                });
+            }
+            return View(users);
+        }
+
     }
 }

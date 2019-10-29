@@ -371,6 +371,7 @@
     <Content Include="Views\Account\ConfirmationSent.cshtml" />
     <Content Include="Views\Account\NewRegister.cshtml" />
     <Content Include="Views\Account\ResendEmailConfirmation.cshtml" />
+    <Content Include="Views\Manage\EditUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

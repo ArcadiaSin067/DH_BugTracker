@@ -9,6 +9,12 @@ namespace DH_BugTracker.Models
         public string RoleName { get; set; }
     }
 
+    public class ManageProjectsViewModel
+    {
+        public string ProjectName { get; set; }
+        public string UserName { get; set; }
+    }
+
     public class ExternalLoginConfirmationViewModel
     {
         [Required]

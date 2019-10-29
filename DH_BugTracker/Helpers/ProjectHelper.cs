@@ -20,14 +20,12 @@ namespace DH_BugTracker.Helpers
             var flag = project.Users.Any(u => u.Id == userId);
             return (flag);
         }
-
         public ICollection<Project> ListUserProjects(string userId)
         {
             ApplicationUser user = db.Users.Find(userId);
             var projects = user.Projects.ToList();
             return (projects);
         }
-
         public void AddUserToProject(string userId, int projectId)
         {
             if (!IsUserOnProject(userId, projectId))
@@ -38,7 +36,6 @@ namespace DH_BugTracker.Helpers
                 db.SaveChanges();
             }
         }
-
         public void RemoveUserFromProject(string userId, int projectId)
         {
             if (IsUserOnProject(userId, projectId))
@@ -51,7 +48,6 @@ namespace DH_BugTracker.Helpers
                 db.SaveChanges();
             }
         }
-
         public ICollection<ApplicationUser> UsersOnProject(int projectId)
         {
             return db.Projects.Find(projectId).Users;
@@ -62,6 +58,7 @@ namespace DH_BugTracker.Helpers
         }
 
     }
+
 
     public class UserProjectsHelper
     {
@@ -77,7 +74,6 @@ namespace DH_BugTracker.Helpers
             }
             return false;
         }
-
         public void AddUserToProject(string userId, int projectId)
         {
             if (!IsOnProject(userId, projectId))

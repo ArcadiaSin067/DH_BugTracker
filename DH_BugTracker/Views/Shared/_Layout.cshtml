@@ -57,7 +57,14 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li>@Html.ActionLink("Manage Roles", "ManageRoles", "Admin")</li>
+                            @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin"))
+                            {
+                                <li>@Html.ActionLink("Manage Roles", "ManageRoles", "Admin")</li>
+                            }
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li>@Html.ActionLink("Edit User Info", "EditUser", "Manage")</li>
+                            }
                         </ul>
                         @Html.Partial("_LoginPartial")
                     </div>
