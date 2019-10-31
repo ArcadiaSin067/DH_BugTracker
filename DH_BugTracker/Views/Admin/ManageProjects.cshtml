@@ -3,27 +3,19 @@
     ViewBag.Title = "Manage Project Users";
 }
 
-<style>
-    .col-4 {
-        width: 100% !important;
-    }
-    .row {
-        display:initial !important;
-    }
-</style>
 
 <h2>@ViewBag.Title</h2>
 
-@*<div class="container">*@
-    <div class="row">
-        @using (Html.BeginForm())
-        {
+<div class="container-fluid">
+    @using (Html.BeginForm(@*"ManageProjects", "Admin", FormMethod.Post, new { @style = "width:100%"}*@))
+    {
+        <div class="row">
             @Html.AntiForgeryToken()
 
             <div class="col-4">
                 @Html.ListBox("Projects", null, new { @class = "form-control" })
             </div>
-            <div class="col-4 d-flex justify-content-center">
+            <div class="col-2 offset-1">
                 <button type="submit" class="btn btn-primary">Assign</button>
             </div>
             <div class="col-4">
@@ -65,40 +57,56 @@
                     </div>
                 </div>
             </div>
-        }
-    </div>
+        </div>
+
+    }
 
     <div class="row">
-        <table class="table" id="DTJQ2">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayName("Projects")
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+        <div class="col">
+
+            <table class="table" id="DTJQ2" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Role)
+                        </th>
+                        <th>
+                            @Html.DisplayName("Projects")
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
                     <tr>
                         <td>
                             @Html.DisplayFor(modelitem => item.Name)
                         </td>
+                        <th>
+                            @Html.DisplayFor(modelitem => item.Email)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(modelitem => item.Role)
+                        </th>
                         <td>
-                            @foreach(var name in item.ProjectNames)
+                            @foreach (var name in item.ProjectNames)
                             {
                                 @name <br />
                             }
                         </td>
                     </tr>
-                }
-            </tbody>
-        </table>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-@*</div>*@
+</div>
 
 @section scripts{
     <script>

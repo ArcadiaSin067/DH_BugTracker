@@ -13,6 +13,8 @@ namespace DH_BugTracker.Models
     {
         public List<string> ProjectNames { get; set; }
         public string Name { get; set; }
+        public string Email { get; set; }
+        public string Role { get; set; }
 
         public ManageProjectsViewModel()
         {

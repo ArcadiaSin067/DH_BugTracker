@@ -79,6 +79,8 @@ namespace DH_BugTracker.Controllers
             {
                 userVM = new ManageProjectsViewModel
                 {
+                    Email = user.Email,
+                    Role = RoleHelper.ListUserRoles(user.Id).FirstOrDefault(),
                     Name = $"{user.LastName}, {user.FirstName}",
                     ProjectNames = projectsHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList()
                 };
