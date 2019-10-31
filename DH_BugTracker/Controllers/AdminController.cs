@@ -64,12 +64,13 @@ namespace DH_BugTracker.Controllers
         public ActionResult ManageProjects()
         {
             ViewBag.Projects = new MultiSelectList(db.Projects, "Id", "Name");
-            ViewBag.Developers = new MultiSelectList(RoleHelper.UsersInRole("Developer"),"Id", "Email");
-            ViewBag.Submitters = new MultiSelectList(RoleHelper.UsersInRole("Submitter"), "Id", "Email");
+            ViewBag.Developers = new MultiSelectList(RoleHelper.UsersInRole("Developer").Union(RoleHelper.UsersInRole("Demo_Developer")), "Id", "Email");
+            ViewBag.Submitters = new MultiSelectList(RoleHelper.UsersInRole("Submitter").Union(RoleHelper.UsersInRole("Demo_Submitter")), "Id", "Email");
 
             if (User.IsInRole("Admin"))
             {
-                ViewBag.ProjectManagerId = new SelectList(RoleHelper.UsersInRole("Project Manager"), "Id", "Email");
+                ViewBag.ProjectManagerId = new SelectList(RoleHelper.UsersInRole("Project Manager").Union(RoleHelper.UsersInRole("Demo_Project Manager"))
+                    , "Id", "Email");
             }
 
             var myData = new List<ManageProjectsViewModel>();

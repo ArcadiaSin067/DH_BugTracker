@@ -7,7 +7,7 @@
 <h2>@ViewBag.Title</h2>
 
 <div class="container-fluid">
-    @using (Html.BeginForm(@*"ManageProjects", "Admin", FormMethod.Post, new { @style = "width:100%"}*@))
+    @using (Html.BeginForm())
     {
         <div class="row">
             @Html.AntiForgeryToken()
@@ -58,12 +58,11 @@
                 </div>
             </div>
         </div>
-
+        <hr />
     }
 
     <div class="row">
         <div class="col">
-
             <table class="table" id="DTJQ2" style="width:100%">
                 <thead>
                     <tr>
@@ -88,12 +87,12 @@
                         <td>
                             @Html.DisplayFor(modelitem => item.Name)
                         </td>
-                        <th>
+                        <td>
                             @Html.DisplayFor(modelitem => item.Email)
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelitem => item.Role)
-                        </th>
+                        </td>
                         <td>
                             @foreach (var name in item.ProjectNames)
                             {

@@ -19,20 +19,34 @@ namespace DH_BugTracker.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         
+        //
+        // GET
         public ActionResult EditUser()
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
-            return View(user);
+            var userVM = new UserProfileViewModel()
+            {
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                DisplayName = user.DisplayName,
+                Id = user.Id
+            };
+            return View(userVM);
         }
 
+        //
+        // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditUser([Bind(Include = "Id, FirstName, LastName, DisplayName")] ApplicationUser user )
+        public ActionResult EditUser(UserProfileViewModel user)
         {
             var myuser = db.Users.Find(user.Id);
             myuser.FirstName = user.FirstName;
             myuser.LastName = user.LastName;
             myuser.DisplayName = user.DisplayName;
+            myuser.Email = user.Email;
+            myuser.UserName = user.Email;
             db.SaveChanges();
             return RedirectToAction("Dashboard", "Home");
         }
