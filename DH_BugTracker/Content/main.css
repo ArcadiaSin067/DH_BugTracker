@@ -148,8 +148,8 @@ iframe {
     align-items: center;
     padding: 15px;
     background: #222222;
-    background-size:cover;
-    background-image: url('../IMGs/bg_login.jpeg');
+    background-size: cover;
+    background-image: url('../images/bg_login.jpeg');
 }
 
 .wrap-login100 {

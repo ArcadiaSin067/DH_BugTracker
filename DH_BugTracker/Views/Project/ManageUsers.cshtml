@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Manage Project Users";
+}
+
+    <h2>ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+<div class="row">
+    @Html.AntiForgeryToken()
+    @Html.Hidden("ProjectId", (int)ViewBag.ProjectId)
+
+    <div class="col-md">
+        @Html.DropDownList("ProjectManagerId", null, "--Select--", new { @class = "form-control" })
+    </div>
+    <div class="col-md">
+        @Html.ListBox("Developers", null, new { @class = "form-control" })
+    </div>
+    <div class="col-md">
+        @Html.ListBox("Submitters", null, new { @class = "form-control" })
+    </div>
+    <hr />
+</div>
+<div class="row">
+    <button type="submit" class="btn btn-primary">Assign</button>
+    <hr />
+</div>
+<div class="row">
+    @Html.ActionLink("Back To List", "Index")
+</div>
+}

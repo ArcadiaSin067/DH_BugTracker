@@ -14,7 +14,7 @@ namespace DH_BugTracker.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private UserRolesHelper RoleHelper = new UserRolesHelper();
-        private UserProjectsHelper projectsHelper = new UserProjectsHelper();
+        private ProjectHelper projectsHelper = new ProjectHelper();
 
         //
         // GET: /Admin/ManageRoles
@@ -60,22 +60,73 @@ namespace DH_BugTracker.Controllers
 
         //
         // GET: /Admin/ManageProjects
+        [Authorize(Roles = "Admin, Project Manager, Demo_Admin, Demo_Project Manager")]
         public ActionResult ManageProjects()
         {
-            ViewBag.UserIds = new MultiSelectList(db.Users, "Id", "Email");
-            ViewBag.Project = new SelectList(db.Projects, "Id", "Name");
+            ViewBag.Projects = new MultiSelectList(db.Projects, "Id", "Name");
+            ViewBag.Developers = new MultiSelectList(RoleHelper.UsersInRole("Developer"),"Id", "Email");
+            ViewBag.Submitters = new MultiSelectList(RoleHelper.UsersInRole("Submitter"), "Id", "Email");
 
-            var users = new List<ManageProjectsViewModel>();
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.ProjectManagerId = new SelectList(RoleHelper.UsersInRole("Project Manager"), "Id", "Email");
+            }
+
+            var myData = new List<ManageProjectsViewModel>();
+            ManageProjectsViewModel userVM = null;
+
             foreach (var user in db.Users.ToList())
             {
-                users.Add(new ManageProjectsViewModel
+                userVM = new ManageProjectsViewModel
                 {
-                    UserName = $"{user.LastName}, {user.FirstName}",
-                    ProjectName = // not sure what is needed to make this line come out not red
-                });
+                    Name = $"{user.LastName}, {user.FirstName}",
+                    ProjectNames = projectsHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList()
+                };
+                if(userVM.ProjectNames.Count() == 0) {userVM.ProjectNames.Add("N/A");}
+
+                myData.Add(userVM);
             }
-            return View(users);
+            return View(myData);
         }
 
+        //
+        // POST: /Admin/ManageProjects
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ManageProjects(List<int> projects, string projectManagerId, List<string> developers, List<string> submitters)
+        {
+            if (projects != null)
+            {
+                foreach (var projectId in projects)
+                {
+                    foreach (var user in projectsHelper.UsersOnProject(projectId).ToList())
+                    {
+                        projectsHelper.RemoveUserFromProject(user.Id, projectId);
+                    }
+
+                    if (!string.IsNullOrEmpty(projectManagerId))
+                    {
+                        projectsHelper.AddUserToProject(projectManagerId, projectId);
+                    }
+
+                    if (developers != null)
+                    {
+                        foreach (var developerId in developers)
+                        {
+                            projectsHelper.AddUserToProject(developerId, projectId);
+                        }
+                    }
+
+                    if (submitters != null)
+                    {
+                        foreach (var submitterId in submitters)
+                        {
+                            projectsHelper.AddUserToProject(submitterId, projectId);
+                        }
+                    }
+                }
+            }
+            return RedirectToAction("ManageProjects");
+        }
     }
 }

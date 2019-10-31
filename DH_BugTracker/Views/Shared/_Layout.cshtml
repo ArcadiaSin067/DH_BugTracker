@@ -3,19 +3,20 @@
 <html lang="en">
 
 <head>
-    <title>DH_BugTracker</title>
+    <title>@ViewBag.Title - Bug Tracker Application</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    @Styles.Render("~/Content/css")
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- Material Kit CSS -->
     <link href="~/Content/material-dashboard.min.css" rel="stylesheet" />
+    <!-- JQuery Datatables-->
+    <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
 
-    <title>@ViewBag.Title - Bug Tracker Application</title>
-    @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
@@ -61,6 +62,11 @@
                             {
                                 <li>@Html.ActionLink("Manage Roles", "ManageRoles", "Admin")</li>
                             }
+                            @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin") || User.IsInRole("Project Manager") || User.IsInRole("Demo_Project Manager"))
+                            {
+                                <li>@Html.ActionLink("Manage Project Users", "ManageProjects", "Admin")</li>
+                                <li>@Html.ActionLink("Projects Index", "Index", "Project")</li>
+                            }
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <li>@Html.ActionLink("Edit User Info", "EditUser", "Manage")</li>
@@ -89,19 +95,17 @@
             </nav>
             <!-- End Navbar -->
             <div class="content">
-                <div class="container-fluid">
-                    <div class="container body-content">
-                        @RenderBody()
+                <div class="container body-content">
+                    @RenderBody()
 
-                    </div>
-                    <!-- your content here -->
                 </div>
+                <!-- your content here -->
             </div>
         </div>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 

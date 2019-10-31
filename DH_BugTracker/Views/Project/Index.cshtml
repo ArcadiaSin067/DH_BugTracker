@@ -9,7 +9,8 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table" id="DTJQ1">
+<thead>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -19,7 +20,8 @@
         </th>
         <th></th>
     </tr>
-
+</thead>
+<tbody>
 @foreach (var item in Model) {
     <tr>
         <td>
@@ -29,11 +31,15 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Manage Users", "ManageUsers", new { id=item.Id })
         </td>
     </tr>
 }
-
+</tbody>
 </table>
+
+@section scripts{
+    <script>
+        $('#DTJQ1').DataTable();
+    </script>
+}

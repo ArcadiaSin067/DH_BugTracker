@@ -228,6 +228,7 @@
     <Content Include="Content\hamburgers.css" />
     <Content Include="Content\hamburgers.min.css" />
     <Content Include="Content\icon-font.min.css" />
+    <Content Include="Content\jquery.dataTables.min.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\material-dashboard.css" />
     <Content Include="Content\material-dashboard.min.css" />
@@ -245,7 +246,12 @@
     <Content Include="Content\bootstrap-reboot.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="IMGs\bg_login.jpeg" />
+    <Content Include="images\bg_login.jpeg" />
+    <Content Include="images\sort_asc.png" />
+    <Content Include="images\sort_asc_disabled.png" />
+    <Content Include="images\sort_both.png" />
+    <Content Include="images\sort_desc.png" />
+    <Content Include="images\sort_desc_disabled.png" />
     <Content Include="Scripts\animsition.js" />
     <Content Include="Scripts\animsition.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
@@ -274,6 +280,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -372,6 +379,8 @@
     <Content Include="Views\Account\NewRegister.cshtml" />
     <Content Include="Views\Account\ResendEmailConfirmation.cshtml" />
     <Content Include="Views\Manage\EditUser.cshtml" />
+    <Content Include="Views\Admin\ManageProjects.cshtml" />
+    <Content Include="Views\Project\ManageUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -11,8 +11,13 @@ namespace DH_BugTracker.Models
 
     public class ManageProjectsViewModel
     {
-        public string ProjectName { get; set; }
-        public string UserName { get; set; }
+        public List<string> ProjectNames { get; set; }
+        public string Name { get; set; }
+
+        public ManageProjectsViewModel()
+        {
+            ProjectNames = new List<string>();
+        }
     }
 
     public class ExternalLoginConfirmationViewModel

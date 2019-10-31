@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using DH_BugTracker.Models;
 using DH_BugTracker.Helpers;
 
+
 namespace DH_BugTracker.Controllers
 {
     [Authorize]
@@ -160,16 +161,13 @@ namespace DH_BugTracker.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, "Submitter");
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code }, protocol: Request.Url.Scheme);
-
                     await EmailHelper.ComposeEmailAsync(model, callbackUrl);
                     return RedirectToAction("NewRegister", "Account");
                 }
