@@ -3,8 +3,7 @@
     ViewBag.Title = "Manage Project Users";
 }
 
-<h3>@ViewBag.Title</h3>
-<h3> Project: @ViewBag.ProjectName</h3>
+<h3>@ViewBag.Title for Project: @ViewBag.ProjectName</h3>
 <hr />
 
 @using (Html.BeginForm())
@@ -13,19 +12,45 @@
     @Html.AntiForgeryToken()
     @Html.Hidden("ProjectId", (int)ViewBag.ProjectId)
 
+        @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin"))
+        {
+            <div class="col-md">
+                <div class="row">
+                    <h4>Administrators</h4>
+                </div>
+                <div class="row">
+                @Html.DropDownList("AdminId", null, "--Select One--", new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+                </div>
+            </div>
+        }
     <div class="col-md">
-        @Html.DropDownList("ProjectManagerId", null, "--Select--", new { @class = "form-control" })
+        <div class="row">
+            <h4>Project Managers</h4>
+        </div>
+        <div class="row">
+            @Html.DropDownList("ProjectManagerId", null, "--Select One--", new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+        </div>
     </div>
     <div class="col-md">
-        @Html.ListBox("Developers", null, new { @class = "form-control" })
-    </div>
+        <div class="row">
+            <h4>Developers</h4>
+        </div>
+        <div class="row">
+            @Html.ListBox("Developers", null, new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+        </div>
+        </div>
     <div class="col-md">
-        @Html.ListBox("Submitters", null, new { @class = "form-control" })
+        <div class="row">
+            <h4>Submitters</h4>
+        </div>
+        <div class="row">
+            @Html.ListBox("Submitters", null, new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+        </div>
+        </div>
     </div>
-</div>
 <hr />
 <div class="row">
-    <button type="submit" class="btn btn-primary">Assign</button>
+    <button type="submit" class="btn allbtn">Assign</button>
 </div>
 }
 <br />

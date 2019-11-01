@@ -3,7 +3,8 @@
 <html lang="en">
 
 <head>
-    <title>@ViewBag.Title - Bug Tracker Application</title>
+
+    <title>Bug Tracker Application</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
@@ -14,8 +15,10 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- Material Kit CSS -->
     <link href="~/Content/material-dashboard.min.css" rel="stylesheet" />
-    <!-- JQuery Datatables-->
+    <!-- JQuery Datatables -->
     <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
+    <!-- My Custom -->
+    <link href="~/Content/Custom.css" rel="stylesheet" />
 
     @Scripts.Render("~/bundles/modernizr")
 
@@ -23,7 +26,7 @@
 
 <body>
     <div class="wrapper ">
-        <div class="sidebar" data-color="azure" data-background-color="white">
+        <div class="sidebar" data-color="purple" data-background-color="white">
             <!--
                 Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -72,11 +75,9 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            
                         </ul>
                         @Html.Partial("_LoginPartial")
                     </div>
-
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="navbar-toggler-icon icon-bar"></span>

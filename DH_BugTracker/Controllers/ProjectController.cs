@@ -21,15 +21,19 @@ namespace DH_BugTracker.Controllers
 
         //
         // GET: /Project/ManageUsers
+        [Authorize(Roles ="Admin, Demo_Admin, Project Manager, Demo_Project Manager")]
         public ActionResult ManageUsers(int Id)
         {
+            var admId = projectHelper.ListUsersOnProjectInRole(Id, "Admin").FirstOrDefault();
+            var pmId = projectHelper.ListUsersOnProjectInRole(Id, "Project Manager").FirstOrDefault();
+            var devId = projectHelper.ListUsersOnProjectInRole(Id, "Developer");
+            var subId = projectHelper.ListUsersOnProjectInRole(Id, "Submitter");
+
             ViewBag.ProjectId = Id;
             ViewBag.ProjectName = db.Projects.Find(Id).Name;
-            var pmId = projectHelper.ListUsersOnProjectInRole(Id, "Project Manager").FirstOrDefault();
+            ViewBag.AdminId = new SelectList(roleHelper.UsersInRole("Admin").Union(roleHelper.UsersInRole("Demo_Admin")), "Id", "Email", admId);
             ViewBag.ProjectManagerId = new SelectList(roleHelper.UsersInRole("Project Manager").Union(roleHelper.UsersInRole("Demo_Project Manager")), "Id", "Email", pmId);
-            var devId = projectHelper.ListUsersOnProjectInRole(Id, "Developer");
             ViewBag.Developers = new MultiSelectList(roleHelper.UsersInRole("Developer").Union(roleHelper.UsersInRole("Demo_Developer")), "Id", "Email", devId);
-            var subId = projectHelper.ListUsersOnProjectInRole(Id, "Submitter");
             ViewBag.Submitters = new MultiSelectList(roleHelper.UsersInRole("Submitter").Union(roleHelper.UsersInRole("Demo_Submitter")), "Id", "Email", subId);
 
             var firstProject = db.Projects.Min(p => p.Id);
@@ -40,11 +44,16 @@ namespace DH_BugTracker.Controllers
         // POST: /Project/ManageUsers
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ManageUsers(int projectId, string projectManagerId, List<string> developers, List<string> submitters)
+        public ActionResult ManageUsers(int projectId, string adminId, string projectManagerId, List<string> developers, List<string> submitters)
         {
             foreach (var user in projectHelper.UsersOnProject(projectId).ToList())
             {
                 projectHelper.RemoveUserFromProject(user.Id, projectId);
+            }
+
+            if (!string.IsNullOrEmpty(adminId))
+            {
+                projectHelper.AddUserToProject(adminId, projectId);
             }
             if (!string.IsNullOrEmpty(projectManagerId))
             {
@@ -64,8 +73,6 @@ namespace DH_BugTracker.Controllers
                     projectHelper.AddUserToProject(submitterId, projectId);
                 }
             }
-
-
 
             return RedirectToAction("ManageUsers", new { id = projectId });
         }

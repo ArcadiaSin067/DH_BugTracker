@@ -1,0 +1,9 @@
+﻿
+.allbtn {
+    background-color: #9C27B0;
+}
+
+.allbtn:hover {
+    color:black;
+    background-color: #00BCD4;
+}

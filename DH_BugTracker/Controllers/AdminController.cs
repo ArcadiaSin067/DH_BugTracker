@@ -84,7 +84,7 @@ namespace DH_BugTracker.Controllers
                 {
                     Email = user.Email,
                     Role = RoleHelper.ListUserRoles(user.Id).FirstOrDefault(),
-                    Name = $"{user.LastName}, {user.FirstName}",
+                    Name = $"{user.FirstName} {user.LastName}",
                     ProjectNames = projectsHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList()
                 };
                 if(userVM.ProjectNames.Count() == 0) {userVM.ProjectNames.Add("N/A");}
