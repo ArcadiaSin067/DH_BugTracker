@@ -24,14 +24,16 @@ namespace DH_BugTracker.Controllers
         public ActionResult ManageUsers(int Id)
         {
             ViewBag.ProjectId = Id;
+            ViewBag.ProjectName = db.Projects.Find(Id).Name;
             var pmId = projectHelper.ListUsersOnProjectInRole(Id, "Project Manager").FirstOrDefault();
-            ViewBag.ProjectManagerId = new SelectList(roleHelper.UsersInRole("Project Manager"), "Id", "Email", pmId);
+            ViewBag.ProjectManagerId = new SelectList(roleHelper.UsersInRole("Project Manager").Union(roleHelper.UsersInRole("Demo_Project Manager")), "Id", "Email", pmId);
             var devId = projectHelper.ListUsersOnProjectInRole(Id, "Developer");
-            ViewBag.Developers = new MultiSelectList(roleHelper.UsersInRole("Developer"), "Id", "Email", devId);
+            ViewBag.Developers = new MultiSelectList(roleHelper.UsersInRole("Developer").Union(roleHelper.UsersInRole("Demo_Developer")), "Id", "Email", devId);
             var subId = projectHelper.ListUsersOnProjectInRole(Id, "Submitter");
-            ViewBag.Submitters = new MultiSelectList(roleHelper.UsersInRole("Submitter"), "Id", "Email", subId);
+            ViewBag.Submitters = new MultiSelectList(roleHelper.UsersInRole("Submitter").Union(roleHelper.UsersInRole("Demo_Submitter")), "Id", "Email", subId);
 
-            return View();
+            var firstProject = db.Projects.Min(p => p.Id);
+            return View(firstProject);
         }
 
         //
@@ -67,7 +69,6 @@ namespace DH_BugTracker.Controllers
 
             return RedirectToAction("ManageUsers", new { id = projectId });
         }
-
 
 
         // GET: Project

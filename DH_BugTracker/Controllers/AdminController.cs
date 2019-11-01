@@ -28,8 +28,9 @@ namespace DH_BugTracker.Controllers
             {
                 users.Add(new ManageRolesViewModel
                 {
-                    UserName = $"{user.LastName}, {user.FirstName}",
-                    RoleName = RoleHelper.ListUserRoles(user.Id).FirstOrDefault()
+                    UserName = $"{user.FirstName} {user.LastName}",
+                    RoleName = RoleHelper.ListUserRoles(user.Id).FirstOrDefault(),
+                    Email = user.Email
                 });
             }
             return View(users);
@@ -69,6 +70,7 @@ namespace DH_BugTracker.Controllers
 
             if (User.IsInRole("Admin"))
             {
+                ViewBag.AdminId = new SelectList(RoleHelper.UsersInRole("Admin").Union(RoleHelper.UsersInRole("Demo_Admin")), "Id", "Email");
                 ViewBag.ProjectManagerId = new SelectList(RoleHelper.UsersInRole("Project Manager").Union(RoleHelper.UsersInRole("Demo_Project Manager"))
                     , "Id", "Email");
             }
@@ -96,7 +98,7 @@ namespace DH_BugTracker.Controllers
         // POST: /Admin/ManageProjects
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ManageProjects(List<int> projects, string projectManagerId, List<string> developers, List<string> submitters)
+        public ActionResult ManageProjects(List<int> projects, string adminId, string projectManagerId, List<string> developers, List<string> submitters)
         {
             if (projects != null)
             {
@@ -105,6 +107,11 @@ namespace DH_BugTracker.Controllers
                     foreach (var user in projectsHelper.UsersOnProject(projectId).ToList())
                     {
                         projectsHelper.RemoveUserFromProject(user.Id, projectId);
+                    }
+
+                    if (!string.IsNullOrEmpty(adminId))
+                    {
+                        projectsHelper.AddUserToProject(adminId, projectId);
                     }
 
                     if (!string.IsNullOrEmpty(projectManagerId))

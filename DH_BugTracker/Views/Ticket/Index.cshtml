@@ -13,10 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.AssignedToUser.FirstName)
+                @Html.DisplayName("Developer Assigned")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OwnerUser.FirstName)
+                @Html.DisplayName("User Created")
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Project.Name)
@@ -82,7 +82,6 @@
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                 </td>
             </tr>
         }

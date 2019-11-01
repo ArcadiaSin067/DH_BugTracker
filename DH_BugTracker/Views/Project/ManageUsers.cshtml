@@ -3,7 +3,9 @@
     ViewBag.Title = "Manage Project Users";
 }
 
-    <h2>ViewBag.Title</h2>
+<h3>@ViewBag.Title</h3>
+<h3> Project: @ViewBag.ProjectName</h3>
+<hr />
 
 @using (Html.BeginForm())
 {
@@ -20,13 +22,13 @@
     <div class="col-md">
         @Html.ListBox("Submitters", null, new { @class = "form-control" })
     </div>
-    <hr />
 </div>
+<hr />
 <div class="row">
     <button type="submit" class="btn btn-primary">Assign</button>
-    <hr />
 </div>
+}
+<br />
 <div class="row">
     @Html.ActionLink("Back To List", "Index")
 </div>
-}

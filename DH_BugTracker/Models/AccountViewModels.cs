@@ -26,6 +26,7 @@ namespace DH_BugTracker.Models
     public class ManageRolesViewModel
     {
         public string UserName { get; set; }
+        public string Email {get;set;}
         public string RoleName { get; set; }
     }
 

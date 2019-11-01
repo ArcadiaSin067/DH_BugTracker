@@ -5,22 +5,47 @@
 
 
 <h2>@ViewBag.Title</h2>
-
 <div class="container-fluid">
     @using (Html.BeginForm())
     {
+        @*<h3>Select Projects</h3>*@
         <div class="row">
             @Html.AntiForgeryToken()
-
-            <div class="col-4">
-                @Html.ListBox("Projects", null, new { @class = "form-control" })
+            <div class=" col-4">
+                <div class="row">
+                    <div class="col">
+                        <h3>Select Projects</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        @Html.ListBox("Projects", null, new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+                    </div>
+                </div>
             </div>
-            <div class="col-2 offset-1">
-                <button type="submit" class="btn btn-primary">Assign</button>
+            <div class="col-3">
+                <div class="row">
+                    <div class="col">
+                        <br />
+                        <br />
+                        <br />
+                        <button type="submit" class="btn btn-primary btn-lg">Assign</button>
+                    </div>
+                </div>
             </div>
-            <div class="col-4">
+            <div class="col-5">
                 @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin"))
                 {
+                    <div class="row">
+                        <div class="col">
+                            <h3>Admins</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            @Html.DropDownList("AdminId", null, "--Select--", new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col">
                             <h3>Project Managers</h3>
@@ -28,10 +53,9 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            @Html.DropDownList("ProjectManagerId", null, "--Select--", new { @class = "form-control" })
+                            @Html.DropDownList("ProjectManagerId", null, "--Select--", new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
                         </div>
                     </div>
-                    <hr />
                 }
 
                 <div class="row">
@@ -41,10 +65,9 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        @Html.ListBox("Developers", null, new { @class = "form-control" })
+                        @Html.ListBox("Developers", null, new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
                     </div>
                 </div>
-                <hr />
 
                 <div class="row">
                     <div class="col">
@@ -53,14 +76,13 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        @Html.ListBox("Submitters", null, new { @class = "form-control" })
+                        @Html.ListBox("Submitters", null, new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
                     </div>
                 </div>
             </div>
         </div>
-        <hr />
     }
-
+    <hr />
     <div class="row">
         <div class="col">
             <table class="table" id="DTJQ2" style="width:100%">
