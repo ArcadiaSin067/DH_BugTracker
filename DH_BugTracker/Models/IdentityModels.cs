@@ -11,16 +11,18 @@ namespace DH_BugTracker.Models
     public class ApplicationUser : IdentityUser
     {
         [Display(Name="First Name")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage ="Must have minimum length of 3 characters and maximum length of 50.")]
+        [StringLength(35, MinimumLength = 3, ErrorMessage ="Must have minimum length of 3 characters and maximum length of 50.")]
         public string FirstName { get; set; }
 
         [Display(Name = "Last Name")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 50.")]
+        [StringLength(35, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 50.")]
         public string LastName { get; set; }
 
         [Display(Name = "Display Name")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 50.")]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 50.")]
         public string DisplayName { get; set; }
+
+        public string AvatarPath { get; set; }
 
 
         //navigation section
@@ -46,6 +48,9 @@ namespace DH_BugTracker.Models
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
+            userIdentity.AddClaim(new Claim("AvatarPath", this.AvatarPath));
+            userIdentity.AddClaim(new Claim("DisplayName", this.DisplayName));
+
             return userIdentity;
         }
     }

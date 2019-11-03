@@ -4,54 +4,70 @@
     ViewBag.Title = "EditUser";
 }
 
-    <div class="container">
-        <h2>Edit</h2>
+<div class="container">
+    <h2>Edit</h2>
 
-        @using (Html.BeginForm("EditUser", "Manage", FormMethod.Post, new { enctype = "Multipart/form-data" }))
-        {
-            @Html.AntiForgeryToken()
-            @Html.HiddenFor(model => model.Id)
-            <div class="form-horizontal">
-                <h4>User Information</h4>
-                <hr />
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", style = "background-color: white;border:solid 1px grey;padding-left:5px" } })
-                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", style = "background-color: white;border:solid 1px grey;padding-left:5px" } })
-                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.DisplayName, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.DisplayName, new { htmlAttributes = new { @class = "form-control", style = "background-color: white;border:solid 1px grey;padding-left:5px" } })
-                    @Html.ValidationMessageFor(model => model.DisplayName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", style = "background-color: white;border:solid 1px grey;padding-left:5px" } })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <button type="submit" class="btn allbtn">Save Changes</button>
-                </div>
-            </div>
+    @using (Html.BeginForm("EditUser", "Manage", FormMethod.Post, new { enctype = "Multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-horizontal">
+            <h4>User Information</h4>
             <hr />
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-10">
-                @Html.ActionLink("Change your password?", "ChangePassword")
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", style = "background-color: white;border:solid 1px grey;padding-left:5px" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
             </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", style = "background-color: white;border:solid 1px grey;padding-left:5px" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DisplayName, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DisplayName, new { htmlAttributes = new { @class = "form-control", style = "background-color: white;border:solid 1px grey;padding-left:5px" } })
+                @Html.ValidationMessageFor(model => model.DisplayName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", style = "background-color: white;border:solid 1px grey;padding-left:5px" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-        }
-    </div>
+        @*<div class="form-group">
+                @Html.Label("Upload Avatar", new { @class = "control-label col-md-3" })
+                <div class="col-md-6">
+                    @Html.TextBox("Avatar", null, new { @type = "file", @class = "form-control" })
+                </div>
+            </div>*@
+        <div>
+            <br />
+            <h5 style="padding-left:20px">Upload Avatar</h5>
+            <div class="col-6">
+                @Html.TextBox("Avatar", null, new { @type = "file" })
+            </div>
+            <br />
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn allbtn">Save Changes</button>
+            </div>
+        </div>
+        <hr />
+        <div class="col-md-10">
+            @Html.ActionLink("Change your password?", "ChangePassword")
+        </div>
+
+    }
+</div>

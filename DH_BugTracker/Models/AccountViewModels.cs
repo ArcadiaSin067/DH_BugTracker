@@ -9,15 +9,15 @@ namespace DH_BugTracker.Models
         public string Id { get; set; }
 
         [Display(Name = "First Name")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 50.")]
+        [StringLength(35, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 50.")]
         public string FirstName { get; set; }
 
         [Display(Name = "Last Name")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 50.")]
+        [StringLength(35, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 50.")]
         public string LastName { get; set; }
 
         [Display(Name = "Display Name")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 50.")]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 50.")]
         public string DisplayName { get; set; }
 
         public string Email { get; set; }

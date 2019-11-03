@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using DH_BugTracker.Models;
 using DH_BugTracker.Helpers;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 
 namespace DH_BugTracker.Controllers
@@ -18,6 +19,7 @@ namespace DH_BugTracker.Controllers
     [RequireHttps]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -159,7 +161,7 @@ namespace DH_BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, AvatarPath = "/Avatars/default_user.jpg", DisplayName = "User" };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)

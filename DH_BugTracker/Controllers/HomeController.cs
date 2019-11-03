@@ -1,5 +1,6 @@
 ﻿using DH_BugTracker.Helpers;
 using DH_BugTracker.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace DH_BugTracker.Controllers
 {
@@ -14,13 +16,15 @@ namespace DH_BugTracker.Controllers
     [RequireHttps]
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+        UserRolesHelper rolesHelper = new UserRolesHelper();
 
+        //
+        // GET: /Home/Dashboard
         public ActionResult Dashboard()
         {
             return View();
         }
-
-        private ApplicationDbContext db = new ApplicationDbContext();
 
         [Authorize(Roles = "Admin, Demo_Admin")]
         public ActionResult Index()

@@ -193,7 +193,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\EmailHelper.cs" />
+    <Compile Include="Helpers\IdentityExtensions.cs" />
+    <Compile Include="Helpers\ImageUploadValidator.cs" />
     <Compile Include="Helpers\ProjectHelper.cs" />
+    <Compile Include="Helpers\StringUtilities.cs" />
     <Compile Include="Helpers\TicketHelper.cs" />
     <Compile Include="Helpers\UserRolesHelper.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -214,6 +217,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Avatars\default_user.jpg" />
+    <Content Include="Avatars\kasey-doggo_637083491919053115.jpeg" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\animsition.css" />
     <Content Include="Content\animsition.min.css" />

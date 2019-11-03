@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using DH_BugTracker.Models;
+using DH_BugTracker.Helpers;
+using System.IO;
 
 namespace DH_BugTracker.Controllers
 {
@@ -39,16 +41,37 @@ namespace DH_BugTracker.Controllers
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditUser(UserProfileViewModel user)
+        public ActionResult EditUser(UserProfileViewModel user, HttpPostedFileBase avatar)
         {
-            var myuser = db.Users.Find(user.Id);
-            myuser.FirstName = user.FirstName;
-            myuser.LastName = user.LastName;
-            myuser.DisplayName = user.DisplayName;
-            myuser.Email = user.Email;
-            myuser.UserName = user.Email;
-            db.SaveChanges();
-            return RedirectToAction("Dashboard", "Home");
+            if (ModelState.IsValid)
+            {
+                var myuser = db.Users.Find(user.Id);
+                myuser.FirstName = user.FirstName;
+                myuser.LastName = user.LastName;
+                myuser.DisplayName = user.DisplayName;
+                myuser.Email = user.Email;
+                myuser.UserName = user.Email;
+                myuser.AvatarPath = "/Avatars/default_user.jpg";
+
+                if (avatar != null)
+                {
+                    if (ImageUploadValidator.IsWebFriendlyImage(avatar))
+                    {
+                        var fileName = Path.GetFileName(avatar.FileName);
+                        var justFileName = Path.GetFileNameWithoutExtension(fileName);
+                        justFileName = StringUtilities.URLFriendly(justFileName);
+                        fileName = $"{justFileName}_{DateTime.Now.Ticks}{Path.GetExtension(fileName)}";
+                        avatar.SaveAs(Path.Combine(Server.MapPath("~/Avatars/"), fileName));
+                        myuser.AvatarPath = "/Avatars/" + fileName;
+                    }
+                }
+                db.SaveChanges();
+                return RedirectToAction("Dashboard", "Home");
+            }
+            else
+            {
+                return RedirectToAction("EditUser");
+            }
         }
 
         public ManageController()
