@@ -218,7 +218,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Avatars\default_user.jpg" />
-    <Content Include="Avatars\kasey-doggo_637083491919053115.jpeg" />
+    <Content Include="Avatars\kasey-doggo_637083807190087221.jpeg" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\animsition.css" />
     <Content Include="Content\animsition.min.css" />

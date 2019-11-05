@@ -20,8 +20,8 @@ namespace DH_BugTracker.Models
 
         [Display(Name = "Display Name")]
         [StringLength(20, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 50.")]
-        public string DisplayName { get; set; }
 
+        public string DisplayName { get; set; }
         public string AvatarPath { get; set; }
 
 

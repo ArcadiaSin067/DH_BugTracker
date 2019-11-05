@@ -33,7 +33,7 @@ namespace DH_BugTracker.Helpers
             var ci = identity as ClaimsIdentity;
             if (ci != null)
             {
-                return ci.FindFirstValue("DisplayName").ToString();
+                return ci.FindFirstValue("DisplayName");
             }
             return null;
         }
