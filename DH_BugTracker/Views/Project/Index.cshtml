@@ -30,9 +30,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.Description)
         </td>
-        <td>
-            @Html.ActionLink("Manage Users", "ManageUsers", new { id=item.Id })
-        </td>
+        @if (User.IsInRole("Admin") || User.IsInRole("Project Manager") || User.IsInRole("Demo_Admin") || User.IsInRole("Demo_Project Manager"))
+        {
+            <td>
+                @Html.ActionLink("Manage Users", "ManageUsers", new { id=item.Id })
+            </td>
+        }
     </tr>
 }
 </tbody>

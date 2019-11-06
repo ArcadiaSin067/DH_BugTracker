@@ -19,6 +19,7 @@ namespace DH_BugTracker.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private TicketHelper tktHelper = new TicketHelper();
         private UserRolesHelper roleHelper = new UserRolesHelper();
+        private TicketHistoryHelper tktHistHelp = new TicketHistoryHelper();
 
         // GET: Ticket
         public ActionResult Index()
@@ -71,6 +72,7 @@ namespace DH_BugTracker.Controllers
         }
 
         // GET: Ticket/Edit/5
+        [Authorize (Roles ="Project Manager, Demo_Project Manager, Developer, Demo_Developer")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -96,12 +98,18 @@ namespace DH_BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Description,Created,Updated,ProjectId,TicketTypeId,TicketPriorityId,TicketStatusId,OwnerUserId,AssignedToUserId")] Ticket ticket)
+        public ActionResult Edit([Bind(Include = "Id,Title,Description,Created,ProjectId,TicketTypeId,TicketPriorityId,TicketStatusId,OwnerUserId,AssignedToUserId")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
+                //var oldTicket = db.Tickets.Find(ticket.Id);
+                var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
+                ticket.Updated = DateTime.Now;
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
+                var newTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
+                tktHistHelp.RecordHistoryChanges(oldTicket, newTicket);
+
                 return RedirectToAction("Index");
             }
             ViewBag.AssignedToUserId = new SelectList(db.Users, "Id", "FirstName", ticket.AssignedToUserId);

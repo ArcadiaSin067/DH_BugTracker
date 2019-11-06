@@ -56,17 +56,17 @@
                     <!-- your sidebar here -->
                     @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin"))
                     {
-                        <li>@Html.ActionLink("Manage Roles", "ManageRoles", "Admin")</li>
+                        <li>@Html.ActionLink("Manage Role Assignment", "ManageRoles", "Admin")</li>
                     }
                     @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin") || User.IsInRole("Project Manager") || User.IsInRole("Demo_Project Manager"))
                     {
                         <li>@Html.ActionLink("Manage Project Users", "ManageProjects", "Admin")</li>
-                        <li>@Html.ActionLink("Projects Index", "Index", "Project")</li>
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
+                        <li>@Html.ActionLink("My Projects", "Index", "Project")</li>
+                        <li>@Html.ActionLink("My Tickets", "Index", "Ticket")</li>
                         <li>@Html.ActionLink("Edit User Info", "EditUser", "Manage")</li>
-                        <li>@Html.ActionLink("Your Tickets", "Index", "Ticket")</li>
                     }
                 </ul>
             </div>

@@ -6,7 +6,7 @@
 
 <h2>Details</h2>
 
-<div>
+<div class="col-6">
     <h4>Ticket</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -92,7 +92,11 @@
 
     </dl>
 </div>
+@*<div class="col-6">
+    @Html.Partial("Index", TicketComment)
+</div>*@
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Comments", "Index", "TicketComment", new { id = Model.Id }) | 
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) | 
     @Html.ActionLink("Back to List", "Index")
 </p>

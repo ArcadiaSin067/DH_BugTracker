@@ -189,6 +189,7 @@
     <Compile Include="Controllers\TicketPriorityController.cs" />
     <Compile Include="Controllers\TicketStatusController.cs" />
     <Compile Include="Controllers\TicketTypesController.cs" />
+    <Compile Include="Extensions\UserExtension.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -198,6 +199,7 @@
     <Compile Include="Helpers\ProjectHelper.cs" />
     <Compile Include="Helpers\StringUtilities.cs" />
     <Compile Include="Helpers\TicketHelper.cs" />
+    <Compile Include="Helpers\TicketHistoryHelper.cs" />
     <Compile Include="Helpers\UserRolesHelper.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -218,7 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Avatars\default_user.jpg" />
-    <Content Include="Avatars\kasey-doggo_637083807190087221.jpeg" />
+    <Content Include="Avatars\kasey-doggo_637085504126594568.jpeg" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\animsition.css" />
     <Content Include="Content\animsition.min.css" />

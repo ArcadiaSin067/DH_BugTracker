@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using DH_BugTracker.Helpers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -10,6 +13,8 @@ namespace DH_BugTracker.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        private UserRolesHelper roleHelp = new UserRolesHelper();
+
         [Display(Name="First Name")]
         [StringLength(35, MinimumLength = 3, ErrorMessage ="Must have minimum length of 3 characters and maximum length of 50.")]
         public string FirstName { get; set; }
@@ -20,9 +25,27 @@ namespace DH_BugTracker.Models
 
         [Display(Name = "Display Name")]
         [StringLength(20, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 50.")]
-
         public string DisplayName { get; set; }
+
         public string AvatarPath { get; set; }
+
+        [NotMapped]
+        public string FullName
+        {
+            get
+            {
+                return $"{FirstName} {LastName}";
+            }
+        }
+
+        [NotMapped]
+        public string RoleName
+        {
+            get
+            {
+                return $"{roleHelp.ListUserRoles(Id).FirstOrDefault()}";
+            }
+        }
 
 
         //navigation section
@@ -41,7 +64,6 @@ namespace DH_BugTracker.Models
             TicketNotifies = new HashSet<TicketNotify>();
             Projects = new HashSet<Project>();
         }
-
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

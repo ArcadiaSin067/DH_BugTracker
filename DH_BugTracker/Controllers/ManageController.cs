@@ -9,6 +9,7 @@ using Microsoft.Owin.Security;
 using DH_BugTracker.Models;
 using DH_BugTracker.Helpers;
 using System.IO;
+using DH_BugTracker.Extensions;
 
 namespace DH_BugTracker.Controllers
 {
@@ -41,7 +42,7 @@ namespace DH_BugTracker.Controllers
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditUser(UserProfileViewModel user, HttpPostedFileBase avatar)
+        public async Task<ActionResult> EditUser(UserProfileViewModel user, HttpPostedFileBase avatar)
         {
             if (ModelState.IsValid)
             {
@@ -66,6 +67,8 @@ namespace DH_BugTracker.Controllers
                     }
                 }
                 db.SaveChanges();
+                await myuser.ReauthorizeUserAsync();
+
                 return RedirectToAction("Dashboard", "Home");
             }
             else

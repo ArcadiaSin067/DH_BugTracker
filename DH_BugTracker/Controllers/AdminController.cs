@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace DH_BugTracker.Controllers
 {
-    [Authorize(Roles = "Admin, Demo_Admin")]
+    [Authorize(Roles = "Admin, Demo_Admin, Project Manager, Demo_Project Manager")]
     [RequireHttps]
     public class AdminController : Controller
     {

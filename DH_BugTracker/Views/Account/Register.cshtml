@@ -42,6 +42,20 @@
                         <span class="focus-input100-2"></span>
                     </div>
 
+                    <div class="wrap-input100 validate-input" data-validate="First Name is required">
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control input100", placeholder = "First Name" })
+                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                        <span class="focus-input100-1"></span>
+                        <span class="focus-input100-2"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Last Name is required">
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control input100", placeholder = "Last Name" })
+                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                        <span class="focus-input100-1"></span>
+                        <span class="focus-input100-2"></span>
+                    </div>
+
                     <div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control input100", placeholder = "Password" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
@@ -49,9 +63,9 @@
                         <span class="focus-input100-2"></span>
                     </div>
 
-                    <div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
+                    <div class="wrap-input100 rs1 validate-input" data-validate="Confirm Password is required">
                         @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control input100", placeholder = "Confirm Password" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                         <span class="focus-input100-1"></span>
                         <span class="focus-input100-2"></span>
                     </div>

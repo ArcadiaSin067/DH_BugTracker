@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using DH_BugTracker.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace DH_BugTracker.Helpers
 {
     public static class IdentityExtensions
     {
+        private static ApplicationDbContext db = new ApplicationDbContext();
         public static string GetAvatarPath(this IIdentity identity)
         {
             if (identity == null)
@@ -22,6 +24,8 @@ namespace DH_BugTracker.Helpers
                 return ci.FindFirstValue("AvatarPath");
             }
             return null;
+            //var user = db.Users.Find(identity.GetUserId());
+            //return user.AvatarPath;
         }
 
         public static string GetDisplayName(this IIdentity identity)
@@ -36,6 +40,9 @@ namespace DH_BugTracker.Helpers
                 return ci.FindFirstValue("DisplayName");
             }
             return null;
+            //var user = db.Users.Find(identity.GetUserId());
+            //return user.DisplayName;
+
         }
 
     }

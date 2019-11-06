@@ -81,7 +81,7 @@ namespace DH_BugTracker.Controllers
         // GET: Project
         public ActionResult Index()
         {
-            return View(db.Projects.ToList());
+            return View(projectHelper.ListMyProjects());
         }
 
         // GET: Project/Details/5
@@ -100,6 +100,7 @@ namespace DH_BugTracker.Controllers
         }
 
         // GET: Project/Create
+        [Authorize(Roles = "Admin, Demo_Admin, Project Manager, Demo_Project Manager")]
         public ActionResult Create()
         {
             return View();
@@ -123,6 +124,7 @@ namespace DH_BugTracker.Controllers
         }
 
         // GET: Project/Edit/5
+        [Authorize(Roles = "Admin, Demo_Admin, Project Manager, Demo_Project Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -154,6 +156,7 @@ namespace DH_BugTracker.Controllers
         }
 
         // GET: Project/Delete/5
+        [Authorize(Roles = "Admin, Demo_Admin, Project Manager, Demo_Project Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

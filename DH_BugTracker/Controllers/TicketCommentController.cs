@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DH_BugTracker.Models;
+using Microsoft.AspNet.Identity;
 
 namespace DH_BugTracker.Controllers
 {
@@ -39,11 +40,13 @@ namespace DH_BugTracker.Controllers
         }
 
         // GET: TicketComment/Create
-        public ActionResult Create()
+        public ActionResult Create(Ticket ticketId)
         {
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title");
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName");
-            return View();
+            //ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title");
+            //ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName");
+            var tktId = db.Tickets.Find(ticketId).Id;
+
+            return View(tktId);
         }
 
         // POST: TicketComment/Create
@@ -51,13 +54,17 @@ namespace DH_BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Comment,Created,TicketId,UserId")] TicketComment ticketComment)
+        public ActionResult Create([Bind(Include = "Comment,TicketId")] TicketComment ticketComment)
         {
             if (ModelState.IsValid)
             {
+                ticketComment.Created = DateTime.Now;
+                ticketComment.UserId = User.Identity.GetUserId();
                 db.TicketComments.Add(ticketComment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                var tktParent = db.Tickets.Find(ticketComment.TicketId);
+                return RedirectToAction("Details", "Ticket", new { tktParent});
             }
 
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketComment.TicketId);

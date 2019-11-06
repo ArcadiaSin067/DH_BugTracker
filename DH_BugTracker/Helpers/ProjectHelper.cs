@@ -23,7 +23,6 @@ namespace DH_BugTracker.Helpers
             }
             return UserIdList;
         }
-
         public bool IsUserOnProject(string userId, int projectId)
         {
             var project = db.Projects.Find(projectId);
@@ -65,6 +64,35 @@ namespace DH_BugTracker.Helpers
         public ICollection<ApplicationUser> UsersNotOnProject(int projectId)
         {
             return db.Users.Where(u => u.Projects.All(p => p.Id != projectId)).ToList();
+        }
+
+        public List<Project> ListMyProjects()
+        {
+            var userId = HttpContext.Current.User.Identity.GetUserId();
+            var user = db.Users.Find(userId);
+            var myProjects = new List<Project>();
+            var myRole = roleHelper.ListUserRoles(userId).FirstOrDefault();
+
+            switch (myRole)
+            {
+                case "Admin":
+                case "Demo_Admin":
+                    myProjects.AddRange(db.Projects);
+                    break;
+                case "Project Manager":
+                case "Demo_Project Manager":
+                    myProjects.AddRange(db.Projects);
+                    break;
+                case "Developer":
+                case "Demo_Developer":
+                    myProjects.AddRange(user.Projects);
+                    break;
+                case "Submitter":
+                case "Demo_Submitter":
+                    myProjects.AddRange(user.Projects);
+                    break;
+            }
+            return myProjects;
         }
 
     }
