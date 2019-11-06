@@ -4,99 +4,173 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>@ViewBag.Title for Ticket #@Model.Id</h2>
 
-<div class="col-6">
-    <h4>Ticket</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.AssignedToUser.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AssignedToUser.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OwnerUser.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OwnerUser.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Project.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Project.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TicketPriority.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TicketPriority.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TicketStatus.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TicketStatus.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TicketType.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TicketType.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Updated)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Updated)
-        </dd>
-
-    </dl>
-</div>
-@*<div class="col-6">
-    @Html.Partial("Index", TicketComment)
-</div>*@
 <p>
-    @Html.ActionLink("Comments", "Index", "TicketComment", new { id = Model.Id }) | 
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) | 
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<hr />
+<div class="row">
+    <div class="col-5">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.AssignedToUser.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AssignedToUser.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.OwnerUser.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OwnerUser.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Project.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Project.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TicketPriority.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TicketPriority.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TicketStatus.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TicketStatus.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TicketType.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TicketType.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Created)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Created)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Updated)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Updated)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="col-7" style="border-left:1px solid #D0D0D0">
+        @using (Html.BeginForm("Create", "TicketComment", FormMethod.Post))
+        {
+        <h5>Leave a Comment?</h5>
+        <div class="row no-gutters">
+                @Html.AntiForgeryToken()
+                @Html.Hidden("TicketId", Model.Id)
+
+                <div class="col-9 d-flex justify-content-center" style="padding-top:8px">
+                    @Html.Editor("Comment", new { htmlAttributes = new { @class = "form-control", style = "background-color: white;border:solid 1px grey;padding-left:5px;max-width:100%" } })
+                    @Html.ValidationMessage("Comment", "", new { @class = "text-danger" })
+                </div>
+                <div class="col-3 text-center">
+                    <button type="submit" class="btn allbtn">Add</button>
+                </div>
+        </div>
+        }
+        <hr />
+        <table class="table" id="DTJQ6">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("Commenter")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Message")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Created")
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var comment in Model.TicketComments.OrderByDescending(tc => tc.Created))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => comment.User.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => comment.Comment)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => comment.Created)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<hr />
+<div class="row">
+    @using (Html.BeginForm("Create", "TicketComment", FormMethod.Post))
+    {
+        <h5>Leave an Attachment?</h5>
+        <div class="row no-gutters">
+            @Html.AntiForgeryToken()
+            @Html.Hidden("TicketId", Model.Id)
+
+            <div class="col-9 d-flex justify-content-center" style="padding-top:8px">
+                @Html.Editor("Comment", new { htmlAttributes = new { @class = "form-control", style = "background-color: white;border:solid 1px grey;padding-left:5px;max-width:100%" } })
+                @Html.ValidationMessage("Comment", "", new { @class = "text-danger" })
+            </div>
+            <div class="col-3 text-center">
+                <button type="submit" class="btn allbtn">Add</button>
+            </div>
+        </div>
+    }
+
+</div>
+
+@section scripts{
+    <script>
+        $('#DTJQ6').DataTable();
+    </script>
+}

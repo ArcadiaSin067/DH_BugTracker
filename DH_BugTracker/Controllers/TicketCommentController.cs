@@ -42,11 +42,10 @@ namespace DH_BugTracker.Controllers
         // GET: TicketComment/Create
         public ActionResult Create(Ticket ticketId)
         {
-            //ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title");
-            //ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName");
-            var tktId = db.Tickets.Find(ticketId).Id;
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title");
+            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName");
 
-            return View(tktId);
+            return View(ticketId);
         }
 
         // POST: TicketComment/Create
@@ -60,11 +59,12 @@ namespace DH_BugTracker.Controllers
             {
                 ticketComment.Created = DateTime.Now;
                 ticketComment.UserId = User.Identity.GetUserId();
+                
                 db.TicketComments.Add(ticketComment);
                 db.SaveChanges();
 
-                var tktParent = db.Tickets.Find(ticketComment.TicketId);
-                return RedirectToAction("Details", "Ticket", new { tktParent});
+                var tktParent = db.Tickets.Find(ticketComment.TicketId).Id;
+                return RedirectToAction("Details", "Ticket", new { Id = tktParent });
             }
 
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketComment.TicketId);

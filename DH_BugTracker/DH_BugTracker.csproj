@@ -196,6 +196,7 @@
     <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\IdentityExtensions.cs" />
     <Compile Include="Helpers\ImageUploadValidator.cs" />
+    <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Helpers\ProjectHelper.cs" />
     <Compile Include="Helpers\StringUtilities.cs" />
     <Compile Include="Helpers\TicketHelper.cs" />
