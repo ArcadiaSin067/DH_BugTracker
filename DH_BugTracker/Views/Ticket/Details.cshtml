@@ -105,7 +105,7 @@
                 @Html.Hidden("TicketId", Model.Id)
 
                 <div class="col-9 d-flex justify-content-center" style="padding-top:8px">
-                    @Html.Editor("Comment", new { htmlAttributes = new { @class = "form-control", style = "background-color: white;border:solid 1px grey;padding-left:5px;max-width:100%" } })
+                    @Html.Editor("Comment", new { htmlAttributes = new { @class = "form-control txtBoxs", style = "max-width:100%" } })
                     @Html.ValidationMessage("Comment", "", new { @class = "text-danger" })
                 </div>
                 <div class="col-3 text-center">
@@ -126,7 +126,6 @@
                     <th>
                         @Html.DisplayName("Created")
                     </th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -150,27 +149,75 @@
 </div>
 <hr />
 <div class="row">
-    @using (Html.BeginForm("Create", "TicketComment", FormMethod.Post))
-    {
-        <h5>Leave an Attachment?</h5>
-        <div class="row no-gutters">
-            @Html.AntiForgeryToken()
-            @Html.Hidden("TicketId", Model.Id)
+    <div class="col-7">
+        @using (Html.BeginForm("Create", "TicketAttach", FormMethod.Post))
+        {
+            <h5>Leave an Attachment?</h5>
+            <div class="row no-gutters">
+                @Html.AntiForgeryToken()
+                @Html.Hidden("TicketId", Model.Id)
 
-            <div class="col-9 d-flex justify-content-center" style="padding-top:8px">
-                @Html.Editor("Comment", new { htmlAttributes = new { @class = "form-control", style = "background-color: white;border:solid 1px grey;padding-left:5px;max-width:100%" } })
-                @Html.ValidationMessage("Comment", "", new { @class = "text-danger" })
+                <div class="col-9 d-flex justify-content-center" style="padding-top:8px">
+                    @Html.Editor("Description", new { htmlAttributes = new { @class = "form-control txtBoxs", style = "max-width:100%" } })
+                    @Html.ValidationMessage("Description", "", new { @class = "text-danger" })
+                </div>
+                <div class="col-3 text-center">
+                    <button type="submit" class="btn allbtn">Add</button>
+                </div>
             </div>
-            <div class="col-3 text-center">
-                <button type="submit" class="btn allbtn">Add</button>
-            </div>
-        </div>
-    }
-
+        }
+        <hr />
+        <table class="table" id="DTJQ7">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("File")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Uploader")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Notes")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Created")
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var attachment in Model.TicketAttaches.OrderByDescending(ta => ta.Created))
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => attachment.FilePath)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => attachment.User.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => attachment.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => attachment.Created)
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
 @section scripts{
     <script>
-        $('#DTJQ6').DataTable();
+        $('#DTJQ6').dataTable( {
+            "bProcessing": true,
+            "bServerSide": true,
+            "sAjaxSource": "/Scripts/jquery.dataTables.min.js"
+        });
+        $('#DTJQ7').dataTable({
+            "bProcessing": true,
+            "bServerSide": true,
+            "sAjaxSource": "/Scripts/jquery.dataTables.min.js"
+        });
     </script>
 }

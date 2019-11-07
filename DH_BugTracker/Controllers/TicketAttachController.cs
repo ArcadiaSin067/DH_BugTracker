@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DH_BugTracker.Models;
+using Microsoft.AspNet.Identity;
 
 namespace DH_BugTracker.Controllers
 {
@@ -39,11 +40,11 @@ namespace DH_BugTracker.Controllers
         }
 
         // GET: TicketAttach/Create
-        public ActionResult Create()
+        public ActionResult Create(Ticket ticketId)
         {
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title");
             ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName");
-            return View();
+            return View(ticketId);
         }
 
         // POST: TicketAttach/Create
@@ -51,13 +52,18 @@ namespace DH_BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FilePath,Description,Created,TicketId,UserId")] TicketAttach ticketAttach)
+        public ActionResult Create([Bind(Include = "Description,TicketId")] TicketAttach ticketAttach)
         {
             if (ModelState.IsValid)
             {
+                ticketAttach.Created = DateTime.Now;
+                ticketAttach.UserId = User.Identity.GetUserId();
+
                 db.TicketAttaches.Add(ticketAttach);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                var tktParent = db.Tickets.Find(ticketAttach.TicketId).Id;
+                return RedirectToAction("Details", "Ticket", new { Id = tktParent });
             }
 
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketAttach.TicketId);

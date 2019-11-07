@@ -20,7 +20,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control", style = "background-color: white;border:solid 1px grey;padding-left:5px" } })
+                @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control txtBoxs" } })
                 @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
             </div>
         </div>
