@@ -4,117 +4,92 @@
     ViewBag.Title = "Details";
 }
 
-<h2>@ViewBag.Title for Ticket #@Model.Id</h2>
-
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-<hr />
-<div class="row">
-    <div class="col">
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.AssignedToUser.FirstName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.AssignedToUser.FirstName)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.OwnerUser.FirstName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.OwnerUser.FirstName)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Project.Name)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Project.Name)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.TicketPriority.Name)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.TicketPriority.Name)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.TicketStatus.Name)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.TicketStatus.Name)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.TicketType.Name)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.TicketType.Name)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Title)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Title)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Created)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Created)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Updated)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Updated)
-            </dd>
-
-        </dl>
-    </div>
-    <div class="col" style="border-left:1px solid #D0D0D0">
-        @using (Html.BeginForm("Create", "TicketComment", FormMethod.Post))
-        {
-            <h5>Leave a Comment?</h5>
-            <div class="row no-gutters">
-                @Html.AntiForgeryToken()
-                @Html.Hidden("TicketId", Model.Id)
-
-                <div class="col-9 d-flex justify-content-center" style="padding-top:8px">
-                    @Html.Editor("Comment", new { htmlAttributes = new { @class = "form-control txtBoxs", style = "max-width:100%" } })
-                    @Html.ValidationMessage("Comment", "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">@ViewBag.Title for Ticket #@Model.Id</h4>
+                    <p class="card-category" style="padding-left:10px">
+                        <u> @Html.ActionLink("Back to List", "Index")</u> | 
+                        <u> @Html.ActionLink("Edit Ticket", "Edit", new { id = Model.Id })</u>
+                    </p>
                 </div>
-                <div class="col-3 text-center">
-                    <button type="submit" class="btn allbtn">Add</button>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h6>@Html.DisplayName("Ticket Title")</h6>
+                            <a style="padding-left:5px">@Html.DisplayFor(model => model.Title)</a>
+                        </div>
+                        <div class="col-md-7">
+                            <h6>@Html.DisplayName("Ticket Description")</h6>
+                            <a style="padding-left:5px">@Html.DisplayFor(model => model.Description)</a>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h6>@Html.DisplayName("Assigned Developer")</h6>
+                            <a style="padding-left:5px">@Html.DisplayFor(model => model.AssignedToUser.FullName)</a>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>@Html.DisplayName("Submitter")</h6>
+                            <a style="padding-left:5px">@Html.DisplayFor(model => model.OwnerUser.FullName)</a>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h6>@Html.DisplayName("Project")</h6>
+                            <a style="padding-left:5px">@Html.DisplayFor(model => model.Project.Name)</a>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>@Html.DisplayNameFor(model => model.TicketPriority.Name)</h6>
+                            <a style="padding-left:5px">@Html.DisplayFor(model => model.TicketPriority.Name)</a>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h6>@Html.DisplayNameFor(model => model.TicketStatus.Name)</h6>
+                            <a style="padding-left:5px">@Html.DisplayFor(model => model.TicketStatus.Name)</a>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>@Html.DisplayNameFor(model => model.TicketType.Name)</h6>
+                            <a style="padding-left:5px">@Html.DisplayFor(model => model.TicketType.Name)</a>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h6>@Html.DisplayNameFor(model => model.Created)</h6>
+                            <a style="padding-left:5px">@Html.DisplayFor(model => model.Created)</a>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>@Html.DisplayNameFor(model => model.Updated)</h6>
+                            <a style="padding-left:5px">@Html.DisplayFor(model => model.Updated)</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        }
-        <hr />
-        <div class="col-md-12">
+        </div>
+        <div class="col" style="border-left:1px solid #D0D0D0">
+            @using (Html.BeginForm("Create", "TicketComment", FormMethod.Post))
+            {
+                <h4>Add a Comment?</h4>
+                <div class="row no-gutters">
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("TicketId", Model.Id)
+
+                    <div class="col-9 d-flex justify-content-center" style="padding-top:8px">
+                        @Html.Editor("Comment", new { htmlAttributes = new { @class = "form-control txtBoxs", style = "max-width:100%" } })
+                        @Html.ValidationMessage("Comment", "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-3 text-center">
+                        <button type="submit" class="btn allbtn">Add</button>
+                    </div>
+                </div>
+            }
+            <hr />
             <div class="card">
                 <div class="card-header card-header-primary">
                     <h4 class="card-title ">Ticket Comments</h4>
@@ -159,11 +134,9 @@
             </div>
         </div>
     </div>
-</div>
-<hr />
-<div class="row">
-    <div class="col">
-        <div class="col-md-12">
+    <hr />
+    <div class="row">
+        <div class="col">
             <div class="card">
                 <div class="card-header card-header-primary">
                     <h4 class="card-title ">Ticket History</h4>
@@ -212,30 +185,39 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col" style="border-left:1px solid #D0D0D0">
-        @using (Html.BeginForm("Create", "TicketAttach", FormMethod.Post, new { enctype = "Multipart/form-data" }))
-        {
-            <h5>Leave an Attachment?</h5>
-            <div class="row no-gutters">
-                @Html.AntiForgeryToken()
-                @Html.Hidden("TicketId", Model.Id)
-                <div class="col-5">
-                    @Html.Label("Upload File Attachment")<br />
-                    @Html.TextBox("File", null, new { @type = "file", style = "padding-right:15px" })
+        <div class="col" style="border-left:1px solid #D0D0D0">
+            @using (Html.BeginForm("Create", "TicketAttach", FormMethod.Post, new { enctype = "Multipart/form-data" }))
+            {
+                <h4>Add an Attachment?</h4>
+                <div class="row no-gutters">
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("TicketId", Model.Id)
+                    <div class="col-4" style="padding-right:15px">
+                        <span class='label label-info' id="upload-file-info2" style="overflow-wrap:break-word;
+                                    font-size:14px;font-weight:400;color:#aaa;font-family:Roboto,Helvetica,Arial,sans-serif;"> Select File...</span>
+                        <br />
+                        <label class="btn btn-sm btn-dark" data_but="btn-xs" for="my-file-selector2">
+                            <i class='fa fa-cloud-upload'></i> Upload File
+                        </label>
+                        @Html.TextBox("File", null, new
+                        {
+                            onchange = "$('#upload-file-info2').html(this.files[0].name)",
+                            id = "my-file-selector2",
+                            style = "display:none",
+                            type = "file"
+                        })
+                    </div>
+                    <div class="col-6">
+                        @Html.Label("Add a Description")<br />
+                        @Html.Editor("AttachDesc", new { htmlAttributes = new { @class = "form-control txtBoxs", style = "max-width:100%" } })
+                        @Html.ValidationMessage("Description", "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-2 text-center" style="margin-top:20px">
+                        <button type="submit" class="btn allbtn">Add</button>
+                    </div>
                 </div>
-                <div class="col-5">
-                    @Html.Label("Add a Description")<br />
-                    @Html.Editor("AttachDesc", new { htmlAttributes = new { @class = "form-control txtBoxs", style = "max-width:100%" } })
-                    @Html.ValidationMessage("Description", "", new { @class = "text-danger" })
-                </div>
-                <div class="col-2 text-center" style="margin-top:20px">
-                    <button type="submit" class="btn allbtn">Add</button>
-                </div>
-            </div>
-        }
-        <hr />
-        <div class="col-md-12">
+            }
+            <hr />
             <div class="card">
                 <div class="card-header card-header-primary">
                     <h4 class="card-title ">Ticket Attachments</h4>
@@ -265,7 +247,8 @@
                                 {
                                     <tr>
                                         <td>
-                                            @{var displayPath = attachment.FilePath.Split('/')[2].Split('_')[0] + Path.GetExtension(attachment.FilePath);}
+                                            @{var displayPath = attachment.FilePath.Split('/')[2].Split('_')[0]
+                                                        + Path.GetExtension(attachment.FilePath);}
                                             @displayPath
                                         </td>
                                         <td>
@@ -285,14 +268,12 @@
                 </div>
             </div>
         </div>
-
     </div>
-</div>
 
-@section scripts{
-    <script>
-        $('#DTJQ6').dataTable();
-        $('#DTJQ7').dataTable();
-        $('#DTJQ8').dataTable();
-    </script>
-}
+    @section scripts{
+        <script>
+            $('#DTJQ6').dataTable();
+            $('#DTJQ7').dataTable();
+            $('#DTJQ8').dataTable();
+        </script>
+    }

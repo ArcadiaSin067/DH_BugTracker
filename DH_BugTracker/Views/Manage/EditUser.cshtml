@@ -15,7 +15,7 @@
 }
 
 <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-6">
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title">Edit Profile</h4>
@@ -66,7 +66,7 @@
                     <br />
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="btn btn-sm btn-primary" data_but="btn-xs" for="my-file-selector">
+                            <label class="btn btn-sm btn-dark" data_but="btn-xs" for="my-file-selector">
                                 <i class='fa fa-cloud-upload'></i> Upload Avatar
                             </label>
                             @Html.Hidden("avatar",avatarPath,new 
@@ -82,8 +82,9 @@
                         </div>
                         <div class="col-md-12">
                             <br />
-                            @Html.ActionLink("Change password", "ChangePassword", null, new
-                                    {@class = "btn btn-sm btn-primary"})
+                            <a href="~/Manage/ChangePassword" class="btn btn-sm btn-dark" data_but="btn-xs">
+                                <i class="fa fa-lock"></i> Reset Password
+                            </a>
                             <p class="text-success">@ViewBag.StatusMessage</p>
                         </div>
                     </div>
@@ -98,7 +99,7 @@
         </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-4 offset-1">
         <div class="card card-profile">
             <div class="card-avatar">
                 <img class="img" src="@avatarPath" />
