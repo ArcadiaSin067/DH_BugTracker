@@ -1,9 +1,7 @@
 ﻿using DH_BugTracker.Helpers;
 using DH_BugTracker.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DH_BugTracker.Controllers
@@ -61,7 +59,7 @@ namespace DH_BugTracker.Controllers
 
         //
         // GET: /Admin/ManageProjects
-        [Authorize(Roles = "Admin, Project Manager, Demo_Admin, Demo_Project Manager")]
+        [Authorize(Roles = "Admin,Project Manager,Demo_Admin,Demo_Project Manager")]
         public ActionResult ManageProjects()
         {
             ViewBag.Projects = new MultiSelectList(db.Projects, "Id", "Name");

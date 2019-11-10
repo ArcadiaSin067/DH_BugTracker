@@ -35,37 +35,51 @@
         }
     </div>
     <div class="col-6">
-        <table class="table" id="DTJQ3">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayName("Email")
-                </th>
-                <th>
-                    @Html.DisplayName("User Name")
-                </th>
-                <th>
-                    @Html.DisplayName("Role")
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(model => user.Email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => user.UserName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => user.RoleName)
-                    </td>
-                </tr>
-            }
-        </tbody>
-        </table>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title ">Your Personnel</h4>
+                    <p class="card-category" style="padding-left:10px">All the users in your database.</p>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table" id="DTJQ3">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayName("Email")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("User Name")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Role")
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var user in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(model => user.Email)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => user.UserName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => user.RoleName)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>
 

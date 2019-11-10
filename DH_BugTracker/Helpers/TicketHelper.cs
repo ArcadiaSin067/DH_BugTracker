@@ -1,6 +1,5 @@
 ﻿using DH_BugTracker.Models;
 using Microsoft.AspNet.Identity;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -51,5 +50,32 @@ namespace DH_BugTracker.Helpers
             return myTickets;
         }
 
+        public string ListMyTicketAccess()
+        {
+            var userId = HttpContext.Current.User.Identity.GetUserId();
+            var viewTickets = "";
+            var myRole = roleHelper.ListUserRoles(userId).FirstOrDefault();
+
+            switch (myRole)
+            {
+                case "Admin":
+                case "Demo_Admin":
+                    viewTickets = "in the database.";
+                    break;
+                case "Project Manager":
+                case "Demo_Project Manager":
+                    viewTickets = "for the Projects you are assigned to.";
+                    break;
+                case "Developer":
+                case "Demo_Developer":
+                    viewTickets = "for the Projects you are assigned to.";
+                    break;
+                case "Submitter":
+                case "Demo_Submitter":
+                    viewTickets = "submitted.";
+                    break;
+            }
+            return viewTickets;
+        }
     }
 }

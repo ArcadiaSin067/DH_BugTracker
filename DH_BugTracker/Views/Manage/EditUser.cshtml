@@ -1,68 +1,116 @@
-﻿@model DH_BugTracker.Models.UserProfileViewModel
+﻿@using DH_BugTracker.Helpers;
+@using Microsoft.AspNet.Identity;
+@using DH_BugTracker.Models;
+@model DH_BugTracker.Models.UserProfileViewModel
 
 @{
     ViewBag.Title = "EditUser";
+    ApplicationDbContext db = new ApplicationDbContext();
+    UserRolesHelper roles = new UserRolesHelper();
+    var urRole = roles.ListUserRoles(User.Identity.GetUserId()).FirstOrDefault();
+    var displayName = db.Users.Find(User.Identity.GetUserId()).DisplayName;
+    var fullName = db.Users.Find(User.Identity.GetUserId()).FullName;
+    var avatarPath = db.Users.Find(User.Identity.GetUserId()).AvatarPath;
+    var displayPath = avatarPath.Split('/')[2].Split('_')[0] + Path.GetExtension(avatarPath);
 }
 
-<div class="container">
-    <h2>Edit</h2>
+<div class="row">
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Edit Profile</h4>
+                <p class="card-category">Your User profile</p>
+            </div>
+            <div class="card-body">
+               @using (Html.BeginForm("EditUser", "Manage", FormMethod.Post, new { enctype = "Multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DisplayName, new { @class = "bmd-label-floating" })
+                                @Html.TextBoxFor(model => model.DisplayName, new
+                                        {@class = "form-control", style = "padding-left:5px"})
+                                @Html.ValidationMessageFor(model => model.DisplayName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Email, new { @class = "bmd-label-floating" })
+                                @Html.TextBoxFor(model => model.Email, new
+                                        {@class = "form-control", style = "padding-left:5px"})
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FirstName, new { @class = "bmd-label-floating" })
+                                @Html.TextBoxFor(model => model.FirstName, new
+                                        {@class = "form-control", style = "padding-left:5px"})
+                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LastName, new { @class = "bmd-label-floating" })
+                                @Html.TextBoxFor(model => model.LastName, new
+                                        {@class = "form-control", style = "padding-left:5px"})
+                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="btn btn-sm btn-primary" data_but="btn-xs" for="my-file-selector">
+                                <i class='fa fa-cloud-upload'></i> Upload Avatar
+                            </label>
+                            @Html.Hidden("avatar",avatarPath,new 
+                            {
+                                onchange = "$('#upload-file-info').html(this.files[0].name)",
+                                id = "my-file-selector",
+                                style = "display:none",
+                                type = "file"
+                            })   
+                            <span class='label label-info' id="upload-file-info" style="padding-left:5px">
+                                @displayPath
+                            </span>
+                        </div>
+                        <div class="col-md-12">
+                            <br />
+                            @Html.ActionLink("Change password", "ChangePassword", null, new
+                                    {@class = "btn btn-sm btn-primary"})
+                            <p class="text-success">@ViewBag.StatusMessage</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <button type="submit" class="btn allbtn pull-right">Update Profile</button>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 
-    @using (Html.BeginForm("EditUser", "Manage", FormMethod.Post, new { enctype = "Multipart/form-data" }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(model => model.Id)
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-
-        <div class="form-horizontal">
-            <h4>User Information</h4>
-            <hr />
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control txtBoxs" } })
-                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+    <div class="col-md-4">
+        <div class="card card-profile">
+            <div class="card-avatar">
+                <img class="img" src="@avatarPath" />
+            </div>
+            <div class="card-body">
+                <h6 class="card-category text-gray">@urRole</h6>
+                <h4 class="card-title">@fullName</h4>
+                <p class="card-description">
+                    Don't be scared of the truth because we need to restart the human foundation in truth, And I love you like Kanye loves Kanye, I love Rick Owens’ bed design but the back is...
+                </p>
+                <a href="#pablo" class="btn btn-primary btn-round">Follow</a>
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control txtBoxs" } })
-                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.DisplayName, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DisplayName, new { htmlAttributes = new { @class = "form-control txtBoxs" } })
-                @Html.ValidationMessageFor(model => model.DisplayName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control txtBoxs" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div>
-            <br />
-            @Html.Label("Upload Profile Image", new { @style = "padding-left:15px" })
-            <div class="col-6">
-                @Html.TextBox("Avatar", null, new { @type = "file" })
-            </div>
-            <br />
-        </div>
-
-        <div class="row no-gutters form-group" style="padding-left:15px">
-            <div class="col-3">
-                <button type="submit" class="btn allbtn">Save Changes</button>
-            </div>
-            <div class="col-7 my-auto">
-                @Html.ActionLink("Change your password?", "ChangePassword")
-            </div>
-        </div>
-
-    }
+    </div>
 </div>

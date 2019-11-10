@@ -1,15 +1,26 @@
 ﻿
 .allbtn {
-    background-color: #9C27B0;
+    background-color: #00aec4;
+    color: #fff;
 }
 
 .allbtn:hover {
-    color:black;
-    background-color: #00BCD4;
+    background-color:darkslateblue;
+    color:aliceblue;
 }
 
 .txtBoxs {
     background-color: white;
     border: solid 1px grey;
     padding-left: 5px
+}
+
+#avatarImg {
+    position: absolute;
+    margin-left: -40%;
+    margin-top: -40%;
+    height: 80%;
+    width: 80%;
+    left: 50%;
+    top: 50%;
 }

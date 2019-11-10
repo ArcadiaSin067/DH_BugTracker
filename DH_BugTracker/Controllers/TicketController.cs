@@ -20,6 +20,7 @@ namespace DH_BugTracker.Controllers
         private TicketHelper tktHelper = new TicketHelper();
         private UserRolesHelper roleHelper = new UserRolesHelper();
         private TicketHistoryHelper tktHistHelp = new TicketHistoryHelper();
+        private ProjectHelper projectHelp = new ProjectHelper();
 
         // GET: Ticket
         public ActionResult Index()
@@ -43,9 +44,19 @@ namespace DH_BugTracker.Controllers
         }
 
         // GET: Ticket/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name");
+            if (id != null)
+            {
+                ViewBag.ProjectName = db.Projects.Find(id).Name.ToString();
+                ViewBag.HasId = true;
+                ViewBag.ProjectId = (int)id;
+            }
+            else
+            {
+                ViewBag.ProjectId = new SelectList(projectHelp.ListMyProjects(), "Id", "Name");
+                ViewBag.HasId = false;
+            }
             ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name");
             return View();
         }
@@ -61,12 +72,13 @@ namespace DH_BugTracker.Controllers
                 ticket.OwnerUserId = User.Identity.GetUserId();
                 ticket.TicketStatusId = tktHelper.SetDefaultTicketStatus();
                 ticket.TicketPriorityId = tktHelper.SetDefaultTicketPriority();
+                
                 db.Tickets.Add(ticket);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", ticket.ProjectId);
+            ViewBag.ProjectId = new SelectList(projectHelp.ListMyProjects(), "Id", "Name", ticket.ProjectId);
             ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId);
             return View(ticket);
         }

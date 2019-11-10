@@ -19,7 +19,10 @@ namespace DH_BugTracker.Helpers
             var UserIdList = new List<string>();
             foreach (var user in UsersOnProject(projectId))
             {
-                if (roleHelper.IsUserInRole(user.Id, roleNames)) {UserIdList.Add(user.Id);}
+                if (roleHelper.IsUserInRole(user.Id, roleNames))
+                {
+                    UserIdList.Add(user.Id);
+                }
             }
             return UserIdList;
         }

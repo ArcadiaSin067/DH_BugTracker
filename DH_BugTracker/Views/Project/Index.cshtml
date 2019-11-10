@@ -4,42 +4,62 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin") || User.IsInRole("Project Manager") || User.IsInRole("Demo_Project Manager"))
+    {
+        @Html.ActionLink("Create New Project", "Create",null,new { @class="btn allbtn"})
+    }
 </p>
-<table class="table" id="DTJQ1">
-<thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
-</thead>
-<tbody>
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        @if (User.IsInRole("Admin") || User.IsInRole("Project Manager") || User.IsInRole("Demo_Admin") || User.IsInRole("Demo_Project Manager"))
-        {
-            <td>
-                @Html.ActionLink("Manage Users", "ManageUsers", new { id=item.Id })
-            </td>
-        }
-    </tr>
-}
-</tbody>
-</table>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-primary">
+            <h4 class="card-title ">Your Projects</h4>
+            <p class="card-category" style="padding-left:10px">All the Projects you have access to.</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table" id="DTJQ1">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Description)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            @if (User.IsInRole("Admin") || User.IsInRole("Project Manager") || User.IsInRole("Demo_Admin") || User.IsInRole("Demo_Project Manager"))
+                            {
+                                <td class="d-flex justify-content-end">
+                                    @Html.ActionLink("Manage Users", "ManageUsers", new { id = item.Id })
+                                </td>
+                            }
+                            @if (User.IsInRole("Submitter") || User.IsInRole("Demo_Submitter"))
+                            {
+                                <td class="d-flex justify-content-end">
+                                    @Html.ActionLink("Create Ticket","Create","Ticket",new { id = item.Id},null)
+                                </td>
+                            }
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section scripts{
     <script>

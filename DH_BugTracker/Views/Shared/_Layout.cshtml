@@ -1,4 +1,14 @@
-﻿@using DH_BugTracker.Helpers
+﻿@using DH_BugTracker.Models;
+@using DH_BugTracker.Helpers;
+@using Microsoft.AspNet.Identity;
+
+@{
+    ApplicationDbContext db = new ApplicationDbContext();
+    UserRolesHelper roles = new UserRolesHelper();
+    var urRole = roles.ListUserRoles(User.Identity.GetUserId()).FirstOrDefault();
+    var displayName = db.Users.Find(User.Identity.GetUserId()).DisplayName;
+    var avatarPath = db.Users.Find(User.Identity.GetUserId()).AvatarPath;
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,21 +37,22 @@
 
 <body>
     <div class="wrapper ">
-        <div class="sidebar" data-color="purple" data-background-color="white">
+        <div class="sidebar" data-color="azure" data-background-color="white">
             <!--
                 Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
                 Tip 2: you can also add an image using data-image tag
             -->
             <div class="row no-gutters">
-                <div class="col-5" style="border:1px solid #E5E5E5; background-image: url('@User.Identity.GetAvatarPath()'); background-size:100% 100%">
+                <div class="col-5" style="border-bottom:1px solid #E5E5E5;z-index:2">
+                    <img id="avatarImg" class="rounded-circle" src="@avatarPath" />
                 </div>
                 <div class="col logo">
                     <span class="simple-text">
                         Welcome,
                     </span>
                     <h6 class="text-center no-gutters" style="line-height:32px">
-                        @User.Identity.GetDisplayName()
+                        @displayName
                     </h6>
                 </div>
             </div>
@@ -56,27 +67,59 @@
                     <!-- your sidebar here -->
                     @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin"))
                     {
-                        <li>@Html.ActionLink("Manage Role Assignment", "ManageRoles", "Admin")</li>
+                        <li class="nav-item  ">
+                            <a class="nav-link" href="~/Admin/ManageRoles">
+                                <i class="material-icons">group_add</i>
+                                <p><b>Manage Role Assignment</b></p>
+                            </a>
+                        </li>
+                        @*<li>@Html.ActionLink("Manage Role Assignment", "ManageRoles", "Admin")</li>*@
                     }
                     @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin") || User.IsInRole("Project Manager") || User.IsInRole("Demo_Project Manager"))
                     {
-                        <li>@Html.ActionLink("Manage Project Users", "ManageProjects", "Admin")</li>
+                        <li class="nav-item  ">
+                            <a class="nav-link" href="~/Admin/ManageProjects">
+                                <i class="material-icons">group</i>
+                                <p><b>Manage Project Users</b></p>
+                            </a>
+                        </li>
+                        @*<li>@Html.ActionLink("Manage Project Users", "ManageProjects", "Admin")</li>*@
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("My Projects", "Index", "Project")</li>
-                        <li>@Html.ActionLink("My Tickets", "Index", "Ticket")</li>
-                        <li>@Html.ActionLink("Edit User Info", "EditUser", "Manage")</li>
+                        <li class="nav-item  ">
+                            <a class="nav-link" href="~/Project/Index">
+                                <i class="material-icons">view_headline</i>
+                                <p><b>My Projects</b></p>
+                            </a>
+                        </li>
+                        @*<li>@Html.ActionLink("My Projects", "Index", "Project")</li>*@
+                        <li class="nav-item  ">
+                            <a class="nav-link" href="~/Ticket/Index">
+                                <i class="material-icons">view_list</i>
+                                <p><b>My Tickets</b></p>
+                            </a>
+                        </li>
+                        @*<li>@Html.ActionLink("My Tickets", "Index", "Ticket")</li>*@
+                        <li class="nav-item  ">
+                            <a class="nav-link" href="~/Manage/EditUser">
+                                <i class="material-icons">person</i>
+                                <p><b>User Profile</b></p>
+                            </a>
+                        </li>
+                        @*<li>@Html.ActionLink("Edit User Info", "EditUser", "Manage")</li>*@
                     }
                 </ul>
             </div>
         </div>
         <div class="main-panel">
             <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg navbar-absolute fixed-top" style="background-color:white; border:1px #E5E5E5 solid">
+            <nav class="navbar navbar-expand-lg navbar-absolute fixed-top" style="background-color:white; border:1px #E5E5E5 solid;position:fixed;margin-left:259px;z-index:1">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">Dashboard</a>
+                        <span class="navbar-brand">
+                            Logged in as: <b>@(urRole != null ? urRole : "Not Assigned")</b>
+                        </span>
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
@@ -89,7 +132,7 @@
                         <span class="navbar-toggler-icon icon-bar"></span>
                         <span class="navbar-toggler-icon icon-bar"></span>
                     </button>
-                    <div class="collapse navbar-collapse justify-content-end">
+                    <div class="collapse navbar-collapse">
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link" href="#pablo">
@@ -103,12 +146,9 @@
             </nav>
             <!-- End Navbar -->
             <div class="content">
-                <div class="container-fluid body-content">
-                    <div class="col">
-                        @RenderBody()
-                    </div>
+                <div class="container-fluid body-content" style="z-index:0 !important;padding-left:45px">
+                    @RenderBody()
                 </div>
-                <!-- your content here -->
             </div>
         </div>
     </div>

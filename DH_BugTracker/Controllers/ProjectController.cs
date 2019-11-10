@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using DH_BugTracker.Helpers;
 using DH_BugTracker.Models;
+using Microsoft.AspNet.Identity;
 
 namespace DH_BugTracker.Controllers
 {
@@ -21,13 +22,13 @@ namespace DH_BugTracker.Controllers
 
         //
         // GET: /Project/ManageUsers
-        [Authorize(Roles ="Admin, Demo_Admin, Project Manager, Demo_Project Manager")]
+        [Authorize(Roles ="Admin,Demo_Admin,Project Manager,Demo_Project Manager")]
         public ActionResult ManageUsers(int Id)
         {
-            var admId = projectHelper.ListUsersOnProjectInRole(Id, "Admin").FirstOrDefault();
-            var pmId = projectHelper.ListUsersOnProjectInRole(Id, "Project Manager").FirstOrDefault();
-            var devId = projectHelper.ListUsersOnProjectInRole(Id, "Developer");
-            var subId = projectHelper.ListUsersOnProjectInRole(Id, "Submitter");
+            var admId = projectHelper.ListUsersOnProjectInRole(Id, "Admin").Union(projectHelper.ListUsersOnProjectInRole(Id,"Demo_Admin")).FirstOrDefault();
+            var pmId = projectHelper.ListUsersOnProjectInRole(Id, "Project Manager").Union(projectHelper.ListUsersOnProjectInRole(Id, "Demo_Project Manager")).FirstOrDefault();
+            var devId = projectHelper.ListUsersOnProjectInRole(Id, "Developer").Union(projectHelper.ListUsersOnProjectInRole(Id, "Demo_Developer"));
+            var subId = projectHelper.ListUsersOnProjectInRole(Id, "Submitter").Union(projectHelper.ListUsersOnProjectInRole(Id, "Demo_Submitter"));
 
             ViewBag.ProjectId = Id;
             ViewBag.ProjectName = db.Projects.Find(Id).Name;
@@ -36,8 +37,7 @@ namespace DH_BugTracker.Controllers
             ViewBag.Developers = new MultiSelectList(roleHelper.UsersInRole("Developer").Union(roleHelper.UsersInRole("Demo_Developer")), "Id", "Email", devId);
             ViewBag.Submitters = new MultiSelectList(roleHelper.UsersInRole("Submitter").Union(roleHelper.UsersInRole("Demo_Submitter")), "Id", "Email", subId);
 
-            var firstProject = db.Projects.Min(p => p.Id);
-            return View(firstProject);
+            return View();
         }
 
         //
@@ -100,7 +100,7 @@ namespace DH_BugTracker.Controllers
         }
 
         // GET: Project/Create
-        [Authorize(Roles = "Admin, Demo_Admin, Project Manager, Demo_Project Manager")]
+        [Authorize(Roles = "Admin,Demo_Admin,Project Manager,Demo_Project Manager")]
         public ActionResult Create()
         {
             return View();
@@ -117,6 +117,11 @@ namespace DH_BugTracker.Controllers
             {
                 db.Projects.Add(project);
                 db.SaveChanges();
+                if (User.IsInRole("Project Manager") || User.IsInRole("Demo_Project Manager"))
+                {
+                    var userId = User.Identity.GetUserId();
+                    projectHelper.AddUserToProject(userId, project.Id);
+                }
                 return RedirectToAction("Index");
             }
 

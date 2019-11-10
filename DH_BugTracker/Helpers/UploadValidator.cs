@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
+using System.IO;
 using System.Web;
+using System.Web.Configuration;
 
 namespace DH_BugTracker.Helpers
 {
-    public class ImageUploadValidator
+    public class FileUploadValidator
     {
         public static bool IsWebFriendlyImage(HttpPostedFileBase file)
         {
@@ -32,7 +32,26 @@ namespace DH_BugTracker.Helpers
                 return false;
             }
         }
+        public static bool IsWebFriendlyFile(HttpPostedFileBase file)
+        {
+            if (file == null)
+                return false;
+            var maxSize = WebConfigurationManager.AppSettings["MaxFileSize"];
+            var minSize = WebConfigurationManager.AppSettings["MinFileSize"];
 
+            if (file.ContentLength > Convert.ToInt32(maxSize) || file.ContentLength < Convert.ToInt32(minSize))
+                return false;
+            try
+            {
+                var allowedExtentions = WebConfigurationManager.AppSettings["AllowedExt"];
+                var fileExt = Path.GetExtension(file.FileName);
+                return allowedExtentions.Contains(fileExt);
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
     }
 }

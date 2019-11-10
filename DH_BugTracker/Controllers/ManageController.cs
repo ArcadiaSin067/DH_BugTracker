@@ -24,15 +24,18 @@ namespace DH_BugTracker.Controllers
         
         //
         // GET
-        public ActionResult EditUser()
+        public ActionResult EditUser(ManageMessageId? message)
         {
+            ViewBag.StatusMessage =
+            message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed." : "";
             var user = UserManager.FindById(User.Identity.GetUserId());
             var userVM = new UserProfileViewModel()
             {
+                DisplayName = user.DisplayName,
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                DisplayName = user.DisplayName,
+                AvatarPath = user.AvatarPath,
                 Id = user.Id
             };
             return View(userVM);
@@ -52,11 +55,10 @@ namespace DH_BugTracker.Controllers
                 myuser.DisplayName = user.DisplayName;
                 myuser.Email = user.Email;
                 myuser.UserName = user.Email;
-                myuser.AvatarPath = "/Avatars/default_user.jpg";
 
                 if (avatar != null)
                 {
-                    if (ImageUploadValidator.IsWebFriendlyImage(avatar))
+                    if (FileUploadValidator.IsWebFriendlyImage(avatar))
                     {
                         var fileName = Path.GetFileName(avatar.FileName);
                         var justFileName = Path.GetFileNameWithoutExtension(fileName);
@@ -66,9 +68,13 @@ namespace DH_BugTracker.Controllers
                         myuser.AvatarPath = "/Avatars/" + fileName;
                     }
                 }
-                db.SaveChanges();
-                await myuser.ReauthorizeUserAsync();
+                else
+                {
+                    myuser.AvatarPath = myuser.AvatarPath;
+                }
 
+                db.SaveChanges();
+                //await myuser.ReauthorizeUserAsync();
                 return RedirectToAction("Dashboard", "Home");
             }
             else
@@ -299,7 +305,7 @@ namespace DH_BugTracker.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                return RedirectToAction("EditUser", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
             AddErrors(result);
             return View(model);
