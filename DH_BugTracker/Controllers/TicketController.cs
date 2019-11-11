@@ -84,7 +84,7 @@ namespace DH_BugTracker.Controllers
         }
 
         // GET: Ticket/Edit/5
-        [Authorize (Roles ="Project Manager, Demo_Project Manager, Developer, Demo_Developer")]
+        [Authorize (Roles ="Admin, Demo_Admin, Project Manager, Demo_Project Manager, Developer, Demo_Developer")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -96,8 +96,8 @@ namespace DH_BugTracker.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AssignedToUserId = new SelectList(db.Users, "Id", "FirstName", ticket.AssignedToUserId);
-            ViewBag.OwnerUserId = new SelectList(db.Users, "Id", "FirstName", ticket.OwnerUserId);
+            ViewBag.AssignedToUserId = new SelectList(roleHelper.UsersInRole("Developer").Union(roleHelper.UsersInRole("Demo_Developer")), "Id", "FullName", ticket.AssignedToUserId);
+            ViewBag.OwnerUserId = new SelectList(db.Users, "Id", "FullName", ticket.OwnerUserId);
             ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", ticket.ProjectId);
             ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId);
             ViewBag.TicketStatusId = new SelectList(db.TicketStatuses, "Id", "Name", ticket.TicketStatusId);
@@ -114,7 +114,6 @@ namespace DH_BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var oldTicket = db.Tickets.Find(ticket.Id);
                 var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
                 ticket.Updated = DateTime.Now;
                 db.Entry(ticket).State = EntityState.Modified;
@@ -124,8 +123,8 @@ namespace DH_BugTracker.Controllers
 
                 return RedirectToAction("Index");
             }
-            ViewBag.AssignedToUserId = new SelectList(db.Users, "Id", "FirstName", ticket.AssignedToUserId);
-            ViewBag.OwnerUserId = new SelectList(db.Users, "Id", "FirstName", ticket.OwnerUserId);
+            ViewBag.AssignedToUserId = new SelectList(roleHelper.UsersInRole("Developer").Union(roleHelper.UsersInRole("Demo_Developer")), "Id", "FullName", ticket.AssignedToUserId);
+            ViewBag.OwnerUserId = new SelectList(db.Users, "Id", "FullName", ticket.OwnerUserId);
             ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", ticket.ProjectId);
             ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId);
             ViewBag.TicketStatusId = new SelectList(db.TicketStatuses, "Id", "Name", ticket.TicketStatusId);

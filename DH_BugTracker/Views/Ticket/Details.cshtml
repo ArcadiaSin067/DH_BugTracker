@@ -148,13 +148,13 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        @Html.DisplayName("Effected User")
+                                        @Html.DisplayName("Property")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Old Value")
                                     </th>
                                     <th>
                                         @Html.DisplayName("New Value")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("Property")
                                     </th>
                                     <th>
                                         @Html.DisplayName("Date Changed")
@@ -166,13 +166,13 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => history.User.FullName)
+                                            @Html.DisplayFor(modelItem => history.Property)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => history.OldValue)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelitem => history.NewValue)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => history.Property)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => history.Changed)

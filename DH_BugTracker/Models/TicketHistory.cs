@@ -11,7 +11,7 @@ namespace DH_BugTracker.Models
         public string Property { get; set; }
         public string OldValue { get; set; }
         public string NewValue { get; set; }
-        public DateTime? Changed { get; set; }
+        public DateTime Changed { get; set; }
         public int TicketId { get; set; }
         public string UserId { get; set; }
 
