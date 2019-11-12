@@ -73,9 +73,9 @@
                                 <p><b>Manage Role Assignment</b></p>
                             </a>
                         </li>
-                        @*<li>@Html.ActionLink("Manage Role Assignment", "ManageRoles", "Admin")</li>*@
                     }
-                    @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin") || User.IsInRole("Project Manager") || User.IsInRole("Demo_Project Manager"))
+                    @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin") || User.IsInRole("Project Manager")
+                                                || User.IsInRole("Demo_Project Manager"))
                     {
                         <li class="nav-item  ">
                             <a class="nav-link" href="~/Admin/ManageProjects">
@@ -83,7 +83,6 @@
                                 <p><b>Manage Project Users</b></p>
                             </a>
                         </li>
-                        @*<li>@Html.ActionLink("Manage Project Users", "ManageProjects", "Admin")</li>*@
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -93,51 +92,95 @@
                                 <p><b>My Projects</b></p>
                             </a>
                         </li>
-                        @*<li>@Html.ActionLink("My Projects", "Index", "Project")</li>*@
                         <li class="nav-item  ">
                             <a class="nav-link" href="~/Ticket/Index">
                                 <i class="material-icons">view_list</i>
                                 <p><b>My Tickets</b></p>
                             </a>
                         </li>
-                        @*<li>@Html.ActionLink("My Tickets", "Index", "Ticket")</li>*@
                         <li class="nav-item  ">
                             <a class="nav-link" href="~/Manage/EditUser">
                                 <i class="material-icons">person</i>
                                 <p><b>User Profile</b></p>
                             </a>
                         </li>
-                        @*<li>@Html.ActionLink("Edit User Info", "EditUser", "Manage")</li>*@
                     }
                 </ul>
             </div>
         </div>
         <div class="main-panel">
             <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg navbar-absolute fixed-top" style="background-color:white; border:1px #E5E5E5 solid;position:fixed;margin-left:259px;z-index:1">
+            <nav class="navbar navbar-expand-lg navbar-absolute fixed-top" style="background-color:white; border:1px #E5E5E5 solid;position:fixed;margin-left:259px;max-width:84%;z-index:1">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
                         <span class="navbar-brand">
                             Logged in as: <b>@(urRole != null ? urRole : "Not Assigned")</b>
                         </span>
                     </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                        </ul>
-                        @Html.Partial("_LoginPartial")
-                    </div>
+
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="navbar-toggler-icon icon-bar"></span>
                         <span class="navbar-toggler-icon icon-bar"></span>
                         <span class="navbar-toggler-icon icon-bar"></span>
                     </button>
-                    <div class="collapse navbar-collapse">
+                    <div class="collapse navbar-collapse justify-content-end">
+                        <form class="navbar-form">
+                            <div class="input-group no-border">
+                                <input type="text" value="" class="form-control" placeholder="Search...">
+                                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                                    <i class="material-icons">search</i>
+                                    <div class="ripple-container"></div>
+                                </button>
+                            </div>
+                        </form>
                         <ul class="navbar-nav">
+
                             <li class="nav-item">
-                                <a class="nav-link" href="#pablo">
-                                    <i class="material-icons">notifications</i> Notifications
+                                <a class="nav-link" href="~/Home/Dashboard">
+                                    <i class="material-icons">dashboard</i>
+                                    <p class="d-lg-none d-md-block">
+                                        Stats
+                                    </p>
                                 </a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="#pablo" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Notifications
+                                    <i class="material-icons">notifications</i>
+                                    <span class="notification">5</span>
+                                    <p class="d-lg-none d-md-block">
+                                        Some Actions
+                                    </p>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="#">Mike John responded to your email</a>
+                                    <a class="dropdown-item" href="#">You have 5 new tasks</a>
+                                    <a class="dropdown-item" href="#">You're now friend with Andrew</a>
+                                    <a class="dropdown-item" href="#">Another Notification</a>
+                                    <a class="dropdown-item" href="#">Another One</a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    User Settings
+                                    <i class="material-icons">person</i>
+                                    <p class="d-lg-none d-md-block">
+                                        Account
+                                    </p>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                                    <a class="dropdown-item" href="~/Manage/EditUser">Profile</a>
+                                    <a class="dropdown-item" href="~/Manage/Index">Settings</a>
+                                    <div class="dropdown-divider"></div>
+                                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <a class="dropdown-item" href="javascript:$('#logoutForm').submit()">Log out</a>
+                                    }
+                                </div>
                             </li>
                             <!-- your navbar here -->
                         </ul>

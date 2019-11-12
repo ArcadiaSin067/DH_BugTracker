@@ -193,6 +193,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AttachmentHelper.cs" />
     <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\IdentityExtensions.cs" />
     <Compile Include="Helpers\UploadValidator.cs" />
@@ -258,11 +259,23 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="images\bg_login.jpeg" />
+    <Content Include="images\blank.png" />
+    <Content Include="images\doc.png" />
+    <Content Include="images\docx.png" />
+    <Content Include="images\html.png" />
+    <Content Include="images\pdf.png" />
+    <Content Include="images\rar.png" />
+    <Content Include="images\rtf.png" />
     <Content Include="images\sort_asc.png" />
     <Content Include="images\sort_asc_disabled.png" />
     <Content Include="images\sort_both.png" />
     <Content Include="images\sort_desc.png" />
     <Content Include="images\sort_desc_disabled.png" />
+    <Content Include="images\txt.png" />
+    <Content Include="images\xls.png" />
+    <Content Include="images\xlsx.png" />
+    <Content Include="images\xml.png" />
+    <Content Include="images\zip.png" />
     <Content Include="Scripts\animsition.js" />
     <Content Include="Scripts\animsition.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />

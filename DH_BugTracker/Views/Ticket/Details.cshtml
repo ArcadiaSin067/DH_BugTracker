@@ -1,4 +1,5 @@
-﻿@model DH_BugTracker.Models.Ticket
+﻿@using DH_BugTracker.Helpers
+@model DH_BugTracker.Models.Ticket
 
 @{
     ViewBag.Title = "Details";
@@ -247,9 +248,12 @@
                                 {
                                     <tr>
                                         <td>
-                                            @{var displayPath = attachment.FilePath.Split('/')[2].Split('_')[0]
+                                            <a href="@attachment.FilePath">
+                                                <img src="@AttachmentHelper.GetIcon(attachment.FilePath)" style="width:35px" />
+                                                @{var displayPath = attachment.FilePath.Split('/')[2].Split('_')[0]
                                                         + Path.GetExtension(attachment.FilePath);}
-                                            @displayPath
+                                                @displayPath
+                                            </a>
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => attachment.User.FullName)

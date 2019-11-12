@@ -84,7 +84,6 @@ namespace DH_BugTracker.Controllers
         }
 
         // GET: Ticket/Edit/5
-        [Authorize (Roles ="Admin, Demo_Admin, Project Manager, Demo_Project Manager, Developer, Demo_Developer")]
         public ActionResult Edit(int? id)
         {
             if (id == null)

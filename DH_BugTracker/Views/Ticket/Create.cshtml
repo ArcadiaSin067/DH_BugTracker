@@ -6,65 +6,85 @@
     ApplicationDbContext db = new ApplicationDbContext();
 }
 
-    <h2>@ViewBag.Title</h2>
+<div class="row">
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">@ViewBag.Title Ticket</h4>
+                <p class="card-category" style="padding-left:10px">
+                    Submit a bug, comment, or request.
+                </p>
+            </div>
+            <div class="card-body">
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Ticket</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.Label("Project", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @if (ViewBag.HasId == true)
+                @using (Html.BeginForm())
                 {
-                    <b>@ViewBag.ProjectName</b>
-                    @Html.Hidden("ProjectId", (int)ViewBag.ProjectId)
-                }
-                @if (ViewBag.HasId == false)
-                {
-                    @Html.DropDownList("ProjectId", null, "--Select Project--", htmlAttributes: new { @class = "form-control txtBoxs" })
-                }
-                @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.Label("Ticket Type", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("TicketTypeId", null, "--Select Ticket Type--", htmlAttributes: new { @class = "form-control txtBoxs" })
-                @Html.ValidationMessageFor(model => model.TicketTypeId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.Label("Title", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control txtBoxs" } })
-                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-horizontal">
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.Label("Project", htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @if (ViewBag.HasId == true)
+                                {
+                                    <b>@ViewBag.ProjectName</b>
+                                    @Html.Hidden("ProjectId", (int)ViewBag.ProjectId)
+                                }
+                                @if (ViewBag.HasId == false)
+                                {
+                                    @Html.DropDownList("ProjectId", null, "--Select Project--", htmlAttributes: new { @class = "form-control txtBoxs" })
+                                }
+                                @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            @Html.Label("Description", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control txtBoxs" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <button type="submit" class="btn allbtn">Create Ticket</button>
+                        <div class="form-group">
+                            @Html.Label("Ticket Type", htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.DropDownList("TicketTypeId", null, "--Select Ticket Type--", htmlAttributes: new { @class = "form-control txtBoxs" })
+                                @Html.ValidationMessageFor(model => model.TicketTypeId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Title", htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Description", htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn allbtn pull-right">Create Ticket</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div>
+                    @if (ViewBag.HasId == true)
+                    {
+                        @Html.ActionLink("Back to List", "Index", "Project")
+                    }
+                    @if (ViewBag.HasId == false)
+                    {
+                        @Html.ActionLink("Back to List", "Index")
+                    }
+                </div>
             </div>
         </div>
     </div>
-}
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

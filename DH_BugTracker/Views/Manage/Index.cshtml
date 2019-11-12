@@ -1,87 +1,120 @@
-﻿@model DH_BugTracker.Models.IndexViewModel
+﻿@using DH_BugTracker.Helpers;
+@using Microsoft.AspNet.Identity;
+@using DH_BugTracker.Models;
+@model DH_BugTracker.Models.IndexViewModel
 @{
     ViewBag.Title = "Manage";
+    ApplicationDbContext db = new ApplicationDbContext();
+    UserRolesHelper roles = new UserRolesHelper();
+    var urRole = roles.ListUserRoles(User.Identity.GetUserId()).FirstOrDefault();
+    var avatarPath = db.Users.Find(User.Identity.GetUserId()).AvatarPath;
+    var fullName = db.Users.Find(User.Identity.GetUserId()).FullName;
+    var displayName = db.Users.Find(User.Identity.GetUserId()).DisplayName;
 }
 
-<h2>@ViewBag.Title.</h2>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Manage Account Settings</h4>
+                <p class="card-category text-success" style="padding-left:10px">@ViewBag.StatusMessage</p>
+            </div>
+            <div class="card-body">
 
-<p class="text-success">@ViewBag.StatusMessage</p>
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
-        @*
-            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+                <dl class="dl-horizontal">
+                    <dt>Password:</dt>
+                    <dd>
+                        [
+                        @if (Model.HasPassword)
+                        {
+                            @Html.ActionLink("Change your password", "ChangePassword")
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Create", "SetPassword")
+                        }
+                        ]
+                    </dd>
+                    <dt>External Logins:</dt>
+                    <dd>
+                        @Model.Logins.Count [
+                        @Html.ActionLink("Manage", "ManageLogins") ]
+                    </dd>
+                    @*
+                        Phone Numbers can used as a second factor of verification in a two-factor authentication system.
 
-             See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+                         See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                            for details on setting up this ASP.NET application to support two-factor authentication using SMS.
 
-             Uncomment the following block after you have set up two-factor authentication
-        *@
-        @*
-            <dt>Phone Number:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
-                {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
-                    }
-                }
-                else
-                {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-                }
-            </dd>
-        *@
-        <dt>Two-Factor Authentication:</dt>
-        <dd>
-            <p>
-                There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>
-            @*@if (Model.TwoFactor)
-                {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Enabled
-                        <input type="submit" value="Disable" class="btn btn-link" />
-                        </text>
-                    }
-                }
-                else
-                {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Disabled
-                        <input type="submit" value="Enable" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
-        </dd>
-    </dl>
+                         Uncomment the following block after you have set up two-factor authentication
+                    *@
+                    @*
+                        <dt>Phone Number:</dt>
+                        <dd>
+                            @(Model.PhoneNumber ?? "None")
+                            @if (Model.PhoneNumber != null)
+                            {
+                                <br />
+                                <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+                                using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                                }
+                            }
+                            else
+                            {
+                                <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+                            }
+                        </dd>
+                    *@
+                    <dt>Two-Factor Authentication:</dt>
+                    <dd>
+                        <p>
+                            There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                            for details on setting up this ASP.NET application to support two-factor authentication.
+                        </p>
+                        @*@if (Model.TwoFactor)
+                            {
+                                using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <text>Enabled
+                                    <input type="submit" value="Disable" class="btn btn-link" />
+                                    </text>
+                                }
+                            }
+                            else
+                            {
+                                using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <text>Disabled
+                                    <input type="submit" value="Enable" class="btn btn-link" />
+                                    </text>
+                                }
+                            }*@
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 offset-1">
+        <div class="card card-profile">
+            <div class="card-avatar">
+                <img class="img" src="@avatarPath" />
+            </div>
+            <div class="card-body">
+                <h6 class="card-category text-gray">@urRole</h6>
+                <h4 class="card-title">@fullName</h4>
+                <p class="card-description">
+                    Welcome @displayName, to my Bug Tracker Application. Within this software Tickets can be submitted and tracked
+                    through the development process into completion.
+                </p>
+                <a href="~/Manage/EditUser" class="btn btn-primary btn-round">Edit Profile</a>
+            </div>
+        </div>
+    </div>
+
 </div>

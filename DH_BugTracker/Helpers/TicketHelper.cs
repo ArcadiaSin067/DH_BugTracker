@@ -64,7 +64,7 @@ namespace DH_BugTracker.Helpers
                     break;
                 case "Project Manager":
                 case "Demo_Project Manager":
-                    viewTickets = "for the Projects you are assigned to.";
+                    viewTickets = "for your Projects.";
                     break;
                 case "Developer":
                 case "Demo_Developer":

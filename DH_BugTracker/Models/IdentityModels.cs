@@ -16,15 +16,15 @@ namespace DH_BugTracker.Models
         private UserRolesHelper roleHelp = new UserRolesHelper();
 
         [Display(Name="First Name")]
-        [StringLength(35, MinimumLength = 3, ErrorMessage ="Must have minimum length of 3 characters and maximum length of 50.")]
+        [StringLength(35, MinimumLength = 3, ErrorMessage ="Must have minimum length of 3 characters and maximum length of 35.")]
         public string FirstName { get; set; }
 
         [Display(Name = "Last Name")]
-        [StringLength(35, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 50.")]
+        [StringLength(35, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 35.")]
         public string LastName { get; set; }
 
         [Display(Name = "Display Name")]
-        [StringLength(20, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 50.")]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 20.")]
         public string DisplayName { get; set; }
 
         public string AvatarPath { get; set; }
@@ -47,13 +47,12 @@ namespace DH_BugTracker.Models
             }
         }
 
-
         //navigation section
         public virtual ICollection<TicketAttach> TicketAttaches { get; set; }
         public virtual ICollection<TicketComment> TicketComments { get; set; }
         public virtual ICollection<TicketHistory> TicketHistories { get; set; }
-        public virtual ICollection<TicketNotify> TicketNotifies { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
+        //public virtual ICollection<TicketNotify> TicketNotifies { get; set; }
 
         //constructor
         public ApplicationUser()
@@ -61,8 +60,8 @@ namespace DH_BugTracker.Models
             TicketAttaches = new HashSet<TicketAttach>();
             TicketComments = new HashSet<TicketComment>();
             TicketHistories = new HashSet<TicketHistory>();
-            TicketNotifies = new HashSet<TicketNotify>();
             Projects = new HashSet<Project>();
+            //TicketNotifies = new HashSet<TicketNotify>();
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
