@@ -1,4 +1,5 @@
 ﻿using DH_BugTracker.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +9,14 @@ namespace DH_BugTracker.Helpers
 {
     public class NotificationHelper
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private static ApplicationDbContext db = new ApplicationDbContext();
+
         public void ManageNotifications(Ticket oldTicket, Ticket newTicket)
         {
             var ticketHasBeenAssigned = oldTicket.AssignedToUserId == null && newTicket.AssignedToUserId != null;
             var ticketHasBeenUnassigned = oldTicket.AssignedToUserId != null && newTicket.AssignedToUserId == null;
-            var ticketHasBeenReassigned = oldTicket.AssignedToUserId != null && newTicket.AssignedToUserId != null && oldTicket.AssignedToUserId != newTicket.AssignedToUserId;
+            var ticketHasBeenReassigned = oldTicket.AssignedToUserId != null && newTicket.AssignedToUserId != null
+                && oldTicket.AssignedToUserId != newTicket.AssignedToUserId;
 
             if (ticketHasBeenAssigned)
             {
@@ -31,7 +34,6 @@ namespace DH_BugTracker.Helpers
             }
         }
 
-
         private void AddAssignmentNotification(Ticket oldTicket, Ticket newTicket)
         {
             var notification = new TicketNotify
@@ -39,7 +41,9 @@ namespace DH_BugTracker.Helpers
                 TicketId = newTicket.Id,
                 UnRead = true,
                 UserId = newTicket.AssignedToUserId,
-                Body = $"You have been assigned to a Ticket, Id number {newTicket.Id}, on Project {newTicket.Project.Name}. The Ticket title is {newTicket.Title} and "
+                Body = $"You have been assigned to Ticket Id number {newTicket.Id}, on Project: " +
+                $"{newTicket.Project.Name}. The Ticket title is {newTicket.Title}, and it was created on " +
+                $"{newTicket.Created}, with a priority of {newTicket.TicketPriority.Name}."
             };
             db.TicketNotifies.Add(notification);
             db.SaveChanges();
@@ -52,11 +56,18 @@ namespace DH_BugTracker.Helpers
                 TicketId = newTicket.Id,
                 UnRead = true,
                 UserId = newTicket.AssignedToUserId,
-                Body = $"You have been unassigned to a Ticket, Id number {newTicket.Id}, on Project {newTicket.Project.Name}. The Ticket title is {newTicket.Title} and "
+                Body = $"You have been unassigned from Ticket Id number {newTicket.Id}, on Project: " +
+                $"{newTicket.Project.Name}. The Ticket title is {newTicket.Title}, and it was created on " +
+                $"{newTicket.Created}, with a priority of {newTicket.TicketPriority.Name}."
             };
             db.TicketNotifies.Add(notification);
             db.SaveChanges();
         }
 
+        public static List<TicketNotify> GetUnreadNotifications()
+        {
+            var currentUserId = HttpContext.Current.User.Identity.GetUserId();
+            return db.TicketNotifies.Include("User").Where(t => t.ReceiverId == currentUserId && t.UnRead).ToList();
+        }
     }
 }

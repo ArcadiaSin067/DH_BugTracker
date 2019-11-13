@@ -77,7 +77,6 @@ namespace DH_BugTracker.Helpers
                 await Task.FromResult(0);
             }
         }
-
         public async Task AssignDevToTicket_Email(Ticket oldTicket,Ticket newTicket, string callbackUrl)
         {
             if (oldTicket.AssignedToUserId != newTicket.AssignedToUserId && newTicket.AssignedToUserId != null)
@@ -104,7 +103,5 @@ namespace DH_BugTracker.Helpers
 
 
         }
-
-
     }
 }

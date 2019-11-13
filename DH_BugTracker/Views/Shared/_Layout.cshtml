@@ -149,23 +149,38 @@
                                 <a class="nav-link" href="#pablo" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Notifications
                                     <i class="material-icons">notifications</i>
-                                    <span class="notification">5</span>
+                                    <span class="notification">@NotificationHelper.GetUnreadNotifications().Count()</span>
                                     <p class="d-lg-none d-md-block">
                                         Some Actions
                                     </p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                                    <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                                    <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                                    <a class="dropdown-item" href="#">Another Notification</a>
-                                    <a class="dropdown-item" href="#">Another One</a>
+                                    @foreach (var unreadNotification in NotificationHelper.GetUnreadNotifications())
+                                    {
+                                        using (Html.BeginForm("Dismiss", "TicketNotify", FormMethod.Post))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            @Html.Hidden("Id",unreadNotification.Id)
+                                            <a class="dropdown-item" href="#">
+                                                <span class="image"><img src="@unreadNotification.User.AvatarPath" alt="Sender" /> </span>
+                                                <span>
+                                                    <span>@unreadNotification.User.FullName</span>
+                                                    <span class="time">Created: @unreadNotification.Created.ToString("MMM dd, yyyy")</span>
+                                                </span>
+                                                <span class="message">
+                                                    @unreadNotification.Body
+                                                </span>
+                                            </a>
+                                            <br />
+                                            <button type="submit" class="fa fa-close"></button>
+                                        }
+                                    }
                                 </div>
                             </li>
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    User Settings
+                                    User Actions
                                     <i class="material-icons">person</i>
                                     <p class="d-lg-none d-md-block">
                                         Account

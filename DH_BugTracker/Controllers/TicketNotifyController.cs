@@ -16,6 +16,14 @@ namespace DH_BugTracker.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public ActionResult Dismiss(int id)
+        {
+            var notification = db.TicketNotifies.Find(id);
+            notification.UnRead = false;
+            db.SaveChanges();
+            return RedirectToAction("Dashboard", "Home");
+        }
+
         // GET: TicketNotify
         public ActionResult Index()
         {
