@@ -78,6 +78,15 @@ namespace DH_BugTracker.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+
+        public override int SaveChanges()
+        {
+
+
+            return base.SaveChanges();
+        }
+
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

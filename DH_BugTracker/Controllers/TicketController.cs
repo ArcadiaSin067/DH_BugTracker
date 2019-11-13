@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using DH_BugTracker.Models;
 using DH_BugTracker.Helpers;
 using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
 
 namespace DH_BugTracker.Controllers
 {
@@ -31,11 +32,12 @@ namespace DH_BugTracker.Controllers
         // GET: Ticket/Details/5
         public ActionResult Details(int? id)
         {
+            var ticket = db.Tickets.Find(id);
+            ViewBag.DevId = (ticket.AssignedToUserId != null ? ticket.AssignedToUser.FullName : "Unassigned");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ticket ticket = db.Tickets.Find(id);
             if (ticket == null)
             {
                 return HttpNotFound();
@@ -96,6 +98,7 @@ namespace DH_BugTracker.Controllers
                 return HttpNotFound();
             }
             ViewBag.AssignedToUserId = new SelectList(roleHelper.UsersInRole("Developer").Union(roleHelper.UsersInRole("Demo_Developer")), "Id", "FullName", ticket.AssignedToUserId);
+            ViewBag.DevId = (ticket.AssignedToUserId != null ? ticket.AssignedToUser.FullName : "Unassigned" );
             ViewBag.OwnerUserId = new SelectList(db.Users, "Id", "FullName", ticket.OwnerUserId);
             ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", ticket.ProjectId);
             ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId);
@@ -109,20 +112,26 @@ namespace DH_BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Description,Created,ProjectId,TicketTypeId,TicketPriorityId,TicketStatusId,OwnerUserId,AssignedToUserId")] Ticket ticket)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Title,Description,Created,ProjectId,TicketTypeId,TicketPriorityId,TicketStatusId,OwnerUserId,AssignedToUserId")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
+                EmailHelper help = new EmailHelper();
+                var callbackUrl = Url.Action("Details", "Ticket", new { id = ticket.Id },
+                                    protocol: Request.Url.Scheme);
+
                 var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
                 ticket.Updated = DateTime.Now;
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
                 var newTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
                 tktHistHelp.RecordHistoryChanges(oldTicket, newTicket);
+                await help.AssignDevToTicket_Email(oldTicket, newTicket, callbackUrl);
 
                 return RedirectToAction("Index");
             }
             ViewBag.AssignedToUserId = new SelectList(roleHelper.UsersInRole("Developer").Union(roleHelper.UsersInRole("Demo_Developer")), "Id", "FullName", ticket.AssignedToUserId);
+            ViewBag.DevId = (ticket.AssignedToUserId != null ? ticket.AssignedToUser.FullName : "Unassigned");
             ViewBag.OwnerUserId = new SelectList(db.Users, "Id", "FullName", ticket.OwnerUserId);
             ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", ticket.ProjectId);
             ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId);

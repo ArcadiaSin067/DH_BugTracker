@@ -54,5 +54,10 @@ namespace DH_BugTracker.Helpers
             }
             return resultList;
         }
+
+        public bool IsDemoUser(string userId)
+        {
+            return userManager.GetRoles(userId).FirstOrDefault().Contains("Demo_");
+        }
     }
 }

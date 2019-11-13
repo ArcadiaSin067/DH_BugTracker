@@ -59,7 +59,6 @@ namespace DH_BugTracker.Controllers
 
         //
         // GET: /Admin/ManageProjects
-        [Authorize(Roles = "Admin,Project Manager,Demo_Admin,Demo_Project Manager")]
         public ActionResult ManageProjects()
         {
             ViewBag.Projects = new MultiSelectList(db.Projects, "Id", "Name");

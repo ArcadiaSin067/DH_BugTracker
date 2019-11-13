@@ -258,12 +258,15 @@
     <Content Include="Content\bootstrap-reboot.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="images\AdminIcon.jpg" />
     <Content Include="images\bg_login.jpeg" />
     <Content Include="images\blank.png" />
+    <Content Include="images\DeveloperIcon.jpg" />
     <Content Include="images\doc.png" />
     <Content Include="images\docx.png" />
     <Content Include="images\html.png" />
     <Content Include="images\pdf.png" />
+    <Content Include="images\ProjectManagerIcon.jpg" />
     <Content Include="images\rar.png" />
     <Content Include="images\rtf.png" />
     <Content Include="images\sort_asc.png" />
@@ -271,6 +274,7 @@
     <Content Include="images\sort_both.png" />
     <Content Include="images\sort_desc.png" />
     <Content Include="images\sort_desc_disabled.png" />
+    <Content Include="images\SubmitterIcon.jpg" />
     <Content Include="images\txt.png" />
     <Content Include="images\xls.png" />
     <Content Include="images\xlsx.png" />
@@ -407,6 +411,7 @@
     <Content Include="Views\Project\ManageUsers.cshtml" />
     <Content Include="Uploads\bugtracker-deliverables-week-2_637087236145985482.docx" />
     <Content Include="Uploads\hardai-pseudo-code_637087275994053730.rtf" />
+    <Content Include="Views\Account\Demo_Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

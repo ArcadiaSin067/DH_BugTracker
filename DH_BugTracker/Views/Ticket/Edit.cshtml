@@ -46,10 +46,21 @@
                         </div>
                         <div class="col-md-7">
                             @Html.Label("Assigned Developer", htmlAttributes: new { @class = "control-label col-md-12" })
-                            <div class="col-md-12">
-                                @Html.DropDownList("AssignedToUserId", null, "-- Select Developer --", htmlAttributes: new { @class = "form-control txtBoxs" })
-                                @Html.ValidationMessageFor(model => model.AssignedToUserId, "", new { @class = "text-danger" })
-                            </div>
+                            @if ((User.IsInRole("Admin") || User.IsInRole("Demo_Admin") ||
+                                  User.IsInRole("Project Manager") || User.IsInRole("Demo_Project Manager")))
+                            {
+                                <div class="col-md-12">
+                                    @Html.DropDownList("AssignedToUserId", null, "-- Select Developer --", htmlAttributes: new { @class = "form-control txtBoxs" })
+                                    @Html.ValidationMessageFor(model => model.AssignedToUserId, "", new { @class = "text-danger" })
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-12" style="padding:10px 0 0 20px">
+                                    <b style="font-size:16px">@ViewBag.DevId</b>
+                                    @Html.HiddenFor(model => model.AssignedToUserId)
+                                </div>
+                            }
                         </div>
                     </div>
                     <br />

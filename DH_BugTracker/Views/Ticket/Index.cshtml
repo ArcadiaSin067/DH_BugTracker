@@ -93,8 +93,16 @@
                                     @Html.DisplayFor(modelItem => item.Updated)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-                                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin") ||
+                                         User.IsInRole("Project Manager") || User.IsInRole("Demo_Project Manager"))
+                                    {
+                                        <u>@Html.ActionLink("Edit/Assign", "Edit", new { id = item.Id })</u>
+                                    }
+                                    else
+                                    {
+                                        <u>@Html.ActionLink("Edit", "Edit", new { id = item.Id })</u>
+                                    }
+                                    <u>@Html.ActionLink("Details", "Details", new { id = item.Id })</u>
                                 </td>
                             </tr>
                         }

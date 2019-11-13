@@ -43,13 +43,13 @@
                             @if (User.IsInRole("Admin") || User.IsInRole("Project Manager") || User.IsInRole("Demo_Admin") || User.IsInRole("Demo_Project Manager"))
                             {
                                 <td class="d-flex justify-content-end">
-                                    @Html.ActionLink("Manage Users", "ManageUsers", new { id = item.Id })
+                                    <u>@Html.ActionLink("Manage Users", "ManageUsers", new { id = item.Id })</u>
                                 </td>
                             }
                             @if (User.IsInRole("Submitter") || User.IsInRole("Demo_Submitter"))
                             {
                                 <td class="d-flex justify-content-end">
-                                    @Html.ActionLink("Create Ticket","Create","Ticket",new { id = item.Id},null)
+                                    <u>@Html.ActionLink("Create Ticket", "Create", "Ticket", new { id = item.Id }, null)</u>
                                 </td>
                             }
                         </tr>
