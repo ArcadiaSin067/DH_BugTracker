@@ -2,3 +2,46 @@
 @{
     ViewBag.Title = "Dashboard";
 }
+
+
+<div class="row">
+    <div class="col">
+        <div id="demochart1"></div>
+    </div>
+    <div class="col">
+        <div id="demochart2"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div id="demoChart3"></div>
+    </div>
+    <div class="col">
+        <div id="demoChart4"></div>
+    </div>
+</div>
+
+
+@section scripts{
+
+
+    <script>
+        $(function () {
+            var url = '@Url.Action("Chart1Data", "Graphing")';
+            $.post(url).then(function (response) {
+                new Chartist.Bar({
+                    element: 'demoChart1',
+                    data: response,
+                    xkey: 'label',
+                    ykey: ['value'],
+                    labels: ['Ticket Count'],
+                    resize: true
+                })
+            })
+
+
+        })
+    </script>
+    
+    
+}

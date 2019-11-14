@@ -1,5 +1,5 @@
 ﻿@using DH_BugTracker.Models
-@model LoginViewModel
+@model Demo_LoginVM
 @{
     ViewBag.Title = "Demo Log in";
     Layout = null;
@@ -30,19 +30,20 @@
         <div class="container-login100">
             <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
                 <span class="login100-form-title p-b-33">
-                    <i class="fa fa-bug"></i> Demo_User Login
+                    <i class="fa fa-bug"></i> @ViewBag.Title
                 </span>
-                @using (Html.BeginForm("Demo_Login", "Account", null, FormMethod.Post, new { @class = "form-horizontal login100-form", role = "form", id = "loginForm" }))
+                @using (Html.BeginForm("Demo_Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal ", role = "form", id = "loginForm" }))
                 {
                     @Html.AntiForgeryToken()
-                    @*@Html.HiddenFor(m => m.Password, "ABC&123;")*@
+                    @Html.HiddenFor(m => m.Password, (string)ViewBag.Pass)
                     <div class="row">
                         <div class="col text-md-center" style="padding:15px">
-                            @*@Html.HiddenFor(m => m.Email, "DemoAdmin@Mailinator.com")*@
-                            <a id="adminLog" href="javascript:$('#loginForm').submit()">
+                            @Html.HiddenFor(m => m.Email, (string)ViewBag.AdminEmail)
+                            <button type="submit">
                                 <img src="~/images/AdminIcon.jpg" /><br />Login
-                            </a>
+                            </button>
                         </div>
+                
                         <div class="col text-md-center" style="padding:15px">
                             @*@Html.HiddenFor(m => m.Email, "DemoPMCF@Mailinator.com")*@
                             <a id="pmLog" href="javascript:$('#loginForm').submit()">
@@ -50,6 +51,7 @@
                             </a>
                         </div>
                     </div>
+                }
                     <div class="row">
                         <div class="col text-md-center" style="padding:15px">
                             @*@Html.HiddenFor(m => m.Email, "DemoDevCF@Mailinator.com")*@
@@ -72,7 +74,7 @@
                             <u>@Html.ActionLink("Sign In", "Login")</u>
                         </a>
                     </div>
-                }
+                @*}*@
             </div>
         </div>
     </div>
@@ -92,7 +94,7 @@
     <script src="~/Scripts/countdowntime.js"></script>
     <script src="~/Scripts/main.js"></script>
     <!--===============================================================================================-->
-    <script>
+    @*<script>
         $('#adminLog').click(function () {
             @Html.HiddenFor(m => m.Email, "DemoAdmin@Mailinator.com")
             @Html.HiddenFor(m => m.Password, "ABC&123;")
@@ -109,7 +111,7 @@
             @Html.HiddenFor(m => m.Email, "DemoSubmitCF@Mailinator.com")
             @Html.HiddenFor(m => m.Password, "ABC&123;")
         });
-    </script>
+    </script>*@
 
 </body>
 </html>

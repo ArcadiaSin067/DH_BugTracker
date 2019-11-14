@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.Body)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UnRead)
+            @Html.DisplayNameFor(model => model.IsRead)
         </th>
         <th></th>
     </tr>
@@ -38,7 +38,7 @@
             @Html.DisplayFor(modelItem => item.Body)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UnRead)
+            @Html.DisplayFor(modelItem => item.IsRead)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

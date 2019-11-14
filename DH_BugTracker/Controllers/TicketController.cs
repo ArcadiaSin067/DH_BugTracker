@@ -22,6 +22,7 @@ namespace DH_BugTracker.Controllers
         private UserRolesHelper roleHelper = new UserRolesHelper();
         private TicketHistoryHelper tktHistHelp = new TicketHistoryHelper();
         private ProjectHelper projectHelp = new ProjectHelper();
+        private NotificationHelper notify = new NotificationHelper();
 
         // GET: Ticket
         public ActionResult Index()
@@ -127,7 +128,7 @@ namespace DH_BugTracker.Controllers
                 var newTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
                 tktHistHelp.RecordHistoryChanges(oldTicket, newTicket);
                 await help.AssignDevToTicket_Email(oldTicket, newTicket, callbackUrl);
-
+                notify.ManageNotifications(oldTicket, newTicket);
                 return RedirectToAction("Index");
             }
             ViewBag.AssignedToUserId = new SelectList(roleHelper.UsersInRole("Developer").Union(roleHelper.UsersInRole("Demo_Developer")), "Id", "FullName", ticket.AssignedToUserId);

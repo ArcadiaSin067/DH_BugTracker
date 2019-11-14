@@ -45,7 +45,6 @@ namespace DH_BugTracker.Controllers
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize (Roles = "Admin, Project Manager, Developer, Submitter")]
         public ActionResult EditUser(UserProfileViewModel user, HttpPostedFileBase avatar)
         {
             if (ModelState.IsValid)

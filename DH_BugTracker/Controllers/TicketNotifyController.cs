@@ -19,7 +19,7 @@ namespace DH_BugTracker.Controllers
         public ActionResult Dismiss(int id)
         {
             var notification = db.TicketNotifies.Find(id);
-            notification.UnRead = false;
+            notification.IsRead = true;
             db.SaveChanges();
             return RedirectToAction("Dashboard", "Home");
         }
@@ -59,7 +59,7 @@ namespace DH_BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Body,UnRead,TicketId,UserId")] TicketNotify ticketNotify)
+        public ActionResult Create([Bind(Include = "Id,Body,IsRead,TicketId,UserId")] TicketNotify ticketNotify)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +95,7 @@ namespace DH_BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Body,UnRead,TicketId,UserId")] TicketNotify ticketNotify)
+        public ActionResult Edit([Bind(Include = "Id,Body,IsRead,TicketId,UserId")] TicketNotify ticketNotify)
         {
             if (ModelState.IsValid)
             {

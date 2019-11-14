@@ -9,7 +9,7 @@ namespace DH_BugTracker.Models
     {
         public int Id { get; set; }
         public string Body { get; set; }
-        public bool UnRead { get; set; }
+        public bool IsRead { get; set; }
         public DateTime Created { get; set; }
 
         public int TicketId { get; set; }

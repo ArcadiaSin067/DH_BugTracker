@@ -180,6 +180,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\GraphingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MorrisBarData.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\Ticket.cs" />
     <Compile Include="Models\TicketAttach.cs" />
@@ -224,6 +226,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Avatars\aeris-rat_637089441622336569.jpg" />
+    <Content Include="Avatars\aeris-rat_637091012840795232.jpg" />
     <Content Include="Avatars\default_user.jpg" />
     <Content Include="Avatars\kasey-doggo_637089443235270476.jpeg" />
     <Content Include="Content\animate.css" />
@@ -283,6 +286,12 @@
     <Content Include="images\zip.png" />
     <Content Include="Scripts\animsition.js" />
     <Content Include="Scripts\animsition.min.js" />
+    <Content Include="Scripts\arrive.min.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\bootstrap-material-design.min.js" />
+    <Content Include="Scripts\bootstrap-notify.js" />
+    <Content Include="Scripts\bootstrap-selectpicker.js" />
+    <Content Include="Scripts\bootstrap-tagsinput.js" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.js.map" />
@@ -297,6 +306,7 @@
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\material-dashboard.css.map" />
     <Content Include="private.config" />
+    <Content Include="Scripts\chartist.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -311,13 +321,18 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\countdowntime.js" />
     <Content Include="Scripts\daterangepicker.js" />
+    <None Include="Properties\PublishProfiles\DHBugTracker - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\fullcalendar.min.js" />
+    <Content Include="Scripts\jasny-bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Scripts\jquery-jvectormap.js" />
+    <Content Include="Scripts\jquery.bootstrap-wizard.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -326,15 +341,19 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\map-custom.js" />
+    <Content Include="Scripts\material-dashboard.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\nouislider.min.js" />
+    <Content Include="Scripts\perfect-scrollbar.jquery.min.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\sweetalert2.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -438,9 +457,11 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Scripts\material-dashboard.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Graphing\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -63,7 +63,9 @@ namespace DH_BugTracker.Controllers
         public ActionResult Demo_Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+            ViewBag.AdminEmail = "DemoAdmin@Mailinator.com";
+            ViewBag.Pass = "ABC&123;";
+            return View(returnUrl);
         }
 
         //
@@ -71,7 +73,7 @@ namespace DH_BugTracker.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Demo_Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Demo_Login(Demo_LoginVM model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {

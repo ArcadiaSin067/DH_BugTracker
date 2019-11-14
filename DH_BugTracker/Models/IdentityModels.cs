@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using DH_BugTracker.Helpers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -79,11 +80,22 @@ namespace DH_BugTracker.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
 
+        // this will lock out demo roles from making changes
         public override int SaveChanges()
         {
+            UserRolesHelper role = new UserRolesHelper();
+            var userId = HttpContext.Current.User.Identity.GetUserId();
 
-
-            return base.SaveChanges();
+            
+            if (!role.IsDemoUser(userId))
+            {
+                return base.SaveChanges();
+            }
+            else
+            {
+                //ViewData["Message"] = "You are not authorized to make changes.";
+                return 0;
+            }
         }
 
 
