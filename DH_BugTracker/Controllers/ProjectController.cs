@@ -32,10 +32,10 @@ namespace DH_BugTracker.Controllers
 
             ViewBag.ProjectId = Id;
             ViewBag.ProjectName = db.Projects.Find(Id).Name;
-            ViewBag.AdminId = new SelectList(roleHelper.UsersInRole("Admin").Union(roleHelper.UsersInRole("Demo_Admin")), "Id", "Email", admId);
-            ViewBag.ProjectManagerId = new SelectList(roleHelper.UsersInRole("Project Manager").Union(roleHelper.UsersInRole("Demo_Project Manager")), "Id", "Email", pmId);
-            ViewBag.Developers = new MultiSelectList(roleHelper.UsersInRole("Developer").Union(roleHelper.UsersInRole("Demo_Developer")), "Id", "Email", devId);
-            ViewBag.Submitters = new MultiSelectList(roleHelper.UsersInRole("Submitter").Union(roleHelper.UsersInRole("Demo_Submitter")), "Id", "Email", subId);
+            ViewBag.AdminId = new SelectList(roleHelper.UsersInRole("Admin").Union(roleHelper.UsersInRole("Demo_Admin")), "Id", "FullName", admId);
+            ViewBag.ProjectManagerId = new SelectList(roleHelper.UsersInRole("Project Manager").Union(roleHelper.UsersInRole("Demo_Project Manager")), "Id", "FullName", pmId);
+            ViewBag.Developers = new MultiSelectList(roleHelper.UsersInRole("Developer").Union(roleHelper.UsersInRole("Demo_Developer")), "Id", "FullName", devId);
+            ViewBag.Submitters = new MultiSelectList(roleHelper.UsersInRole("Submitter").Union(roleHelper.UsersInRole("Demo_Submitter")), "Id", "FullName", subId);
 
             return View();
         }

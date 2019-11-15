@@ -1,0 +1,45 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login for DH_BugTracker</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--===============================================================================================-->
+    <link href="~/Content/LoginCustoms/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/LoginCustoms/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/LoginCustoms/icon-font.min.css" rel="stylesheet" />
+    <link href="~/Content/LoginCustoms/animate.css" rel="stylesheet" />
+    <link href="~/Content/LoginCustoms/hamburgers.min.css" rel="stylesheet" />
+    <link href="~/Content/LoginCustoms/animsition.min.css" rel="stylesheet" />
+    <link href="~/Content/LoginCustoms/select2.min.css" rel="stylesheet" />
+    <link href="~/Content/LoginCustoms/daterangepicker.css" rel="stylesheet" />
+    <link href="~/Content/LoginCustoms/util.css" rel="stylesheet" />
+    <link href="~/Content/LoginCustoms/main.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+</head>
+<body>
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <!--===============================================================================================-->
+    <script src="~/Scripts/LoginCustoms/jquery-3.2.1.min.js"></script>
+    <script src="~/Scripts/LoginCustoms/animsition.min.js"></script>
+    <script src="~/Scripts/LoginCustoms/popper.js"></script>
+    <script src="~/Scripts/LoginCustoms/bootstrap.min.js"></script>
+    <script src="~/Scripts/LoginCustoms/select2.min.js"></script>
+    <script src="~/Scripts/LoginCustoms/moment.min.js"></script>
+    <script src="~/Scripts/LoginCustoms/daterangepicker.js"></script>
+    <script src="~/Scripts/LoginCustoms/countdowntime.js"></script>
+    <script src="~/Scripts/LoginCustoms/main.js"></script>
+    <!--===============================================================================================-->
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Configuration;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -11,7 +12,7 @@ using Microsoft.Owin.Security;
 using DH_BugTracker.Models;
 using DH_BugTracker.Helpers;
 using Microsoft.AspNet.Identity.EntityFramework;
-
+using System.Web.Configuration;
 
 namespace DH_BugTracker.Controllers
 {
@@ -60,12 +61,13 @@ namespace DH_BugTracker.Controllers
         //
         // GET: /Account/Demo_Login
         [AllowAnonymous]
-        public ActionResult Demo_Login(string returnUrl)
+        public ActionResult Demo_Login()
         {
-            ViewBag.ReturnUrl = returnUrl;
-            ViewBag.AdminEmail = "DemoAdmin@Mailinator.com";
-            ViewBag.Pass = "ABC&123;";
-            return View(returnUrl);
+            ViewBag.DemoAdminEmail = WebConfigurationManager.AppSettings["demoAdminEmail"];
+            ViewBag.DemoPMEmail = WebConfigurationManager.AppSettings["demoPMEmail"];
+            ViewBag.DemoDevEmail = WebConfigurationManager.AppSettings["demoDevEmail"];
+            ViewBag.DemoSubEmail = WebConfigurationManager.AppSettings["demoSubEmail"];
+            return View();
         }
 
         //
@@ -73,25 +75,18 @@ namespace DH_BugTracker.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Demo_Login(Demo_LoginVM model, string returnUrl)
+        public async Task<ActionResult> Demo_Login(string demoEmail)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var demoPassword = WebConfigurationManager.AppSettings["demoPassword"];
+            var result = await SignInManager.PasswordSignInAsync(demoEmail, demoPassword, false, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return RedirectToAction("Dashboard", "Home");
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                    return View();
             }
         }
 
@@ -261,6 +256,7 @@ namespace DH_BugTracker.Controllers
             return RedirectToAction("ConfirmationSent");
         }
 
+        [AllowAnonymous]
         public ActionResult ConfimationSent()
         {
             return View();

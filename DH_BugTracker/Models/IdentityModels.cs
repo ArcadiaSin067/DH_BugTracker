@@ -85,17 +85,8 @@ namespace DH_BugTracker.Models
         {
             UserRolesHelper role = new UserRolesHelper();
             var userId = HttpContext.Current.User.Identity.GetUserId();
-
-            
-            if (!role.IsDemoUser(userId))
-            {
-                return base.SaveChanges();
-            }
-            else
-            {
-                //ViewData["Message"] = "You are not authorized to make changes.";
-                return 0;
-            }
+            if (role.IsDemoUser(userId)) { return 0; }
+            return base.SaveChanges();
         }
 
 

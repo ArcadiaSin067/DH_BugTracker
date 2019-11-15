@@ -1,117 +1,54 @@
-﻿@using DH_BugTracker.Models
-@model Demo_LoginVM
-@{
-    ViewBag.Title = "Demo Log in";
-    Layout = null;
+﻿@{
+    ViewBag.Title = "Demo_User Login";
+    Layout = "~/Views/Shared/_LoginShared.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Login for DH_BugTracker</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!--===============================================================================================-->
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
-    <link href="~/Content/icon-font.min.css" rel="stylesheet" />
-    <link href="~/Content/animate.css" rel="stylesheet" />
-    <link href="~/Content/hamburgers.min.css" rel="stylesheet" />
-    <link href="~/Content/animsition.min.css" rel="stylesheet" />
-    <link href="~/Content/select2.min.css" rel="stylesheet" />
-    <link href="~/Content/daterangepicker.css" rel="stylesheet" />
-    <link href="~/Content/util.css" rel="stylesheet" />
-    <link href="~/Content/main.css" rel="stylesheet" />
-    <!--===============================================================================================-->
-</head>
-<body>
-
-    <div class="limiter">
-        <div class="container-login100">
-            <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
-                <span class="login100-form-title p-b-33">
-                    <i class="fa fa-bug"></i> @ViewBag.Title
-                </span>
-                @using (Html.BeginForm("Demo_Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal ", role = "form", id = "loginForm" }))
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.HiddenFor(m => m.Password, (string)ViewBag.Pass)
-                    <div class="row">
-                        <div class="col text-md-center" style="padding:15px">
-                            @Html.HiddenFor(m => m.Email, (string)ViewBag.AdminEmail)
-                            <button type="submit">
-                                <img src="~/images/AdminIcon.jpg" /><br />Login
-                            </button>
-                        </div>
-                
-                        <div class="col text-md-center" style="padding:15px">
-                            @*@Html.HiddenFor(m => m.Email, "DemoPMCF@Mailinator.com")*@
-                            <a id="pmLog" href="javascript:$('#loginForm').submit()">
-                                <img src="~/images/ProjectManagerIcon.jpg" /><br />Login
-                            </a>
-                        </div>
-                    </div>
-                }
-                    <div class="row">
-                        <div class="col text-md-center" style="padding:15px">
-                            @*@Html.HiddenFor(m => m.Email, "DemoDevCF@Mailinator.com")*@
-                            <a id="devLog" href="javascript:$('#loginForm').submit()">
-                                <img src="~/images/DeveloperIcon.jpg" /><br />Login
-                            </a>
-                        </div>
-                        <div class="col text-md-center" style="padding:15px">
-                            @*@Html.HiddenFor(m => m.Email, "DemoSubmitCF@Mailinator.com")*@
-                            <a id="subLog" href="javascript:$('#loginForm').submit()">
-                                <img src="~/images/SubmitterIcon.jpg" /><br />Login
-                            </a>
-                        </div>
-                    </div>
-                    <div class="text-center p-t-45 p-b-4">
-                        <span class="txt1">
-                            Have an account?
-                        </span>
-                        <a class="txt2 hov1">
-                            <u>@Html.ActionLink("Sign In", "Login")</u>
-                        </a>
-                    </div>
-                @*}*@
-            </div>
+<span class="login100-form-title p-b-33">
+    <i class="fa fa-bug"></i> @ViewBag.Title
+</span>
+@using (Html.BeginForm("Demo_Login", "Account", FormMethod.Post, new { @class="form-horizontal", id = "frmDemo" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("DemoEmail")
+    <div class="row">
+        <div class="col text-md-center" style="padding:15px">
+            <button onclick="SubmitDemo('@ViewBag.DemoAdminEmail')">
+                <img src="~/images/AdminIcon.jpg" /><br />Login
+            </button>
+        </div>
+        <div class="col text-md-center" style="padding:15px">
+            <button onclick="SubmitDemo('@ViewBag.DemoPMEmail')">
+                <img src="~/images/ProjectManagerIcon.jpg" /><br />Login
+            </button>
         </div>
     </div>
+    <div class="row">
+        <div class="col text-md-center" style="padding:15px">
+            <button onclick="SubmitDemo('@ViewBag.DemoDevEmail')">
+                <img src="~/images/DeveloperIcon.jpg" /><br />Login
+            </button>
+        </div>
+        <div class="col text-md-center" style="padding:15px">
+            <button onclick="SubmitDemo('@ViewBag.DemoSubEmail')">
+                <img src="~/images/SubmitterIcon.jpg" /><br />Login
+            </button>
+        </div>
+    </div>
+}
+<div class="text-center p-t-45 p-b-4">
+    <span class="txt1">
+        Have an account?
+    </span>
+    <a class="txt2 hov1">
+        <u>@Html.ActionLink("Sign In", "Login")</u>
+    </a>
+</div>
 
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
-
-    <!--===============================================================================================-->
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/animsition.min.js"></script>
-    <script src="~/Scripts/popper.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/select2.min.js"></script>
-    <script src="~/Scripts/moment.min.js"></script>
-    <script src="~/Scripts/daterangepicker.js"></script>
-    <script src="~/Scripts/countdowntime.js"></script>
-    <script src="~/Scripts/main.js"></script>
-    <!--===============================================================================================-->
-    @*<script>
-        $('#adminLog').click(function () {
-            @Html.HiddenFor(m => m.Email, "DemoAdmin@Mailinator.com")
-            @Html.HiddenFor(m => m.Password, "ABC&123;")
-        });
-        $('#pmLog').click(function () {
-            @Html.HiddenFor(m => m.Email, "DemoPMCF@Mailinator.com")
-            @Html.HiddenFor(m => m.Password, "ABC&123;")
-        });
-        $('#devLog').click(function () {
-            @Html.HiddenFor(m => m.Email, "DemoDevCF@Mailinator.com")
-            @Html.HiddenFor(m => m.Password, "ABC&123;")
-        });
-        $('#subLog').click(function () {
-            @Html.HiddenFor(m => m.Email, "DemoSubmitCF@Mailinator.com")
-            @Html.HiddenFor(m => m.Password, "ABC&123;")
-        });
-    </script>*@
-
-</body>
-</html>
+@section scripts{
+    <script>
+        function SubmitDemo(e) {
+            $('#DemoEmail').val(e);
+            $('#frmDemo').submit();
+        }
+    </script>
+}

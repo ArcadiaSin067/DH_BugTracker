@@ -1,20 +1,23 @@
-﻿@model IEnumerable<DH_BugTracker.Models.Project>
+﻿@using DH_BugTracker.Helpers
+@model IEnumerable<DH_BugTracker.Models.Project>
 
 @{
     ViewBag.Title = "Index";
+    TicketHelper tktHelp = new TicketHelper();
+    var access = tktHelp.ListMyProjectAccess();
 }
 
 <p>
     @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin") || User.IsInRole("Project Manager") || User.IsInRole("Demo_Project Manager"))
     {
-        @Html.ActionLink("Create New Project", "Create",null,new { @class="btn allbtn"})
+        @Html.ActionLink("Create New Project", "Create", null, new { @class = "btn allbtn" })
     }
 </p>
 <div class="col-md-12">
     <div class="card">
         <div class="card-header card-header-primary">
             <h4 class="card-title ">Your Projects</h4>
-            <p class="card-category" style="padding-left:10px">All the Projects you have access to.</p>
+            <p class="card-category" style="padding-left:10px">All the Projects you have @access</p>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -33,26 +36,29 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Description)
-                            </td>
-                            @if (User.IsInRole("Admin") || User.IsInRole("Project Manager") || User.IsInRole("Demo_Admin") || User.IsInRole("Demo_Project Manager"))
-                            {
-                                <td class="d-flex justify-content-end">
-                                    <u>@Html.ActionLink("Manage Users", "ManageUsers", new { id = item.Id })</u>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
                                 </td>
-                            }
-                            @if (User.IsInRole("Submitter") || User.IsInRole("Demo_Submitter"))
-                            {
-                                <td class="d-flex justify-content-end">
-                                    <u>@Html.ActionLink("Create Ticket", "Create", "Ticket", new { id = item.Id }, null)</u>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
                                 </td>
-                            }
-                        </tr>
+                                <td class="d-flex justify-content-end">
+                                    <ul>
+                                        @if (User.IsInRole("Admin") || User.IsInRole("Project Manager") ||
+                                            User.IsInRole("Demo_Admin") || User.IsInRole("Demo_Project Manager"))
+                                        {
+                                            <li>@Html.ActionLink("Manage Users", "ManageUsers", new { id = item.Id })</li>
+                                        }
+                                        else if (User.IsInRole("Submitter") || User.IsInRole("Demo_Submitter"))
+                                        {
+                                            <li>@Html.ActionLink("Create Ticket", "Create", "Ticket", new { id = item.Id }, null)</li>
+                                        }
+
+                                        <li>@Html.ActionLink("Details", "Details", new { id = item.Id })</li>
+                                    </ul>
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>

@@ -5,55 +5,54 @@
 
 <h3>@ViewBag.Title for: @ViewBag.ProjectName</h3>
 <hr />
-
-@using (Html.BeginForm())
-{
 <div class="row">
-    @Html.AntiForgeryToken()
-    @Html.Hidden("ProjectId", (int)ViewBag.ProjectId)
+    <div class="col-7">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">@ViewBag.Title for: @ViewBag.ProjectName</h4>
+                <p class="card-category" style="padding-left:10px">
+                    Assign Users to this Project.
+                </p>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("ProjectId", (int)ViewBag.ProjectId)
 
-        @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin"))
-        {
-            <div class="col-md">
+                    <div class="row">
+                        @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin"))
+                        {
+                            <div class="col-5">
+                                @Html.Label("Administrators")
+                                @Html.DropDownList("AdminId", null, "--Select One--", new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+                            </div>
+                        }
+                        <div class="col-7">
+                            @Html.Label("Project Managers")
+                            @Html.DropDownList("ProjectManagerId", null, "--Select One--", new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5">
+                            @Html.Label("Developers")
+                            @Html.ListBox("Developers", null, new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+                        </div>
+                        <div class="col-7">
+                            @Html.Label("Submitters")
+                            @Html.ListBox("Submitters", null, new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <button type="submit" class="btn allbtn pull-right">Assign</button>
+                    </div>
+                }
+                <br />
                 <div class="row">
-                    <h4>Administrators</h4>
-                </div>
-                <div class="row">
-                @Html.DropDownList("AdminId", null, "--Select One--", new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+                    @Html.ActionLink("Back To List", "Index")
                 </div>
             </div>
-        }
-    <div class="col-md">
-        <div class="row">
-            <h4>Project Managers</h4>
-        </div>
-        <div class="row">
-            @Html.DropDownList("ProjectManagerId", null, "--Select One--", new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
         </div>
     </div>
-    <div class="col-md">
-        <div class="row">
-            <h4>Developers</h4>
-        </div>
-        <div class="row">
-            @Html.ListBox("Developers", null, new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
-        </div>
-        </div>
-    <div class="col-md">
-        <div class="row">
-            <h4>Submitters</h4>
-        </div>
-        <div class="row">
-            @Html.ListBox("Submitters", null, new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
-        </div>
-        </div>
-    </div>
-<hr />
-<div class="row">
-    <button type="submit" class="btn allbtn">Assign</button>
-</div>
-}
-<br />
-<div class="row">
-    @Html.ActionLink("Back To List", "Index")
 </div>

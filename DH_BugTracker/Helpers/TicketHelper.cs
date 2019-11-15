@@ -77,5 +77,34 @@ namespace DH_BugTracker.Helpers
             }
             return viewTickets;
         }
+
+        public string ListMyProjectAccess()
+        {
+            var userId = HttpContext.Current.User.Identity.GetUserId();
+            var viewTickets = "";
+            var myRole = roleHelper.ListUserRoles(userId).FirstOrDefault();
+
+            switch (myRole)
+            {
+                case "Admin":
+                case "Demo_Admin":
+                    viewTickets = "in the database.";
+                    break;
+                case "Project Manager":
+                case "Demo_Project Manager":
+                    viewTickets = "been assigned to or created.";
+                    break;
+                case "Developer":
+                case "Demo_Developer":
+                    viewTickets = "been assigned to.";
+                    break;
+                case "Submitter":
+                case "Demo_Submitter":
+                    viewTickets = "been assigned to.";
+                    break;
+            }
+            return viewTickets;
+        }
+
     }
 }

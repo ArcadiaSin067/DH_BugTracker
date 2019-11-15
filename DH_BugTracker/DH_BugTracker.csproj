@@ -246,6 +246,16 @@
     <Content Include="Content\hamburgers.min.css" />
     <Content Include="Content\icon-font.min.css" />
     <Content Include="Content\jquery.dataTables.min.css" />
+    <Content Include="Content\LoginCustoms\animate.css" />
+    <Content Include="Content\LoginCustoms\animsition.min.css" />
+    <Content Include="Content\LoginCustoms\bootstrap.min.css" />
+    <Content Include="Content\LoginCustoms\daterangepicker.css" />
+    <Content Include="Content\LoginCustoms\font-awesome.min.css" />
+    <Content Include="Content\LoginCustoms\hamburgers.min.css" />
+    <Content Include="Content\LoginCustoms\icon-font.min.css" />
+    <Content Include="Content\LoginCustoms\main.css" />
+    <Content Include="Content\LoginCustoms\select2.min.css" />
+    <Content Include="Content\LoginCustoms\util.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\material-dashboard.css" />
     <Content Include="Content\material-dashboard.min.css" />
@@ -321,6 +331,11 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\countdowntime.js" />
     <Content Include="Scripts\daterangepicker.js" />
+    <Content Include="Content\LoginCustoms\bootstrap.min.css.map" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\OpenSans\OpenSans-Regular.ttf" />
     <None Include="Properties\PublishProfiles\DHBugTracker - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\fullcalendar.min.js" />
@@ -339,6 +354,16 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\LoginCustoms\animsition.min.js" />
+    <Content Include="Scripts\LoginCustoms\bootstrap.min.js" />
+    <Content Include="Scripts\LoginCustoms\countdowntime.js" />
+    <Content Include="Scripts\LoginCustoms\daterangepicker.js" />
+    <Content Include="Scripts\LoginCustoms\jquery-3.2.1.min.js" />
+    <Content Include="Scripts\LoginCustoms\main.js" />
+    <Content Include="Scripts\LoginCustoms\map-custom.js" />
+    <Content Include="Scripts\LoginCustoms\moment.min.js" />
+    <Content Include="Scripts\LoginCustoms\popper.js" />
+    <Content Include="Scripts\LoginCustoms\select2.min.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\map-custom.js" />
     <Content Include="Scripts\material-dashboard.min.js" />
@@ -458,6 +483,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Scripts\material-dashboard.js.map" />
+    <Content Include="Views\Shared\_LoginShared.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

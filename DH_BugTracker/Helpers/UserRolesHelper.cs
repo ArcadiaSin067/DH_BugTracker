@@ -54,10 +54,11 @@ namespace DH_BugTracker.Helpers
             }
             return resultList;
         }
-
         public bool IsDemoUser(string userId)
         {
-            return userManager.GetRoles(userId).FirstOrDefault().Contains("Demo_");
+            var roles = ListUserRoles(userId).FirstOrDefault() ?? "";
+
+            return roles.Contains("Demo_");
         }
     }
 }

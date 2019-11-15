@@ -18,7 +18,7 @@ namespace DH_BugTracker.Controllers
         // GET: /Admin/ManageRoles
         public ActionResult ManageRoles()
         {
-            ViewBag.UserIds = new MultiSelectList(db.Users, "Id", "Email");
+            ViewBag.UserIds = new MultiSelectList(db.Users, "Id", "FullName");
             ViewBag.Role = new SelectList(db.Roles, "Name", "Name");
 
             var users = new List<ManageRolesViewModel>();
@@ -62,14 +62,14 @@ namespace DH_BugTracker.Controllers
         public ActionResult ManageProjects()
         {
             ViewBag.Projects = new MultiSelectList(db.Projects, "Id", "Name");
-            ViewBag.Developers = new MultiSelectList(RoleHelper.UsersInRole("Developer").Union(RoleHelper.UsersInRole("Demo_Developer")), "Id", "Email");
-            ViewBag.Submitters = new MultiSelectList(RoleHelper.UsersInRole("Submitter").Union(RoleHelper.UsersInRole("Demo_Submitter")), "Id", "Email");
+            ViewBag.Developers = new MultiSelectList(RoleHelper.UsersInRole("Developer").Union(RoleHelper.UsersInRole("Demo_Developer")), "Id", "FullName");
+            ViewBag.Submitters = new MultiSelectList(RoleHelper.UsersInRole("Submitter").Union(RoleHelper.UsersInRole("Demo_Submitter")), "Id", "FullName");
 
             if (User.IsInRole("Admin"))
             {
-                ViewBag.AdminId = new SelectList(RoleHelper.UsersInRole("Admin").Union(RoleHelper.UsersInRole("Demo_Admin")), "Id", "Email");
+                ViewBag.AdminId = new SelectList(RoleHelper.UsersInRole("Admin").Union(RoleHelper.UsersInRole("Demo_Admin")), "Id", "FullName");
                 ViewBag.ProjectManagerId = new SelectList(RoleHelper.UsersInRole("Project Manager").Union(RoleHelper.UsersInRole("Demo_Project Manager"))
-                    , "Id", "Email");
+                    , "Id", "FullName");
             }
 
             var myData = new List<ManageProjectsViewModel>();

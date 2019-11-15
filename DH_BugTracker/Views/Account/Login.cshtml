@@ -1,113 +1,57 @@
 ﻿@using DH_BugTracker.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Log in";
-    Layout = null;
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LoginShared.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Login for DH_BugTracker</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!--===============================================================================================-->
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
-    <link href="~/Content/icon-font.min.css" rel="stylesheet" />
-    <link href="~/Content/animate.css" rel="stylesheet" />
-    <link href="~/Content/hamburgers.min.css" rel="stylesheet" />
-    <link href="~/Content/animsition.min.css" rel="stylesheet" />
-    <link href="~/Content/select2.min.css" rel="stylesheet" />
-    <link href="~/Content/daterangepicker.css" rel="stylesheet" />
-    <link href="~/Content/util.css" rel="stylesheet" />
-    <link href="~/Content/main.css" rel="stylesheet" />
-    <!--===============================================================================================-->
-</head>
-<body>
-
-    <div class="limiter">
-        <div class="container-login100">
-            <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal login100-form validate-form", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <span class="login100-form-title p-b-33">
-                        <i class="fa fa-bug"></i> Bug_Tracker Login
-                    </span>
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control input100", placeholder = "Email" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                        <span class="focus-input100-1"></span>
-                        <span class="focus-input100-2"></span>
-                    </div>
-                    <div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control input100", placeholder = "Password" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                        <span class="focus-input100-1"></span>
-                        <span class="focus-input100-2"></span>
-                    </div>
-                    <div class="container-login100-form-btn m-t-20 form-group">
-                        <button type="submit" class="login100-form-btn">
-                            Sign in
-                        </button>
-                    </div>
-                    @*<div class="checkbox">
-                        @Html.CheckBoxFor(m => m.RememberMe)
-                        @Html.LabelFor(m => m.RememberMe)
-                    </div>*@
-                    <div class="text-center p-t-45 p-b-4">
-                        <span class="txt1">
-                            Forgot your
-                        </span>
-
-                        <a class="txt2 hov1">
-                            <u>@Html.ActionLink("Password?", "ForgotPassword")</u>
-                        </a>
-                    </div>
-
-                    <div class="text-center">
-                        <span class="txt1">
-                            Create an account?
-                        </span>
-
-                        <a class="txt2 hov1">
-                            <u>@Html.ActionLink("Sign Up", "Register")</u>
-                        </a>
-                    </div>
-
-                    <div class="text-center">
-                        <span class="txt1">
-                            Sign in as 
-                        </span>
-
-                        <a class="txt2 hov1">
-                            <u>@Html.ActionLink("Demo User", "Demo_Login")</u>
-                        </a>
-                    </div>
-
-                }
-            </div>
-        </div>
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal login100-form validate-form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <span class="login100-form-title p-b-33">
+        <i class="fa fa-bug"></i> Bug_Tracker @ViewBag.Title
+    </span>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+        <input class="input100" type="text" name="email" placeholder="Email">
+        <span class="focus-input100-1"></span>
+        <span class="focus-input100-2"></span>
     </div>
+    <div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
+        <input class="input100" type="password" name="password" placeholder="Password">
+        <span class="focus-input100-1"></span>
+        <span class="focus-input100-2"></span>
+    </div>
+    <div class="container-login100-form-btn m-t-20 form-group">
+        <button type="submit" class="login100-form-btn">
+            Sign in
+        </button>
+    </div>
+    <div class="text-center p-t-45 p-b-4">
+        <span class="txt1">
+            Forgot your
+        </span>
 
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+        <a class="txt2 hov1">
+            <u>@Html.ActionLink("Password?", "ForgotPassword")</u>
+        </a>
+    </div>
+    <div class="text-center">
+        <span class="txt1">
+            Create an account?
+        </span>
 
-    <!--===============================================================================================-->
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/animsition.min.js"></script>
-    <script src="~/Scripts/popper.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/select2.min.js"></script>
-    <script src="~/Scripts/moment.min.js"></script>
-    <script src="~/Scripts/daterangepicker.js"></script>
-    <script src="~/Scripts/countdowntime.js"></script>
-    <script src="~/Scripts/main.js"></script>
-    <!--===============================================================================================-->
+        <a class="txt2 hov1">
+            <u>@Html.ActionLink("Sign Up", "Register")</u>
+        </a>
+    </div>
+    <div class="text-center">
+        <span class="txt1">
+            Sign in as
+        </span>
 
-
-</body>
-</html>
+        <a class="txt2 hov1">
+            <u>@Html.ActionLink("Demo User", "Demo_Login")</u>
+        </a>
+    </div>
+}
