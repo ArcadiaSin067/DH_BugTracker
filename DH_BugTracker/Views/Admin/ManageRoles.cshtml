@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<DH_BugTracker.Models.ManageRolesViewModel>
 @{
-    ViewBag.Title = "Manage Roles";
+    ViewBag.Title = "Manage User Roles";
 }
 
 <style>
@@ -19,12 +19,12 @@
             @Html.AntiForgeryToken()
             <div class="row">
                 <div class="col">
-                    @Html.ListBox("UserIds", null, new { @class = "allWide" })
+                    @Html.ListBox("UserIds", null, new { @class = "allWide txtBoxs" })
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    @Html.DropDownList("Role", null, "--Select Role--", new { @class = "allWide" })
+                    @Html.DropDownList("Role", null, "--Select Role--", new { @class = "allWide txtBoxs" })
                 </div>
             </div>
             <div class="row">

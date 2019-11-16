@@ -1,12 +1,10 @@
-﻿
+﻿@model DH_BugTracker.Models.Project
 @{
     ViewBag.Title = "Manage Project Users";
 }
 
-<h3>@ViewBag.Title for: @ViewBag.ProjectName</h3>
-<hr />
 <div class="row">
-    <div class="col-7">
+    <div class="col-6">
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title">@ViewBag.Title for: @ViewBag.ProjectName</h4>
@@ -19,40 +17,95 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.Hidden("ProjectId", (int)ViewBag.ProjectId)
-
+                    <br />
                     <div class="row">
                         @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin"))
                         {
                             <div class="col-5">
                                 @Html.Label("Administrators")
-                                @Html.DropDownList("AdminId", null, "--Select One--", new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+                                @Html.DropDownList("AdminId", null, "--Select One--", new { @class = "form-control txtBoxs" })
                             </div>
                         }
-                        <div class="col-7">
+                        <div class="col-5 offset-1">
                             @Html.Label("Project Managers")
-                            @Html.DropDownList("ProjectManagerId", null, "--Select One--", new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+                            @Html.DropDownList("ProjectManagerId", null, "--Select One--", new { @class = "form-control txtBoxs" })
                         </div>
                     </div>
+                    <br />
                     <div class="row">
                         <div class="col-5">
                             @Html.Label("Developers")
-                            @Html.ListBox("Developers", null, new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+                            @Html.ListBox("Developers", null, new { @class = "form-control txtBoxs" })
                         </div>
-                        <div class="col-7">
+                        <div class="col-5 offset-1">
                             @Html.Label("Submitters")
-                            @Html.ListBox("Submitters", null, new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+                            @Html.ListBox("Submitters", null, new { @class = "form-control txtBoxs" })
                         </div>
                     </div>
                     <hr />
+                    <br />
                     <div class="row">
-                        <button type="submit" class="btn allbtn pull-right">Assign</button>
+                        <div class="col">
+                            <u>@Html.ActionLink("Back To List", "Index")</u>
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn allbtn pull-right">Assign</button>
+                        </div>
                     </div>
                 }
-                <br />
-                <div class="row">
-                    @Html.ActionLink("Back To List", "Index")
+            </div>
+        </div>
+    </div>
+    <div class="col-6" style="border-left:1px solid #D0D0D0">
+        <br />
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Selected Personnel</h4>
+                <p class="card-category" style="padding-left:10px">
+                    Current Users on this Project.
+                </p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table" id="DTJQ5">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("User Name")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Email")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Role")
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model.Users)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(u => user.FullName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(u => user.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(u => user.RoleName)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section scripts{
+    <script>
+        $('#DTJQ5').dataTable();
+    </script>    
+}

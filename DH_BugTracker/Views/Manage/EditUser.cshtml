@@ -27,6 +27,7 @@
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(model => model.Id)
                     @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <br />
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -45,6 +46,7 @@
                             </div>
                         </div>
                     </div>
+                    <br />
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -88,6 +90,7 @@
                             <p class="text-success">@ViewBag.StatusMessage</p>
                         </div>
                     </div>
+                    <hr />
                     <div class="row">
                         <div class="col-md-12 form-group">
                             <button type="submit" class="btn allbtn pull-right">Update Profile</button>

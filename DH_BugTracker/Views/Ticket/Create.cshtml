@@ -1,13 +1,11 @@
-﻿@using DH_BugTracker.Models
-@model DH_BugTracker.Models.Ticket
+﻿@model DH_BugTracker.Models.Ticket
 
 @{
     ViewBag.Title = "Create";
-    ApplicationDbContext db = new ApplicationDbContext();
 }
 
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title">@ViewBag.Title Ticket</h4>
@@ -16,15 +14,13 @@
                 </p>
             </div>
             <div class="card-body">
-
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
-
-                    <div class="form-horizontal">
-                        <hr />
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="form-group">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <br />
+                    <div class="row">
+                        <div class="col">
                             @Html.Label("Project", htmlAttributes: new { @class = "control-label col-md-12" })
                             <div class="col-md-12">
                                 @if (ViewBag.HasId == true)
@@ -39,52 +35,65 @@
                                 @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
-                        <div class="form-group">
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-5">
+                            @Html.Label("Ticket Priority", htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.DropDownList("TicketPriorityId", null, "--Select Ticket Priority--", htmlAttributes: new { @class = "form-control txtBoxs" })
+                                @Html.ValidationMessageFor(model => model.TicketPriorityId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-5">
                             @Html.Label("Ticket Type", htmlAttributes: new { @class = "control-label col-md-12" })
                             <div class="col-md-12">
                                 @Html.DropDownList("TicketTypeId", null, "--Select Ticket Type--", htmlAttributes: new { @class = "form-control txtBoxs" })
                                 @Html.ValidationMessageFor(model => model.TicketTypeId, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="form-group">
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
                             @Html.Label("Title", htmlAttributes: new { @class = "control-label col-md-12" })
                             <div class="col-md-12">
-                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", style = "max-width:75%" } })
                                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
-                        <div class="form-group">
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
                             @Html.Label("Description", htmlAttributes: new { @class = "control-label col-md-12" })
                             <div class="col-md-12">
-                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", style = "max-width:75%" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <br />
-                        <br />
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn allbtn pull-right">Create Ticket</button>
-                            </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            @if (ViewBag.HasId == true)
+                            {
+                                <u>@Html.ActionLink("Back to List", "Index", "Project")</u>
+                            }
+                            @if (ViewBag.HasId == false)
+                            {
+                                <u>@Html.ActionLink("Back to List", "Index")</u>
+                            }
+                            <button type="submit" class="btn allbtn pull-right">Create Ticket</button>
                         </div>
                     </div>
                 }
-                <div>
-                    @if (ViewBag.HasId == true)
-                    {
-                        @Html.ActionLink("Back to List", "Index", "Project")
-                    }
-                    @if (ViewBag.HasId == false)
-                    {
-                        @Html.ActionLink("Back to List", "Index")
-                    }
-                </div>
             </div>
         </div>
     </div>
 </div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

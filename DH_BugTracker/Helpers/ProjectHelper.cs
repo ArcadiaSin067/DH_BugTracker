@@ -68,7 +68,6 @@ namespace DH_BugTracker.Helpers
         {
             return db.Users.Where(u => u.Projects.All(p => p.Id != projectId)).ToList();
         }
-
         public List<Project> ListMyProjects()
         {
             var userId = HttpContext.Current.User.Identity.GetUserId();

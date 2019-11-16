@@ -22,9 +22,10 @@ namespace DH_BugTracker.Controllers
 
         //
         // GET: /Project/ManageUsers
-        [Authorize(Roles ="Admin,Demo_Admin,Project Manager,Demo_Project Manager")]
+        [Authorize(Roles = "Admin,Demo_Admin,Project Manager,Demo_Project Manager")]
         public ActionResult ManageUsers(int Id)
         {
+            Project project = new Project { Users = projectHelper.UsersOnProject(Id).ToList() };
             var admId = projectHelper.ListUsersOnProjectInRole(Id, "Admin").Union(projectHelper.ListUsersOnProjectInRole(Id,"Demo_Admin")).FirstOrDefault();
             var pmId = projectHelper.ListUsersOnProjectInRole(Id, "Project Manager").Union(projectHelper.ListUsersOnProjectInRole(Id, "Demo_Project Manager")).FirstOrDefault();
             var devId = projectHelper.ListUsersOnProjectInRole(Id, "Developer").Union(projectHelper.ListUsersOnProjectInRole(Id, "Demo_Developer"));
@@ -37,7 +38,7 @@ namespace DH_BugTracker.Controllers
             ViewBag.Developers = new MultiSelectList(roleHelper.UsersInRole("Developer").Union(roleHelper.UsersInRole("Demo_Developer")), "Id", "FullName", devId);
             ViewBag.Submitters = new MultiSelectList(roleHelper.UsersInRole("Submitter").Union(roleHelper.UsersInRole("Demo_Submitter")), "Id", "FullName", subId);
 
-            return View();
+            return View(project);
         }
 
         //
@@ -77,21 +78,26 @@ namespace DH_BugTracker.Controllers
             return RedirectToAction("ManageUsers", new { id = projectId });
         }
 
-
-        // GET: Project
+        // GET: Project/Index
         public ActionResult Index()
         {
             return View(projectHelper.ListMyProjects());
         }
 
-        // GET: Project/Details/5
+        // GET: Project/Details
         public ActionResult Details(int? id)
         {
+            Project project = new Project {
+                Users = projectHelper.UsersOnProject((int)id).ToList(),
+                Tickets = db.Projects.Find((int)id).Tickets.ToList(),
+                Description = db.Projects.Find((int)id).Description,
+                Name = db.Projects.Find((int)id).Name,
+                Id = (int)id
+            };
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
             if (project == null)
             {
                 return HttpNotFound();
@@ -128,7 +134,7 @@ namespace DH_BugTracker.Controllers
             return View(project);
         }
 
-        // GET: Project/Edit/5
+        // GET: Project/Edit
         [Authorize(Roles = "Admin, Demo_Admin, Project Manager, Demo_Project Manager")]
         public ActionResult Edit(int? id)
         {
@@ -144,7 +150,7 @@ namespace DH_BugTracker.Controllers
             return View(project);
         }
 
-        // POST: Project/Edit/5
+        // POST: Project/Edit
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -160,7 +166,7 @@ namespace DH_BugTracker.Controllers
             return View(project);
         }
 
-        // GET: Project/Delete/5
+        // GET: Project/Delete
         [Authorize(Roles = "Admin, Demo_Admin, Project Manager, Demo_Project Manager")]
         public ActionResult Delete(int? id)
         {
@@ -176,7 +182,7 @@ namespace DH_BugTracker.Controllers
             return View(project);
         }
 
-        // POST: Project/Delete/5
+        // POST: Project/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

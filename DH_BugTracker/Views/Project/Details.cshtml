@@ -4,31 +4,152 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Project</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-    </dl>
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="row">
+                <div class="col">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">@ViewBag.Title for Project #@Model.Id</h4>
+                        <p class="card-category" style="padding-left:10px">
+                            <u>@Html.ActionLink("Back to List", "Index")</u> | 
+                            @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin") ||
+                                 User.IsInRole("Project Manager") || User.IsInRole("Demo_Project Manager"))
+                            {
+                                <u>@Html.ActionLink("Edit", "Edit", new { id = Model.Id })</u>
+                            }
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <br />
+                        <div class="row">
+                            <div class="col" style="padding-left:45px">
+                                @Html.Label("Project Name")<br />
+                                <b style = "padding-left:10px">@Html.DisplayTextFor(model => model.Name)</b>
+                            </div>
+                            <div class="col">
+                                @Html.Label("Project Description")<br />
+                                <b style = "padding-left:10px">@Html.DisplayFor(model => model.Description)</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-5">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title">Assigned Personnel</h4>
+                            <p class="card-category" style="padding-left:10px">
+                                Current Users on this Project.
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="DTJQ10">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayName("User Name")
+                                            </th>
+                                            <th>
+                                                @Html.DisplayName("Email")
+                                            </th>
+                                            <th>
+                                                @Html.DisplayName("Role")
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var user in Model.Users)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(u => user.FullName)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(u => user.Email)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(u => user.RoleName)
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-7" style="border-left:1px solid #D0D0D0">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title">Tickets for this Project</h4>
+                            <p class="card-category" style="padding-left:10px">
+                                Condensed Ticket Details
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="DTJQ11">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayName("Title")
+                                            </th>
+                                            <th>
+                                                @Html.DisplayName("Submitter")
+                                            </th>
+                                            <th>
+                                                @Html.DisplayName("Developer")
+                                            </th>
+                                            <th>
+                                                @Html.DisplayName("Status")
+                                            </th>
+                                            <th>
+                                                @Html.DisplayName("Created")
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var ticket in Model.Tickets)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(t => ticket.Title)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(t => ticket.OwnerUser.FullName)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(t => ticket.AssignedToUser.FullName)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(t => ticket.TicketStatus.Name)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(t => ticket.Created)
+                                                </td>
+                                                <td class="d-flex justify-content-end">
+                                                    <u>@Html.ActionLink("More Details", "Details", "Ticket", new { Id = ticket.Id}, null)</u>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@section scripts{
+    <script>
+        $('#DTJQ10, #DTJQ11').dataTable();
+    </script>
+}

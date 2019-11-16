@@ -5,13 +5,20 @@
     ViewBag.Title = "Details";
 }
 
+<style>
+    .allWide {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+</style>
+
 <div class="row">
     <div class="col">
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title">@ViewBag.Title for Ticket #@Model.Id</h4>
                 <p class="card-category" style="padding-left:10px">
-                    <u> @Html.ActionLink("Back to List", "Index")</u> | 
+                    <u> @Html.ActionLink("Back to List", "Index")</u> |
                     <u> @Html.ActionLink("Edit Ticket", "Edit", new { id = Model.Id })</u>
                 </p>
             </div>
@@ -76,21 +83,21 @@
     <div class="col" style="border-left:1px solid #D0D0D0">
         @using (Html.BeginForm("Create", "TicketComment", FormMethod.Post))
         {
+            <br />
             <h4>Add a Comment?</h4>
             <div class="row no-gutters">
                 @Html.AntiForgeryToken()
                 @Html.Hidden("TicketId", Model.Id)
 
-                <div class="col-9 d-flex justify-content-center" style="padding-top:8px">
-                    @Html.Editor("Comment", new { htmlAttributes = new { @class = "form-control txtBoxs", style = "max-width:100%" } })
+                <div class="col-9 offset-1" style="padding-top:8px">
+                    @Html.Editor("Comment", new { htmlAttributes = new { @class = "form-control txtBoxs allWide" } })
                     @Html.ValidationMessage("Comment", "", new { @class = "text-danger" })
                 </div>
-                <div class="col-3 text-center">
+                <div class="col-2" style="padding-left:10px">
                     <button type="submit" class="btn allbtn">Add</button>
                 </div>
             </div>
         }
-        <hr />
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title ">Ticket Comments</h4>
@@ -98,8 +105,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-
-                    <table class="table" id="DTJQ6">
+                    <table class="table" id="DTJQ9">
                         <thead>
                             <tr>
                                 <th>
@@ -189,13 +195,14 @@
     <div class="col" style="border-left:1px solid #D0D0D0">
         @using (Html.BeginForm("Create", "TicketAttach", FormMethod.Post, new { enctype = "Multipart/form-data" }))
         {
+            <br />
             <h4>Add an Attachment?</h4>
             <div class="row no-gutters">
                 @Html.AntiForgeryToken()
                 @Html.Hidden("TicketId", Model.Id)
                 <div class="col-4" style="padding-right:15px">
                     <span class='label label-info' id="upload-file-info2" style="overflow-wrap:break-word;
-                                font-size:14px;font-weight:400;color:#aaa;font-family:Roboto,Helvetica,Arial,sans-serif;"> Select File...</span>
+                            font-size:14px;font-weight:400;color:#aaa;font-family:Roboto,Helvetica,Arial,sans-serif;"> Select File...</span>
                     <br />
                     <label class="btn btn-sm btn-dark" data_but="btn-xs" for="my-file-selector2">
                         <i class='fa fa-cloud-upload'></i> Upload File
@@ -213,12 +220,11 @@
                     @Html.Editor("AttachDesc", new { htmlAttributes = new { @class = "form-control txtBoxs", style = "max-width:100%" } })
                     @Html.ValidationMessage("Description", "", new { @class = "text-danger" })
                 </div>
-                <div class="col-2 text-center" style="margin-top:20px">
+                <div class="col-2" style="margin-top:22px;padding-left:10px">
                     <button type="submit" class="btn allbtn">Add</button>
                 </div>
             </div>
         }
-        <hr />
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title ">Ticket Attachments</h4>
@@ -251,7 +257,7 @@
                                         <a href="@attachment.FilePath">
                                             <img src="@AttachmentHelper.GetIcon(attachment.FilePath)" style="width:35px" />
                                             @{var displayPath = attachment.FilePath.Split('/')[2].Split('_')[0]
-                                                    + Path.GetExtension(attachment.FilePath);}
+                                                      + Path.GetExtension(attachment.FilePath);}
                                             @displayPath
                                         </a>
                                     </td>
@@ -276,8 +282,6 @@
 
 @section scripts{
     <script>
-        $('#DTJQ6').dataTable();
-        $('#DTJQ7').dataTable();
-        $('#DTJQ8').dataTable();
+        $('#DTJQ9, #DTJQ7, #DTJQ8').dataTable();
     </script>
 }

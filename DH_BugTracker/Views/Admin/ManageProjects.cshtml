@@ -3,12 +3,10 @@
     ViewBag.Title = "Manage Project Users";
 }
 
-
 <h2>@ViewBag.Title</h2>
 <div class="container-fluid">
     @using (Html.BeginForm())
     {
-        @*<h3>Select Projects</h3>*@
         <div class="row">
             @Html.AntiForgeryToken()
             <div class=" col-4">
@@ -19,7 +17,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        @Html.ListBox("Projects", null, new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+                        @Html.ListBox("Projects", null, new { @class = "form-control txtBoxs" })
                     </div>
                 </div>
             </div>
@@ -43,7 +41,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            @Html.DropDownList("AdminId", null, "--Select One--", new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+                            @Html.DropDownList("AdminId", null, "--Select One--", new { @class = "form-control txtBoxs" })
                         </div>
                     </div>
                     <div class="row">
@@ -53,7 +51,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            @Html.DropDownList("ProjectManagerId", null, "--Select One--", new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+                            @Html.DropDownList("ProjectManagerId", null, "--Select One--", new { @class = "form-control txtBoxs" })
                         </div>
                     </div>
                 }
@@ -65,7 +63,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        @Html.ListBox("Developers", null, new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+                        @Html.ListBox("Developers", null, new { @class = "form-control txtBoxs" })
                     </div>
                 </div>
 
@@ -76,7 +74,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        @Html.ListBox("Submitters", null, new { @class = "form-control", style = "background-color: white;border:solid 1px grey" })
+                        @Html.ListBox("Submitters", null, new { @class = "form-control txtBoxs" })
                     </div>
                 </div>
             </div>

@@ -16,11 +16,6 @@ namespace DH_BugTracker.Helpers
             return db.TicketStatuses.FirstOrDefault(ts => ts.Name == "New").Id;
         }
 
-        public int SetDefaultTicketPriority()
-        {
-            return db.TicketPriorities.FirstOrDefault(tp => tp.Name == "None").Id;
-        }
-
         public List<Ticket> ListMyTickets()
         {
             var userId = HttpContext.Current.User.Identity.GetUserId();

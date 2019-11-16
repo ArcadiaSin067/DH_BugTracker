@@ -30,7 +30,7 @@ namespace DH_BugTracker.Controllers
             return View(tktHelper.ListMyTickets());
         }
 
-        // GET: Ticket/Details/5
+        // GET: Ticket/Details
         public ActionResult Details(int? id)
         {
             var ticket = db.Tickets.Find(id);
@@ -47,6 +47,7 @@ namespace DH_BugTracker.Controllers
         }
 
         // GET: Ticket/Create
+        [Authorize(Roles ="Submitter, Demo_Submitter")]
         public ActionResult Create(int? id)
         {
             if (id != null)
@@ -60,6 +61,7 @@ namespace DH_BugTracker.Controllers
                 ViewBag.ProjectId = new SelectList(projectHelp.ListMyProjects(), "Id", "Name");
                 ViewBag.HasId = false;
             }
+            ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name");
             ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name");
             return View();
         }
@@ -67,21 +69,20 @@ namespace DH_BugTracker.Controllers
         // POST: Ticket/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Title,Description,ProjectId,TicketTypeId")] Ticket ticket)
+        public ActionResult Create([Bind(Include = "Title,Description,ProjectId,TicketPriorityId,TicketTypeId")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
                 ticket.Created = DateTime.Now;
                 ticket.OwnerUserId = User.Identity.GetUserId();
                 ticket.TicketStatusId = tktHelper.SetDefaultTicketStatus();
-                ticket.TicketPriorityId = tktHelper.SetDefaultTicketPriority();
                 
                 db.Tickets.Add(ticket);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             ViewBag.ProjectId = new SelectList(projectHelp.ListMyProjects(), "Id", "Name", ticket.ProjectId);
+            ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId);
             ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId);
             return View(ticket);
         }
