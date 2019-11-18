@@ -1,47 +1,129 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Dashboard";
 }
-
-
+<style>
+    .morris-chart text {
+        fill: white;
+    }
+</style>
 <div class="row">
-    <div class="col">
-        <div id="demochart1"></div>
+    <div class="col-5 offset-1">
+        <div class="card">
+            <div class="card-header card-chart card-header-warning">
+                <div class="ct-chart morris-chart" id="demoChart1" style="height:330px;padding-bottom:33px"></div>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Tickets by Priority</h4>
+            </div>
+        </div>
     </div>
-    <div class="col">
-        <div id="demochart2"></div>
+    <div class="col-5">
+        <div class="card">
+            <div class="card-header card-chart card-header-info">
+                <div class="ct-chart" id="demoChart2" style="height:330px"></div>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Tickets by Type</h4>
+            </div>
+        </div>
     </div>
 </div>
 <div class="row">
-    <div class="col">
-        <div id="demoChart3"></div>
+    <div class="col-5 offset-1">
+        <div class="card">
+            <div class="card-header card-chart card-header-success">
+                <div class="ct-chart morris-chart" id="demoChart3" style="height:330px;padding-bottom:33px"></div>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Tickets by Status</h4>
+            </div>
+        </div>
     </div>
-    <div class="col">
-        <div id="demoChart4"></div>
+    <div class="col-5">
+        <div class="card">
+            <div class="card-header card-chart card-header-rose">
+                <div class="ct-chart" id="demoChart4" style="height:330px"></div>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Tickets Assigned to Developers</h4>
+            </div>
+        </div>
     </div>
 </div>
-
 
 @section scripts{
-
-
-    @*<script>
+    <!-- Morris Chart -->
+    <script src="~/Scripts/raphael.min.js"></script>
+    <script src="~/Scripts/morris.min.js"></script>
+    <script>
         $(function () {
             var url = '@Url.Action("Chart1Data", "Graphing")';
             $.post(url).then(function (response) {
-                new Chartist.Bar({
+                new Morris.Bar({
                     element: 'demoChart1',
                     data: response,
                     xkey: 'label',
-                    ykey: ['value'],
+                    ykeys: ['value'],
                     labels: ['Ticket Count'],
-                    resize: true
-                })
-            })
+                    resize: true,
+                    xLabelAngle: 30,
+                    barColors: function (row, series, type) {
+                        if (type === 'bar') {
+                            var red = Math.ceil(255 * row.y / this.ymax);
+                            return 'rgb(' + red + ',0,0)';
+                        }
+                        else {
+                            return '#000';
+                        }
+                    }
+                });
+            });
+            var url = '@Url.Action("Chart3Data", "Graphing")';
+            $.post(url).then(function (response) {
+                new Morris.Donut({
+                    element: 'demoChart2',
+                    data: response,
+                    xkey: 'label',
+                    ykeys: ['value'],
+                    labels: ['Ticket Count'],
+                    resize: true,
+                    colors: ["red","blue","green","purple","orange"]
+                });
+            });
+            var url = '@Url.Action("Chart2Data", "Graphing")';
+            $.post(url).then(function (response) {
+                new Morris.Bar({
+                    element: 'demoChart3',
+                    data: response,
+                    xkey: 'label',
+                    ykeys: ['value'],
+                    labels: ['Ticket Count'],
+                    resize: true,
+                    xLabelAngle: 40,
+                    barColors: function (row, series, type) {
+                        if (type === 'bar') {
+                            var blue = Math.ceil(255 * row.y / this.ymax);
+                            return 'rgb(0,0,' + blue + ')';
+                        }
+                        else {
+                            return '#000';
+                        }
+                    }
+                });
+            });
+            var url = '@Url.Action("Chart4Data", "Graphing")';
+            $.post(url).then(function (response) {
+                new Morris.Donut({
+                    element: 'demoChart4',
+                    data: response,
+                    xkey: 'label',
+                    ykeys: ['value'],
+                    labels: ['Ticket Count'],
+                    resize: true,
+                    colors: ["orange","lightblue"]
+                });
+            });
+        });
+    </script>
 
-
-        })
-    </script>*@
-    
-    
 }

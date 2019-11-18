@@ -25,7 +25,7 @@
                             <div class="col-md-12">
                                 @if (ViewBag.HasId == true)
                                 {
-                                    <b>@ViewBag.ProjectName</b>
+                                    <b style="padding-left:5px">@ViewBag.ProjectName</b>
                                     @Html.Hidden("ProjectId", (int)ViewBag.ProjectId)
                                 }
                                 @if (ViewBag.HasId == false)
@@ -96,4 +96,17 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @if (ViewBag.HasId == false)
+    {
+        <script>
+            $(document).ready(function () {
+                $("#ProjectId").select2({ minimumResultsForSearch: Infinity });
+            });
+        </script>
+    }
+    <script>
+        $(document).ready(function () {
+            $("#TicketPriorityId, #TicketTypeId").select2({ minimumResultsForSearch: Infinity });
+        });
+    </script>
 }

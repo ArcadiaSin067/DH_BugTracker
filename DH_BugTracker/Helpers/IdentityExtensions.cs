@@ -12,6 +12,7 @@ namespace DH_BugTracker.Helpers
     public static class IdentityExtensions
     {
         private static ApplicationDbContext db = new ApplicationDbContext();
+
         public static string GetAvatarPath(this IIdentity identity)
         {
             if (identity == null)
@@ -27,7 +28,6 @@ namespace DH_BugTracker.Helpers
             //var user = db.Users.Find(identity.GetUserId());
             //return user.AvatarPath;
         }
-
         public static string GetDisplayName(this IIdentity identity)
         {
             if (identity == null)
@@ -44,6 +44,5 @@ namespace DH_BugTracker.Helpers
             //return user.DisplayName;
 
         }
-
     }
 }

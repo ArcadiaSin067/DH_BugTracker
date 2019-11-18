@@ -65,7 +65,7 @@ namespace DH_BugTracker.Controllers
             ViewBag.Developers = new MultiSelectList(RoleHelper.UsersInRole("Developer").Union(RoleHelper.UsersInRole("Demo_Developer")), "Id", "FullName");
             ViewBag.Submitters = new MultiSelectList(RoleHelper.UsersInRole("Submitter").Union(RoleHelper.UsersInRole("Demo_Submitter")), "Id", "FullName");
 
-            if (User.IsInRole("Admin"))
+            if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin"))
             {
                 ViewBag.AdminId = new SelectList(RoleHelper.UsersInRole("Admin").Union(RoleHelper.UsersInRole("Demo_Admin")), "Id", "FullName");
                 ViewBag.ProjectManagerId = new SelectList(RoleHelper.UsersInRole("Project Manager").Union(RoleHelper.UsersInRole("Demo_Project Manager"))

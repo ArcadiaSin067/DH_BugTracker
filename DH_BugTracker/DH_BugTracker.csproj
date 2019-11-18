@@ -229,9 +229,6 @@
     <Content Include="Avatars\aeris-rat_637091012840795232.jpg" />
     <Content Include="Avatars\default_user.jpg" />
     <Content Include="Avatars\kasey-doggo_637089443235270476.jpeg" />
-    <Content Include="Content\animate.css" />
-    <Content Include="Content\animsition.css" />
-    <Content Include="Content\animsition.min.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -239,12 +236,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Custom.css" />
-    <Content Include="Content\daterangepicker.css" />
-    <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\hamburgers.css" />
-    <Content Include="Content\hamburgers.min.css" />
-    <Content Include="Content\icon-font.min.css" />
     <Content Include="Content\jquery.dataTables.min.css" />
     <Content Include="Content\LoginCustoms\animate.css" />
     <Content Include="Content\LoginCustoms\animsition.min.css" />
@@ -256,12 +247,8 @@
     <Content Include="Content\LoginCustoms\main.css" />
     <Content Include="Content\LoginCustoms\select2.min.css" />
     <Content Include="Content\LoginCustoms\util.css" />
-    <Content Include="Content\main.css" />
-    <Content Include="Content\material-dashboard.css" />
     <Content Include="Content\material-dashboard.min.css" />
-    <Content Include="Content\select2.css" />
-    <Content Include="Content\select2.min.css" />
-    <Content Include="Content\util.css" />
+    <Content Include="Content\morris.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\Linearicons-Free.svg" />
     <Content Include="Global.asax" />
@@ -272,15 +259,15 @@
     <Content Include="Content\bootstrap-reboot.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="images\AdminIcon.jpg" />
+    <Content Include="Avatars\Admin-icon.png" />
     <Content Include="images\bg_login.jpeg" />
     <Content Include="images\blank.png" />
-    <Content Include="images\DeveloperIcon.jpg" />
+    <Content Include="Avatars\Developer-icon.png" />
     <Content Include="images\doc.png" />
     <Content Include="images\docx.png" />
     <Content Include="images\html.png" />
     <Content Include="images\pdf.png" />
-    <Content Include="images\ProjectManagerIcon.jpg" />
+    <Content Include="Avatars\Project-Manager-icon.png" />
     <Content Include="images\rar.png" />
     <Content Include="images\rtf.png" />
     <Content Include="images\sort_asc.png" />
@@ -288,14 +275,12 @@
     <Content Include="images\sort_both.png" />
     <Content Include="images\sort_desc.png" />
     <Content Include="images\sort_desc_disabled.png" />
-    <Content Include="images\SubmitterIcon.jpg" />
+    <Content Include="Avatars\Submitter-icon.png" />
     <Content Include="images\txt.png" />
     <Content Include="images\xls.png" />
     <Content Include="images\xlsx.png" />
     <Content Include="images\xml.png" />
     <Content Include="images\zip.png" />
-    <Content Include="Scripts\animsition.js" />
-    <Content Include="Scripts\animsition.min.js" />
     <Content Include="Scripts\arrive.min.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap-material-design.min.js" />
@@ -314,7 +299,6 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
-    <Content Include="Content\material-dashboard.css.map" />
     <Content Include="private.config" />
     <Content Include="Scripts\chartist.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
@@ -329,8 +313,6 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\countdowntime.js" />
-    <Content Include="Scripts\daterangepicker.js" />
     <Content Include="Content\LoginCustoms\bootstrap.min.css.map" />
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
@@ -350,7 +332,6 @@
     <Content Include="Scripts\jquery.bootstrap-wizard.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
@@ -364,20 +345,17 @@
     <Content Include="Scripts\LoginCustoms\moment.min.js" />
     <Content Include="Scripts\LoginCustoms\popper.js" />
     <Content Include="Scripts\LoginCustoms\select2.min.js" />
-    <Content Include="Scripts\main.js" />
-    <Content Include="Scripts\map-custom.js" />
     <Content Include="Scripts\material-dashboard.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\morris.min.js" />
     <Content Include="Scripts\nouislider.min.js" />
     <Content Include="Scripts\perfect-scrollbar.jquery.min.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
-    <Content Include="Scripts\select2.js" />
-    <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\raphael.min.js" />
     <Content Include="Scripts\sweetalert2.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
@@ -477,12 +455,10 @@
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
     <Content Include="Scripts\umd\popper-utils.js.map" />
-    <Content Include="Scripts\README.md" />
     <Content Include="Scripts\popper.min.js.map" />
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Scripts\material-dashboard.js.map" />
     <Content Include="Views\Shared\_LoginShared.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -491,9 +467,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

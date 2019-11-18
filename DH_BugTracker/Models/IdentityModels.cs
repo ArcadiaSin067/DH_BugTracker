@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 using DH_BugTracker.Helpers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -85,7 +86,11 @@ namespace DH_BugTracker.Models
         {
             UserRolesHelper role = new UserRolesHelper();
             var userId = HttpContext.Current.User.Identity.GetUserId();
-            if (role.IsDemoUser(userId)) { return 0; }
+            if (role.IsDemoUser(userId))
+            {
+
+                return 0;
+            }
             return base.SaveChanges();
         }
 

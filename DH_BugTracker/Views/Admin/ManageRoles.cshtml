@@ -5,28 +5,33 @@
 
 <style>
     .allWide {
-        width: 100%;
-        max-width: 100%;
+        width: 80%;
+        max-width: 80%;
     }
 </style>
 
 <h2>@ViewBag.Title</h2>
-
+<br />
 <div class="row">
-    <div class="col-6">
+    <div class="col-4">
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
+            <h4 style="font-weight:400">Select 1 or more Users</h4>
             <div class="row">
                 <div class="col">
                     @Html.ListBox("UserIds", null, new { @class = "allWide txtBoxs" })
                 </div>
             </div>
+            <hr />
+            <br />
+            <h4 style="font-weight:400">Select the Role to assign</h4>
             <div class="row">
                 <div class="col">
-                    @Html.DropDownList("Role", null, "--Select Role--", new { @class = "allWide txtBoxs" })
+                    @Html.DropDownList("Role", null, " --Select Role/None-- ", new { @class = "allWide"})
                 </div>
             </div>
+            <br />
             <div class="row">
                 <div class="col">
                     <button type="submit" class="btn allbtn allWide">Submit</button>
@@ -34,56 +39,58 @@
             </div>
         }
     </div>
-    <div class="col-6">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header card-header-primary">
-                    <h4 class="card-title ">Your Personnel</h4>
-                    <p class="card-category" style="padding-left:10px">All the users in your database.</p>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table" id="DTJQ3">
-                            <thead>
+    <div class="col-7">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title ">Your Personnel</h4>
+                <p class="card-category" style="padding-left:10px">All the users in your database.</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table" id="DTJQ3">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("User Name")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Email")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Role")
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model)
+                            {
                                 <tr>
-                                    <th>
-                                        @Html.DisplayName("Email")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("User Name")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("Role")
-                                    </th>
+                                    <td>
+                                        @Html.DisplayFor(model => user.UserName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => user.Email)
+                                    </td>
+                                    <td>
+                                        @{ var roleDisplay = (user.RoleName != null ? user.RoleName : "N/A"); }
+                                        @roleDisplay
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var user in Model)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(model => user.Email)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(model => user.UserName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(model => user.RoleName)
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
 
 @section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#Role").select2({ minimumResultsForSearch: Infinity });
+        });
+    </script>
     <script>
         $('#DTJQ3').DataTable();
     </script>

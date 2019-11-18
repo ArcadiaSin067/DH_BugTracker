@@ -4,7 +4,8 @@
     Layout = "~/Views/Shared/_LoginShared.cshtml";
 }
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal login100-form validate-form", role = "form" }))
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal login100-form validate-form",
+        role = "form",  autocomplete="off" }))
 {
     @Html.AntiForgeryToken()
     <span class="login100-form-title p-b-33">

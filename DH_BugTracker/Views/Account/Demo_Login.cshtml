@@ -11,26 +11,27 @@
     @Html.AntiForgeryToken()
     @Html.Hidden("DemoEmail")
     <div class="row">
-        <div class="col text-md-center" style="padding:15px">
+        <div class="col text-md-center">
             <button onclick="SubmitDemo('@ViewBag.DemoAdminEmail')">
-                <img src="~/images/AdminIcon.jpg" /><br />Login
+                <img src="~/Avatars/Admin-icon.png" style="height:100px" /><br />Admin
             </button>
         </div>
-        <div class="col text-md-center" style="padding:15px">
+        <div class="col text-md-center">
             <button onclick="SubmitDemo('@ViewBag.DemoPMEmail')">
-                <img src="~/images/ProjectManagerIcon.jpg" /><br />Login
+                <img src="~/Avatars/Project-Manager-icon.png" style="height:100px" /><br />Project Manager
             </button>
         </div>
     </div>
+    <br />
     <div class="row">
-        <div class="col text-md-center" style="padding:15px">
+        <div class="col text-md-center">
             <button onclick="SubmitDemo('@ViewBag.DemoDevEmail')">
-                <img src="~/images/DeveloperIcon.jpg" /><br />Login
+                <img src="~/Avatars/Developer-icon.png" style="height:100px" /><br />Developer
             </button>
         </div>
-        <div class="col text-md-center" style="padding:15px">
+        <div class="col text-md-center">
             <button onclick="SubmitDemo('@ViewBag.DemoSubEmail')">
-                <img src="~/images/SubmitterIcon.jpg" /><br />Login
+                <img src="~/Avatars/Submitter-icon.png" style="height:100px" /><br />Submitter
             </button>
         </div>
     </div>

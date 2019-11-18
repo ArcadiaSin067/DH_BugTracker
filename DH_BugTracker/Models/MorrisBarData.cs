@@ -7,8 +7,7 @@ namespace DH_BugTracker.Models
 {
     public class MorrisBarData
     {
-        public string Label { get; set; }
-        public int Value { get; set; }
-
+        public string label { get; set; }
+        public int value { get; set; }
     }
 }
