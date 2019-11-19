@@ -163,8 +163,9 @@
                                         {
                                             @Html.AntiForgeryToken()
                                             @Html.Hidden("Id", unreadNotification.Id)
-                                            <a class="dropdown-item">
-                                                <span class="image"><img src="@unreadNotification.User.AvatarPath" style="width:25px;height:25px;margin-right:10px" /></span>
+                                            <a class="dropdown-item" style="max-height:45px;padding:0 5px 0 15px">
+                                                <input type="submit" value="Dismiss" class="fa fa-times allbtn" style="margin-right:15px" />
+                                                <span class="image"><img src="@unreadNotification.User.AvatarPath" style="width:25px;height:25px;margin-right:5px" /></span>
                                                 <span>
                                                     <span>From @unreadNotification.User.FullName</span><br />
                                                     <span class="time">Created: @unreadNotification.Created.ToString("MMM dd, yyyy")</span><br />
@@ -174,7 +175,6 @@
 
 @unreadNotification.Body
                                                 </pre>
-                                                <input type="submit" value="Dismiss" class="fa fa-times pull-right" />
                                             </a>
                                         }
                                     }
