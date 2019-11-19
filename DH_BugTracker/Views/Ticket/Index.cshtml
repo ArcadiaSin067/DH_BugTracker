@@ -10,7 +10,7 @@
 @if (User.IsInRole("Submitter") || User.IsInRole("Demo_Submitter"))
 {
     <p>
-        @Html.ActionLink("Create New Ticket", "Create",null,new { @class="btn allbtn"})
+        @Html.ActionLink("Create New Ticket", "Create", null, new { @class = "btn allbtn" })
     </p>
 }
 <div class="col-md-12">
@@ -31,9 +31,14 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Project.Name)
                             </th>
-                            <th>
-                                @Html.DisplayName("Developer Assigned")
-                            </th>
+                            @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin") ||
+                                 User.IsInRole("Project Manager") || User.IsInRole("Demo_Project Manager") ||
+                                 User.IsInRole("Submitter") || User.IsInRole("Demo_Submitter"))
+                            {
+                                <th>
+                                    @Html.DisplayName("Developer Assigned")
+                                </th>
+                            }
                             <th>
                                 @Html.DisplayNameFor(model => model.TicketPriority.Name)
                             </th>
@@ -46,51 +51,68 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Created)
                             </th>
+                            @if (User.IsInRole("Developer") || User.IsInRole("Demo_Developer"))
+                            {
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Updated)
+                                </th>
+                            }
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model.OrderByDescending(t => t.Created))
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Title)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Project.Name)
-                                </td>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Project.Name)
+                            </td>
+                            @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin") ||
+                                 User.IsInRole("Project Manager") || User.IsInRole("Demo_Project Manager") ||
+                                 User.IsInRole("Submitter") || User.IsInRole("Demo_Submitter"))
+                            {
                                 <td>
                                     @Html.DisplayFor(modelItem => item.AssignedToUser.FullName)
                                 </td>
+                            }
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TicketPriority.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TicketStatus.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TicketType.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelitem => item.Created)
+                            </td>
+                            @if (User.IsInRole("Developer") || User.IsInRole("Demo_Developer"))
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelitem => item.Updated)
+                                </td>
+                            }
+                            <td class="d-flex justify-content-end">
+                                <ul>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin") ||
+                                         User.IsInRole("Project Manager") || User.IsInRole("Demo_Project Manager"))
+                                    {
+                                        <li>@Html.ActionLink("Edit/Assign", "Edit", new { id = item.Id })</li>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.TicketPriority.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.TicketStatus.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.TicketType.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelitem => item.Created)
-                                </td>
-                                <td class="d-flex justify-content-end">
-                                    <ul>
-                                        @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin") ||
-                                                User.IsInRole("Project Manager") || User.IsInRole("Demo_Project Manager"))
-                                        {
-                                            <li>@Html.ActionLink("Edit/Assign", "Edit", new { id = item.Id })</li>
-                                            
-                                        }
-                                        else if (User.IsInRole("Submitter") || User.IsInRole("Demo_Submitter"))
-                                        {
-                                            <li>@Html.ActionLink("Edit", "Edit", new { id = item.Id })</li>
-                                        }
-                                        <li>@Html.ActionLink("Details", "Details", new { id = item.Id })</li>
-                                    </ul>
-                                </td>
-                            </tr>
+                                    }
+                                    else if (User.IsInRole("Submitter") || User.IsInRole("Demo_Submitter") ||
+                                             User.IsInRole("Developer") || User.IsInRole("Demo_Developer"))
+                                    {
+                                        <li>@Html.ActionLink("Edit", "Edit", new { id = item.Id })</li>
+                                    }
+                                    <li>@Html.ActionLink("Details", "Details", new { id = item.Id })</li>
+                                </ul>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -102,5 +124,15 @@
 @section scripts{
     <script>
         $('#DTJQ4').DataTable();
+    </script>
+    <script>
+        var message = '@TempData["Message"]';
+        if (message != '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops!',
+                text: message
+            })
+        };
     </script>
 }

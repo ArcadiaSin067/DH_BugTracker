@@ -99,6 +99,25 @@ namespace DH_BugTracker.Controllers
             {
                 return HttpNotFound();
             }
+            var userId = User.Identity.GetUserId();
+            if (roleHelper.ListUserRoles(userId).FirstOrDefault().Contains("Developer"))
+            {
+                if (db.Tickets.Find(id).AssignedToUserId != userId)
+                {
+                    //used for sweetalert2 for no messing with others tickets
+                    TempData["Message"] = "Sorry you cannot edit tickets you are not assigned to.";
+                    return RedirectToAction("Index");
+                }
+            }
+            if (roleHelper.ListUserRoles(userId).FirstOrDefault().Contains("Submitter"))
+            {
+                if (db.Tickets.Find(id).OwnerUserId != userId)
+                {
+                    //used for sweetalert2 for no messing with others tickets
+                    TempData["Message"] = "Sorry you cannot edit tickets you did not create.";
+                    return RedirectToAction("Index");
+                }
+            }
             ViewBag.AssignedToUserId = new SelectList(roleHelper.UsersInRole("Developer").Union(roleHelper.UsersInRole("Demo_Developer")), "Id", "FullName", ticket.AssignedToUserId);
             ViewBag.DevId = (ticket.AssignedToUserId != null ? ticket.AssignedToUser.FullName : "Unassigned" );
             ViewBag.OwnerUserId = new SelectList(db.Users, "Id", "FullName", ticket.OwnerUserId);
