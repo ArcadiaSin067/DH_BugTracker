@@ -82,13 +82,14 @@ namespace DH_BugTracker.Models
     {
 
         // this will lock out demo roles from making changes
+        // comment out when updating database for now til addressed
         public override int SaveChanges()
         {
-            UserRolesHelper role = new UserRolesHelper();
             var userId = HttpContext.Current.User.Identity.GetUserId();
+            UserRolesHelper role = new UserRolesHelper();
             if (role.IsDemoUser(userId))
             {
-
+                // fire sweetalert2 with tempdata
                 return 0;
             }
             return base.SaveChanges();

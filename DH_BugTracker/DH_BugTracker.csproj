@@ -362,6 +362,8 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Uploads\favicon_637087277192752932.ico" />
+    <Content Include="Uploads\kasey-doggo_637090256039146896.jpeg" />
+    <Content Include="Uploads\kasey-doggo_637094531740980303.jpeg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -460,6 +462,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shared\_LoginShared.cshtml" />
+    <Content Include="Uploads\srs-mvc-bugtracker_637089529980706503.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
