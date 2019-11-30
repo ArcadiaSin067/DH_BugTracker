@@ -1,5 +1,6 @@
 ﻿using DH_BugTracker.Helpers;
 using DH_BugTracker.Models;
+using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -39,22 +40,29 @@ namespace DH_BugTracker.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ManageRoles(List<string> userIds, string role)
         {
-            foreach (var userId in userIds)
+            if (User.IsInRole("Demo_Admin"))
             {
-                var userRole = RoleHelper.ListUserRoles(userId).FirstOrDefault();
-                if(userRole != null)
-                {
-                    RoleHelper.RemoveUserFromRole(userId, userRole);
-                }
+                return RedirectToAction("ManageRoles", "Admin");
             }
-            if (!string.IsNullOrEmpty(role))
+            else
             {
                 foreach (var userId in userIds)
                 {
-                    RoleHelper.AddUserToRole(userId, role);
+                    var userRole = RoleHelper.ListUserRoles(userId).FirstOrDefault();
+                    if(userRole != null)
+                    {
+                        RoleHelper.RemoveUserFromRole(userId, userRole);
+                    }
                 }
+                if (!string.IsNullOrEmpty(role))
+                {
+                    foreach (var userId in userIds)
+                    {
+                        RoleHelper.AddUserToRole(userId, role);
+                    }
+                }
+                return RedirectToAction("ManageRoles", "Admin");
             }
-            return RedirectToAction("ManageRoles", "Admin");
         }
 
         //

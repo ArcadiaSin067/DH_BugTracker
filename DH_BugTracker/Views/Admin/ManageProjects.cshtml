@@ -3,7 +3,6 @@
     ViewBag.Title = "Manage Project Users";
 }
 
-<h2>@ViewBag.Title</h2>
 <div class="container-fluid">
     @using (Html.BeginForm())
     {
@@ -12,20 +11,12 @@
             <div class="col">
                 <div class="row">
                     <div class="col">
-                        @Html.Label("Select 1 or more Projects", new { style = "font-size:20px" })
+                        @Html.Label("1) Select 1 or more Projects", new { style = "font-size:20px" })
                         @Html.ListBox("Projects", null, new { @class = "form-control txtBoxs" })
                     </div>
-                    <div class="col">
-                        <br />
-                        <br />
-                        <button type="submit" class="btn allbtn btn-lg">Assign</button>
-                    </div>
                 </div>
-                <br />
                 <hr />
-                <br />
-                @Html.Label("Select Users, then click Assign", new { style = "font-size:20px" })
-                <br />
+                @Html.Label("2) Select Users for the Project/s, no selection will remove Users from the selected Project/s", new { style = "font-size:20px" })
                 <div class="row">
                     <div class="col">
                         @if (User.IsInRole("Admin") || User.IsInRole("Demo_Admin"))
@@ -76,6 +67,14 @@
                                 @Html.ListBox("Submitters", null, new { @class = "form-control txtBoxs" })
                             </div>
                         </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col">
+                        @Html.Label("3) Assign those Users to the selected Project/s", new { style = "font-size:20px" })
+                        <br />
+                        <button type="submit" class="btn allbtn btn-lg">Assign</button>
                     </div>
                 </div>
             </div>

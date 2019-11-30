@@ -260,7 +260,17 @@
     <!-- Select2 -->
     <script src="~/Scripts/LoginCustoms/select2.min.js"></script>
 
+    @RenderSection("scripts", required: false)
     <script>
+        var message = '@TempData["Message"]';
+        if (message != '') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: message
+            })
+        };
+
         $(document).ready(function () {
             $().ready(function () {
                 $sidebar = $('.sidebar');
@@ -438,6 +448,5 @@
         });
     </script>
 
-    @RenderSection("scripts", required: false)
 </body>
 </html>

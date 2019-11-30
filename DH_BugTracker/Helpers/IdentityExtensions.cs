@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Web;
+using System.Web.Mvc;
 
 namespace DH_BugTracker.Helpers
 {
@@ -44,5 +45,6 @@ namespace DH_BugTracker.Helpers
             //return user.DisplayName;
 
         }
+
     }
 }
