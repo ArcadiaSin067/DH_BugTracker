@@ -90,6 +90,7 @@ namespace DH_BugTracker.Models
             UserRolesHelper role = new UserRolesHelper();
             if (role.IsDemoUser(userId))
             {
+                HttpContext.Current.Session.Add("Message", "For security purposes demo roles cannot save changes to the database.");
                 // fire sweetalert2 with tempdata
                 return 0;
             }

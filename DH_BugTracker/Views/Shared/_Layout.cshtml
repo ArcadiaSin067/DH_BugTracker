@@ -261,14 +261,16 @@
     <script src="~/Scripts/LoginCustoms/select2.min.js"></script>
 
     @RenderSection("scripts", required: false)
+
     <script>
-        var message = '@TempData["Message"]';
+        var message = '@Session["Message"]';
         if (message != '') {
             Swal.fire({
                 icon: 'warning',
                 title: 'Sorry!',
                 text: message
             })
+            @{HttpContext.Current.Session.Remove("Message");}
         };
 
         $(document).ready(function () {
