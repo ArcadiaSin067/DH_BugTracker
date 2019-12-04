@@ -42,6 +42,7 @@ namespace DH_BugTracker.Controllers
         {
             if (User.IsInRole("Demo_Admin"))
             {
+                Session.Add("Message", "For security purposes demo roles cannot save changes to the database.");
                 return RedirectToAction("ManageRoles", "Admin");
             }
             else
