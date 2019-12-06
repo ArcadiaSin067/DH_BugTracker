@@ -31,7 +31,7 @@
                         <div class="col-md-7">
                             @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-12" })
                             <div class="col-md-12">
-                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", style = "Max-width:90%" } })
+                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", style = "width:300px !Important; max-width:300px !Important"  })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
                         </div>

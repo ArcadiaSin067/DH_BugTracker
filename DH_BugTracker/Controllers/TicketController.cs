@@ -118,7 +118,15 @@ namespace DH_BugTracker.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            ViewBag.AssignedToUserId = new SelectList(roleHelper.UsersInRole("Developer").Union(roleHelper.UsersInRole("Demo_Developer")), "Id", "FullName", ticket.AssignedToUserId);
+            var projectId = db.Tickets.Find((int)id).ProjectId;
+            var projectUsers = projectHelp.ListUsersOnProjectInRole(projectId, "Developer")
+                                            .Union(projectHelp.ListUsersOnProjectInRole(projectId, "Demo_Developer"));
+            var DevOnProjectList = new List<ApplicationUser>();
+            foreach (var dudeId in projectUsers)
+            {
+                DevOnProjectList.Add(db.Users.Find(dudeId));
+            }
+            ViewBag.AssignedToUserId = new SelectList(DevOnProjectList, "Id", "FullName", ticket.AssignedToUserId);
             ViewBag.DevId = (ticket.AssignedToUserId != null ? ticket.AssignedToUser.FullName : "Unassigned" );
             ViewBag.OwnerUserId = new SelectList(db.Users, "Id", "FullName", ticket.OwnerUserId);
             ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", ticket.ProjectId);
