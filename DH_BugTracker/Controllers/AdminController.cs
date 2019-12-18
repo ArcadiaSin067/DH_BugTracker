@@ -40,6 +40,10 @@ namespace DH_BugTracker.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ManageRoles(List<string> userIds, string role)
         {
+            if (userIds == null)
+            {
+                return RedirectToAction("ManageRoles");
+            }
             if (User.IsInRole("Demo_Admin"))
             {
                 Session.Add("Message", "For security purposes demo roles cannot save changes to the database.");

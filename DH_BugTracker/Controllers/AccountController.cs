@@ -63,6 +63,10 @@ namespace DH_BugTracker.Controllers
         [AllowAnonymous]
         public ActionResult Demo_Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("DemoLogOff", "Account");
+            }
             ViewBag.DemoAdminEmail = WebConfigurationManager.AppSettings["demoAdminEmail"];
             ViewBag.DemoPMEmail = WebConfigurationManager.AppSettings["demoPMEmail"];
             ViewBag.DemoDevEmail = WebConfigurationManager.AppSettings["demoDevEmail"];
@@ -95,6 +99,10 @@ namespace DH_BugTracker.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("CustomLogOff", "Account");
+            }
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -110,7 +118,6 @@ namespace DH_BugTracker.Controllers
             {
                 return View(model);
             }
-
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -473,6 +480,24 @@ namespace DH_BugTracker.Controllers
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Login", "Account");
+        }
+
+        //
+        // GET: /Account/CustomLogOff
+        [AllowAnonymous]
+        public ActionResult CustomLogOff()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Login", "Account");
+        }
+
+        //
+        // GET: /Account/DemoLogOff
+        [AllowAnonymous]
+        public ActionResult DemoLogOff()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Demo_Login", "Account");
         }
 
         //
