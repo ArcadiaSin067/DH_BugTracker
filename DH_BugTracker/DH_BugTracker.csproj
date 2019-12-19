@@ -192,13 +192,13 @@
     <Compile Include="Controllers\TicketPriorityController.cs" />
     <Compile Include="Controllers\TicketStatusController.cs" />
     <Compile Include="Controllers\TicketTypesController.cs" />
-    <Compile Include="Extensions\UserExtension.cs" />
+    <Compile Include="Extensions\IdentityExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AttachmentHelper.cs" />
     <Compile Include="Helpers\EmailHelper.cs" />
-    <Compile Include="Helpers\IdentityExtensions.cs" />
+    <Compile Include="Helpers\ErrorReader.cs" />
     <Compile Include="Helpers\UploadValidator.cs" />
     <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Helpers\ProjectHelper.cs" />

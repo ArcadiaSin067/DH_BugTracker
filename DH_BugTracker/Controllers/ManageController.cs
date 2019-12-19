@@ -45,7 +45,7 @@ namespace DH_BugTracker.Controllers
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditUser(UserProfileViewModel user, HttpPostedFileBase avatar)
+        public async Task<ActionResult> EditUser(UserProfileViewModel user, HttpPostedFileBase avatar)
         {
             if (ModelState.IsValid)
             {
@@ -70,14 +70,16 @@ namespace DH_BugTracker.Controllers
                 }
                 else
                 {
-                    myuser.AvatarPath = myuser.AvatarPath;
+                    myuser.AvatarPath = user.AvatarPath;
                 }
 
                 db.SaveChanges();
+                await HttpContext.RefreshAuthentication(myuser);
                 return RedirectToAction("Dashboard", "Home");
             }
             else
             {
+                TempData["Errors"] = ErrorReader.ErrorCompiler(ModelState);
                 return RedirectToAction("EditUser");
             }
         }

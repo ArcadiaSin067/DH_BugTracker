@@ -1,8 +1,10 @@
-﻿using DH_BugTracker.Helpers;
+﻿using DH_BugTracker.Extensions;
+using DH_BugTracker.Helpers;
 using DH_BugTracker.Models;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace DH_BugTracker.Controllers
@@ -38,11 +40,12 @@ namespace DH_BugTracker.Controllers
         // POST: /Admin/ManageRoles
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ManageRoles(List<string> userIds, string role)
+        public async Task<ActionResult> ManageRoles(List<string> userIds, string role)
         {
             if (userIds == null)
             {
-                return RedirectToAction("ManageRoles");
+                Session.Add("Message", "Please select one or more users to apply roles to.");
+                return RedirectToAction("ManageRoles", "Admin");
             }
             if (User.IsInRole("Demo_Admin"))
             {
@@ -66,6 +69,8 @@ namespace DH_BugTracker.Controllers
                         RoleHelper.AddUserToRole(userId, role);
                     }
                 }
+                var user = db.Users.Find(User.Identity.GetUserId());
+                await HttpContext.RefreshAuthentication(user);
                 return RedirectToAction("ManageRoles", "Admin");
             }
         }

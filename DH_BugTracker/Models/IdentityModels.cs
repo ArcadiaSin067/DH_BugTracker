@@ -6,8 +6,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Mvc;
-using DH_BugTracker.Controllers;
 using DH_BugTracker.Helpers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -74,6 +72,8 @@ namespace DH_BugTracker.Models
             // Add custom user claims here
             userIdentity.AddClaim(new Claim("AvatarPath", this.AvatarPath));
             userIdentity.AddClaim(new Claim("DisplayName", this.DisplayName));
+            userIdentity.AddClaim(new Claim("RoleName", this.RoleName));
+            userIdentity.AddClaim(new Claim("FullName", this.FullName));
 
             return userIdentity;
         }

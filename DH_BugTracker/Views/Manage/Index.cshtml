@@ -103,13 +103,13 @@
     <div class="col-md-4 offset-1">
         <div class="card card-profile">
             <div class="card-avatar">
-                <img class="img" src="@avatarPath" />
+                <img class="img" src="@User.Identity.GetAvatarPath()" />
             </div>
             <div class="card-body">
-                <h6 class="card-category text-gray">@urRole</h6>
-                <h4 class="card-title">@fullName</h4>
+                <h6 class="card-category text-gray">@(User.Identity.GetRoleName() != null ? User.Identity.GetRoleName() : "Not Assigned")</h6>
+                <h4 class="card-title">@User.Identity.GetFullName()</h4>
                 <p class="card-description">
-                    Welcome @displayName, to my Bug Tracker Application. Within this software Tickets can be submitted and tracked
+                    Welcome @User.Identity.GetDisplayName(), to my Bug Tracker Application. Within this software Tickets can be submitted and tracked
                     through the development process into completion.
                 </p>
                 <a href="~/Manage/EditUser" class="btn btn-primary btn-round">Edit Profile</a>

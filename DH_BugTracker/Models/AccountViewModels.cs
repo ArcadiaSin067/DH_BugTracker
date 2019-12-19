@@ -8,20 +8,25 @@ namespace DH_BugTracker.Models
     {
         public string Id { get; set; }
 
+        [Required]
         [Display(Name = "First Name")]
-        [StringLength(35, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 50.")]
+        [StringLength(35, MinimumLength = 2, ErrorMessage = "First Name must have a minimum length of 2 characters and maximum length of 35.")]
         public string FirstName { get; set; }
 
+        [Required]
         [Display(Name = "Last Name")]
-        [StringLength(35, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 50.")]
+        [StringLength(35, MinimumLength = 2, ErrorMessage = "Last Name must have a minimum length of 2 characters and maximum length of 35.")]
         public string LastName { get; set; }
 
+        [Required]
         [Display(Name = "Display Name")]
-        [StringLength(20, MinimumLength = 3, ErrorMessage = "Must have minimum length of 3 characters and maximum length of 50.")]
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "Display Name must have a minimum length of 2 characters and maximum length of 20.")]
         public string DisplayName { get; set; }
 
+        [Required]
         public string Email { get; set; }
 
+        [Required]
         public string AvatarPath { get; set; }
     }
 

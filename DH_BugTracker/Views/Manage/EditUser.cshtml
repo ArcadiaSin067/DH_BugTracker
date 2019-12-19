@@ -1,48 +1,39 @@
-﻿@using DH_BugTracker.Helpers;
-@using Microsoft.AspNet.Identity;
-@using DH_BugTracker.Models;
+﻿@using DH_BugTracker.Extensions;
 @model DH_BugTracker.Models.UserProfileViewModel
 
 @{
     ViewBag.Title = "EditUser";
-    ApplicationDbContext db = new ApplicationDbContext();
-    UserRolesHelper roles = new UserRolesHelper();
-    var urRole = roles.ListUserRoles(User.Identity.GetUserId()).FirstOrDefault();
-    var displayName = db.Users.Find(User.Identity.GetUserId()).DisplayName;
-    var fullName = db.Users.Find(User.Identity.GetUserId()).FullName;
-    var avatarPath = db.Users.Find(User.Identity.GetUserId()).AvatarPath;
-    var displayPath = avatarPath.Split('/')[2].Split('_')[0] + Path.GetExtension(avatarPath);
+    var displayPath = User.Identity.GetAvatarPath().Split('/')[2].Split('_')[0] + 
+                      Path.GetExtension(User.Identity.GetAvatarPath());
 }
 
-<div class="row">
+<div class="row" style="margin-left:50px">
     <div class="col-md-6">
         <div class="card">
             <div class="card-header card-header-warning">
                 <h4 class="card-title">Edit Profile</h4>
-                <p class="card-category" style="padding-left:10px">Your user profile. Demo users cannot save changes.</p>
+                <p class="card-category" style="padding-left:10px">Your user profile.</p>
             </div>
             <div class="card-body">
-               @using (Html.BeginForm("EditUser", "Manage", FormMethod.Post, new { enctype = "Multipart/form-data" }))
+                @using (Html.BeginForm("EditUser", "Manage", FormMethod.Post, new { enctype = "Multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(model => model.Id)
-                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.AvatarPath)
                     <br />
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.DisplayName, new { @class = "bmd-label-floating" })
                                 @Html.TextBoxFor(model => model.DisplayName, new
-                                        {@class = "form-control", style = "padding-left:5px"})
-                                @Html.ValidationMessageFor(model => model.DisplayName, "", new { @class = "text-danger" })
+                                        { @class = "form-control", style = "padding-left:5px" })
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Email, new { @class = "bmd-label-floating" })
                                 @Html.TextBoxFor(model => model.Email, new
-                                        {@class = "form-control", style = "padding-left:5px"})
-                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                        { @class = "form-control", style = "padding-left:5px" })
                             </div>
                         </div>
                     </div>
@@ -52,16 +43,14 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.FirstName, new { @class = "bmd-label-floating" })
                                 @Html.TextBoxFor(model => model.FirstName, new
-                                        {@class = "form-control", style = "padding-left:5px"})
-                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                        { @class = "form-control", style = "padding-left:5px" })
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.LastName, new { @class = "bmd-label-floating" })
                                 @Html.TextBoxFor(model => model.LastName, new
-                                        {@class = "form-control", style = "padding-left:5px"})
-                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                        { @class = "form-control", style = "padding-left:5px" })
                             </div>
                         </div>
                     </div>
@@ -71,13 +60,13 @@
                             <label class="btn btn-sm btn-dark" data_but="btn-xs" for="my-file-selector">
                                 <i class='fa fa-cloud-upload'></i> Upload Avatar
                             </label>
-                            @Html.Hidden("avatar",avatarPath,new 
+                            @Html.Hidden("Avatar", User.Identity.GetAvatarPath(), new
                             {
                                 onchange = "$('#upload-file-info').html(this.files[0].name)",
                                 id = "my-file-selector",
                                 style = "display:none",
                                 type = "file"
-                            })   
+                            })
                             <span class='label label-info' id="upload-file-info" style="padding-left:5px">
                                 @displayPath
                             </span>
@@ -98,6 +87,26 @@
                         </div>
                     </div>
                 }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4" style="margin-left:50px">
+        <br />
+        <br />
+        <br />
+        <div class="card card-profile">
+            <div class="card-avatar">
+                <img class="img" src="@User.Identity.GetAvatarPath()" />
+            </div>
+            <div class="card-body">
+                <h6 class="card-category text-gray">@User.Identity.GetRoleName()</h6>
+                <h4 class="card-title">@User.Identity.GetFullName()</h4>
+                <p class="card-description">
+                    Welcome @User.Identity.GetDisplayName(), to my Bug Tracker Application. As a fully realized defect tracking system this 
+                    project is an excellent tool for any company looking to manage their software. Within this project, Tickets for bugs and 
+                    errors can be submitted and tracked through the entire development process into completion.
+                </p>
             </div>
         </div>
     </div>
