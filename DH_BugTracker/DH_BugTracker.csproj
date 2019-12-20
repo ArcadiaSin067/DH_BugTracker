@@ -259,15 +259,15 @@
     <Content Include="Content\bootstrap-reboot.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Avatars\Admin-icon.png" />
+    <Content Include="Avatars\Admin_icon.png" />
     <Content Include="images\bg_login.jpeg" />
     <Content Include="images\blank.png" />
-    <Content Include="Avatars\Developer-icon.png" />
+    <Content Include="Avatars\Developer_icon.png" />
     <Content Include="images\doc.png" />
     <Content Include="images\docx.png" />
     <Content Include="images\html.png" />
     <Content Include="images\pdf.png" />
-    <Content Include="Avatars\Project-Manager-icon.png" />
+    <Content Include="Avatars\Project-Manager_icon.png" />
     <Content Include="images\rar.png" />
     <Content Include="images\rtf.png" />
     <Content Include="images\sort_asc.png" />
@@ -275,7 +275,7 @@
     <Content Include="images\sort_both.png" />
     <Content Include="images\sort_desc.png" />
     <Content Include="images\sort_desc_disabled.png" />
-    <Content Include="Avatars\Submitter-icon.png" />
+    <Content Include="Avatars\Submitter_icon.png" />
     <Content Include="images\txt.png" />
     <Content Include="images\xls.png" />
     <Content Include="images\xlsx.png" />
